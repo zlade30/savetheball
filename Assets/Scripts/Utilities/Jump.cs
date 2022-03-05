@@ -5,9 +5,9 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     [SerializeField]
-    float jumpSpeed = 5f;
+    float jumpSpeed = 50f;
     [SerializeField]
-    SpriteRenderer top;
+    GameObject ball;
     private Rigidbody2D rBody;
     private Vector3 lastPos;
     private bool isInit;
@@ -16,24 +16,35 @@ public class Jump : MonoBehaviour
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
-        top = GameObject.Find("Top").GetComponent<SpriteRenderer>();
         isInit = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!isInit) {
-            lastPos = transform.position;
+            lastPos = ball.transform.position;
             isInit = true;
+            Debug.Log(lastPos);
         }
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            new Vector3(lastPos.x * -1, (lastPos.y + top.bounds.size.y) * -1, lastPos.z),
-            jumpSpeed * Time.deltaTime
-        );
-        // rBody.velocity = rBody.velocity.normalized;
+        // transform.position = Vector2.MoveTowards(
+        //     transform.position,
+        //     new Vector3(transform.position.x * -1, transform.position.y * -1, transform.position.z) * 10f,
+        //     jumpSpeed * Time.deltaTime
+        // );
+        // rBody.AddForce( desiredVelocity - rigidbody.velocity, ForceMode.VelocityChange );
+        Vector3 targetdir = lastPos - transform.position;
+        rBody.AddForce(targetdir * jumpSpeed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        // Vector2 newVelocity = rBody.velocity;
+        // newVelocity.y = jumpSpeed;
+        // newVelocity.x = jumpSpeed;
+        // rBody.velocity = newVelocity;
+
+        // transform.eulerAngles = new Vector3(0, 0, 0);
+		// rBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rBody.velocity = rBody.velocity.normalized * jumpSpeed;
+
     }
 
     void OnCollisionEnter2D(Collision2D collider)
