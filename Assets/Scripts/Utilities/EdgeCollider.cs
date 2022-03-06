@@ -7,19 +7,16 @@ public class EdgeCollider : MonoBehaviour
     private float colDepth = 1f;
     private float zPosition = 0f;
     private Vector2 screenSize;
-    public Transform bottomCollider;
     public Transform leftCollider;
     public Transform rightCollider;
     private Vector3 cameraPos;
     // Use this for initialization
     void Start () {
         //Generate our empty objects
-        bottomCollider = GetComponent<Transform> ().Find ("Bottom");
         rightCollider = GetComponent<Transform> ().Find ("Right");
         leftCollider = GetComponent<Transform> ().Find ("Left");
 
         //Make them the child of whatever object this script is on, preferably on the Camera so the objects move with the camera without extra scripting
-        bottomCollider.parent = transform;
         rightCollider.parent = transform;
         leftCollider.parent = transform;
 
@@ -33,8 +30,6 @@ public class EdgeCollider : MonoBehaviour
         rightCollider.position = new Vector3 (cameraPos.x + screenSize.x + (rightCollider.localScale.x * 0.5f), cameraPos.y, zPosition);
         leftCollider.localScale = new Vector3 (colDepth, screenSize.y * 2, colDepth);
         leftCollider.position = new Vector3 (cameraPos.x - screenSize.x - (leftCollider.localScale.x * 0.5f), cameraPos.y, zPosition);
-        bottomCollider.localScale = new Vector3 (screenSize.x * 2, colDepth, colDepth);
-        bottomCollider.position = new Vector3 (cameraPos.x, cameraPos.y - screenSize.y - (bottomCollider.localScale.y * 0.5f), zPosition);
     }
 
 }
