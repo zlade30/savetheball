@@ -11,6 +11,8 @@ public class Ball : MonoBehaviour
 
     [SerializeField]
     private GameObject toolbar;
+	[SerializeField]
+	private GameObject btmBorder;
     private Vector3 mousePosition;
     private bool following = false;
     
@@ -50,8 +52,8 @@ public class Ball : MonoBehaviour
 				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
 			}
 				
-			if (mousePosition.y < -(((worldHeight / 2) - (ballHeight / 2)))) {
-				bY = -(((worldHeight / 2) - (ballHeight / 2)));
+			if (mousePosition.y < -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2))) {
+				bY = -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2));
 				mousePosition.Set (mousePosition.x, bY, mousePosition.z);
 				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
 			}
