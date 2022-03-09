@@ -28,7 +28,7 @@ public class Jump : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(
             transform.position,
-            new Vector2(lastPos.x * 5f, lastPos.y * 5f),
+            new Vector2(lastPos.x * 7f, lastPos.y * 7f),
             jumpSpeed * Time.deltaTime
         );
     }
