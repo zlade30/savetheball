@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Movement : MonoBehaviour
 {
@@ -28,12 +29,14 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rBody;
     private SpriteRenderer sprite;
     private Animator animator;
+    private TextMeshProUGUI score;
 
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        score = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         walkFlipDur = maxWalkFlipDur;
         worldHeight = Camera.main.orthographicSize * 2;
 		worldWidth = worldHeight * Screen.width / Screen.height;
@@ -57,6 +60,7 @@ public class Movement : MonoBehaviour
     {
         HandleMovement();
         DisableGravity();
+        HandleSpeed();
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -121,7 +125,22 @@ public class Movement : MonoBehaviour
         rBody.constraints = RigidbodyConstraints2D.None;
     }
 
-    
+    void HandleSpeed()
+    {
+        if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 199) {
+            walkSpeed = 2.5f;
+        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 299) {
+            walkSpeed = 3f;
+        } else if (int.Parse(score.text) >= 300 && int.Parse(score.text) <= 399) {
+            walkSpeed = 3.5f;
+        } else if (int.Parse(score.text) >= 400 && int.Parse(score.text) <= 499) {
+            walkSpeed = 4f;
+        } else if (int.Parse(score.text) >= 500 && int.Parse(score.text) <= 599) {
+            walkSpeed = 4.5f;
+        } else if (int.Parse(score.text) >= 600) {
+            walkSpeed = 5f;
+        }
+    }
 
     void FlipDuration()
     {

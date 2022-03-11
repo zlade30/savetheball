@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Jump : MonoBehaviour
 {
     [SerializeField]
-    float jumpSpeed = 1500f;
+    float jumpSpeed;
     [SerializeField]
     GameObject ball;
     private Rigidbody2D rBody;
     private SpriteRenderer sprite;
     private Vector2 lastPos;
     private Animator animator;
+    private TextMeshProUGUI score;
     private string jumping = "jumping";
     private bool isInit;
     private bool isBallCaught = false;
@@ -22,10 +24,17 @@ public class Jump : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        score = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        HandleSpeed();
+        HandleJump();
+    }
+
+    void HandleJump()
     {
         if (isBallCaught) Utils.ActivateAnimation(Utils.isCatch1, animator);
         else Utils.ActivateAnimation(Utils.isJumping, animator);
@@ -48,6 +57,23 @@ public class Jump : MonoBehaviour
         transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
         
         rBody.constraints = RigidbodyConstraints2D.None;
+    }
+
+    void HandleSpeed()
+    {
+        if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 199) {
+            jumpSpeed = 5f;
+        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 299) {
+            jumpSpeed = 5.5f;
+        } else if (int.Parse(score.text) >= 300 && int.Parse(score.text) <= 399) {
+            jumpSpeed = 6f;
+        } else if (int.Parse(score.text) >= 400 && int.Parse(score.text) <= 499) {
+            jumpSpeed = 7f;
+        } else if (int.Parse(score.text) >= 500 && int.Parse(score.text) <= 599) {
+            jumpSpeed = 8f;
+        } else if (int.Parse(score.text) >= 600) {
+            jumpSpeed = 9f;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collider)
