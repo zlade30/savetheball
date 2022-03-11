@@ -7,16 +7,22 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     bool isJump = false;
     [SerializeField]
+    bool isIdle;
+    [SerializeField]
     static float maxJumpDur = 5f;
+    [SerializeField]
     float jumpDur = maxJumpDur;
+    float idleDur = 0f;
     
     // Start is called before the first frame update
-    Movement movement;
-    Jump jump;
+    private Movement movement;
+    private Jump jump;
+    private Idle idle;
     void Start()
     {
         movement = GetComponent<Movement>();
         jump = GetComponent<Jump>();
+        idle = GetComponent<Idle>();
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -30,15 +36,31 @@ public class Enemy : MonoBehaviour
         jumpDur -= Time.deltaTime;
         if (jumpDur <= 0f) {
             isJump = true;
+            if (Random.Range(0, 10) == 0) isIdle = true;
+            else isIdle = false;
             jumpDur = Random.Range(0f, maxJumpDur);
+            idleDur = Random.Range(0f, maxJumpDur);
         }
 
         if (isJump) {
             jump.enabled = true;
             movement.enabled = false;
+            idle.enabled = false;
         } else {
             jump.enabled = false;
-            movement.enabled = true;
+            idleDur -= Time.deltaTime;
+            if (idleDur <= 0f) {
+                movement.enabled = true;
+                idle.enabled = false;
+            }
+            if (isIdle) {
+                idle.enabled = true;
+                movement.enabled = false;
+            }
+            else {
+                movement.enabled = true;
+                idle.enabled = false;
+            }
         }
     }
 }
