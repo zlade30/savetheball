@@ -13,8 +13,12 @@ public class Ball : MonoBehaviour
     private GameObject toolbar;
 	[SerializeField]
 	private GameObject btmBorder;
+	[SerializeField]
+	private Enemy enemy;
     private Vector3 mousePosition;
     private bool following = false;
+	private bool isCaught = false;
+	private CircleCollider2D col;
     
     // Start is called before the first frame update
     void Awake()
@@ -24,6 +28,7 @@ public class Ball : MonoBehaviour
 		ballWidth = transform.lossyScale.x;
 		ballHeight = transform.lossyScale.y;
         toolbarHeight = toolbar.transform.lossyScale.y;
+		col = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -66,5 +71,19 @@ public class Ball : MonoBehaviour
 
 			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
         }
+
+		if (isCaught) {
+			
+		}
+    }
+
+	void OnCollisionEnter2D(Collision2D collider)
+    {
+        if (collider.gameObject.name == "Enemy") {
+			col.enabled = false;
+			isCaught = true;
+			gameObject.SetActive(false);
+		}
+		Debug.Log(collider.gameObject.name);
     }
 }

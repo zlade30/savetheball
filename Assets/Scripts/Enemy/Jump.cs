@@ -14,6 +14,7 @@ public class Jump : MonoBehaviour
     private Animator animator;
     private string jumping = "jumping";
     private bool isInit;
+    private bool isBallCaught = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,7 +27,8 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Utils.ActivateAnimation(Utils.isJumping, animator);
+        if (isBallCaught) Utils.ActivateAnimation(Utils.isCatch1, animator);
+        else Utils.ActivateAnimation(Utils.isJumping, animator);
         sprite.flipY = true;
 
         if (!isInit) {
@@ -50,6 +52,9 @@ public class Jump : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collider)
     {
+        if (collider.gameObject.name == "Ball") {
+            isBallCaught = true;
+        }
         isInit = false;
     }
 }

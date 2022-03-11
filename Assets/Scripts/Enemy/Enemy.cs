@@ -12,54 +12,113 @@ public class Enemy : MonoBehaviour
     static float maxJumpDur = 5f;
     [SerializeField]
     float jumpDur = maxJumpDur;
+    [SerializeField]
+    private GameObject toolbar;
+	[SerializeField]
+	private GameObject btmBorder;
     float idleDur = 0f;
+    private float worldWidth, worldHeight;
+	private float enemyWidth, enemyHeight;
     
     // Start is called before the first frame update
     private Movement movement;
     private Jump jump;
     private Idle idle;
+    private bool isBallCaught = false;
+    private Animator animator;
+    private SpriteRenderer sprite;
     void Start()
     {
         movement = GetComponent<Movement>();
         jump = GetComponent<Jump>();
         idle = GetComponent<Idle>();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+        worldHeight = Camera.main.orthographicSize * 2;
+		worldWidth = worldHeight * Screen.width / Screen.height;
+		enemyWidth = transform.lossyScale.x;
+		enemyHeight = transform.lossyScale.y;
     }
 
     void OnCollisionEnter2D(Collision2D collider)
     {
-        isJump = false;
+        string name = collider.gameObject.name;
+
+        if (isBallCaught) {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            switch (name) {
+                case "Top":
+                    transform.position = new Vector2(transform.position.x, (((worldHeight / 2) - toolbar.transform.lossyScale.y) - enemyHeight));
+                    sprite.flipY = true;
+                    break;
+                case "Bottom":
+                    transform.position = new Vector2(transform.position.x, -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - enemyHeight));
+                    sprite.flipY = false;
+                    break;
+                case "Left":
+                    transform.position = new Vector2(-((worldWidth / 2) - (enemyWidth / 2)), transform.position.y);
+                    sprite.flipY = false;
+                    sprite.flipX = false;
+                    break;
+                case "Right":
+                    transform.position = new Vector2(((worldWidth / 2) - (enemyWidth / 2)), transform.position.y);
+                    sprite.flipY = false;
+                    sprite.flipX = true;
+                    break;
+                default:
+                    break;
+            }
+
+            if (name == "Top" || name == "Bottom")
+                Utils.ActivateAnimation(Utils.isCatch1, animator);
+            else
+                Utils.ActivateAnimation(Utils.isCatch2, animator);
+            jump.enabled = false;
+        }
+
+        if (name == "Ball") {
+            isBallCaught = true;
+            isJump = true;
+        }   else {
+            isJump = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        jumpDur -= Time.deltaTime;
-        if (jumpDur <= 0f) {
-            isJump = true;
-            if (Random.Range(0, 10) == 0) isIdle = true;
-            else isIdle = false;
-            jumpDur = Random.Range(0f, maxJumpDur);
-            idleDur = Random.Range(0f, maxJumpDur);
-        }
-
-        if (isJump) {
-            jump.enabled = true;
+        if (isBallCaught) {
             movement.enabled = false;
             idle.enabled = false;
         } else {
-            jump.enabled = false;
-            idleDur -= Time.deltaTime;
-            if (idleDur <= 0f) {
-                movement.enabled = true;
-                idle.enabled = false;
+            jumpDur -= Time.deltaTime;
+            if (jumpDur <= 0f) {
+                isJump = true;
+                if (Random.Range(0, 10) == 0) isIdle = true;
+                else isIdle = false;
+                jumpDur = Random.Range(0f, maxJumpDur);
+                idleDur = Random.Range(0f, maxJumpDur);
             }
-            if (isIdle) {
-                idle.enabled = true;
+
+            if (isJump) {
+                jump.enabled = true;
                 movement.enabled = false;
-            }
-            else {
-                movement.enabled = true;
                 idle.enabled = false;
+            } else {
+                jump.enabled = false;
+                idleDur -= Time.deltaTime;
+                if (idleDur <= 0f) {
+                    movement.enabled = true;
+                    idle.enabled = false;
+                }
+                if (isIdle) {
+                    idle.enabled = true;
+                    movement.enabled = false;
+                }
+                else {
+                    movement.enabled = true;
+                    idle.enabled = false;
+                }
             }
         }
     }
