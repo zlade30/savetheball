@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour
     private Vector3 mousePosition;
     private bool following = false;
 	private bool isCaught = false;
+	private bool isDrag = false;
 	private CircleCollider2D col;
     
     // Start is called before the first frame update
@@ -36,17 +37,19 @@ public class Ball : MonoBehaviour
     {
         mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
 
-        if (Input.GetMouseButtonDown (0)) {
+        if (Input.GetMouseButtonDown(0)) {
 			if (following)
 				following = false;
 			else
 				following = true;
 		}	
 
-		if(Input.GetMouseButtonUp(0))
+		if (Input.GetMouseButtonUp(0)) {
 			following = false;
+			isDrag = false;
+		}
         
-        if (following) {
+        if (following && isDrag) {
             if (mousePosition.x > ((worldWidth / 2) - (ballWidth / 2))) {
 				bX = ((worldWidth / 2) - (ballWidth / 2));
 				mousePosition.Set (bX, mousePosition.y, mousePosition.z);
@@ -71,10 +74,6 @@ public class Ball : MonoBehaviour
 
 			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
         }
-
-		if (isCaught) {
-			
-		}
     }
 
 	void OnCollisionEnter2D(Collision2D collider)
@@ -84,6 +83,10 @@ public class Ball : MonoBehaviour
 			isCaught = true;
 			gameObject.SetActive(false);
 		}
-		Debug.Log(collider.gameObject.name);
     }
+
+	void OnMouseDown()
+	{
+		isDrag = true;
+	}
 }

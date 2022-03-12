@@ -27,6 +27,10 @@ public class Enemy : MonoBehaviour
     private bool isBallCaught = false;
     private Animator animator;
     private SpriteRenderer sprite;
+    private Rigidbody2D rBody;
+    private GameOver gameOver;
+    private Score score;
+    private Score yourScore;
     void Start()
     {
         movement = GetComponent<Movement>();
@@ -34,6 +38,10 @@ public class Enemy : MonoBehaviour
         idle = GetComponent<Idle>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        rBody = GetComponent<Rigidbody2D>();
+        gameOver = GameObject.Find("Main Camera").GetComponent<GameOver>();
+        score = GameObject.Find("Score").GetComponent<Score>();
+        yourScore = GameObject.Find("YourScore").GetComponent<Score>();
         worldHeight = Camera.main.orthographicSize * 2;
 		worldWidth = worldHeight * Screen.width / Screen.height;
 		enemyWidth = transform.lossyScale.x;
@@ -74,6 +82,10 @@ public class Enemy : MonoBehaviour
             else
                 Utils.ActivateAnimation(Utils.isCatch2, animator);
             jump.enabled = false;
+            rBody.simulated = false;
+            gameOver.enabled = true;
+            score.enabled = false;
+            yourScore.enabled = false;
         }
 
         if (name == "Ball") {

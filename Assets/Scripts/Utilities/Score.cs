@@ -18,6 +18,9 @@ public class Score : MonoBehaviour
     void Update()
     {
         score = (int)(Time.timeSinceLevelLoad * 6f);
-        text.text = score.ToString("0000");
+        if (gameObject.name == "YourScore")
+            text.text = "Score: "+int.Parse(score.ToString("0000"));
+        else
+            text.text = score.ToString("0000");
     }
 }
