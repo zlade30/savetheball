@@ -15,6 +15,8 @@ public class Ball : MonoBehaviour
 	private GameObject btmBorder;
 	[SerializeField]
 	private Enemy enemy;
+	[SerializeField]
+	private Powerups powerups;
     private Vector3 mousePosition;
     private bool following = false;
 	private bool isCaught = false;
@@ -30,24 +32,18 @@ public class Ball : MonoBehaviour
 		ballHeight = transform.lossyScale.y;
         toolbarHeight = toolbar.transform.lossyScale.y;
 		col = GetComponent<CircleCollider2D>();
+		powerups = powerups.GetComponent<Powerups>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
-
-        if (Input.GetMouseButtonDown(0)) {
-			if (following)
-				following = false;
-			else
-				following = true;
-		}	
-
-		if (Input.GetMouseButtonUp(0)) {
-			following = false;
-			isDrag = false;
+		if (powerups.isTeleportTrigger) {
+			isDrag = true;
+			following = true;
 		}
+		
+        mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
         
         if (following && isDrag) {
             if (mousePosition.x > ((worldWidth / 2) - (ballWidth / 2))) {
@@ -71,7 +67,6 @@ public class Ball : MonoBehaviour
 				mousePosition.Set (mousePosition.x, bY, mousePosition.z);
 				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
 			}
-
 			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
         }
     }
@@ -85,8 +80,17 @@ public class Ball : MonoBehaviour
 		}
     }
 
-	void OnMouseDown()
+	private void OnMouseDown()
 	{
 		isDrag = true;
+		if (following)
+			following = false;
+		else
+			following = true;
+	}
+
+	private void OnMouseUp() {
+		following = false;
+		isDrag = false;
 	}
 }

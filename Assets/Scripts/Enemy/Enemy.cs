@@ -19,8 +19,8 @@ public class Enemy : MonoBehaviour
     float idleDur = 0f;
     private float worldWidth, worldHeight;
 	private float enemyWidth, enemyHeight;
-    
-    // Start is called before the first frame update
+    private string colliderName;
+    private string currentSide;
     private Movement movement;
     private Jump jump;
     private Idle idle;
@@ -48,13 +48,11 @@ public class Enemy : MonoBehaviour
 		enemyHeight = transform.lossyScale.y;
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void HandleJumpCaught(string colliderName)
     {
-        string name = collider.gameObject.name;
-
         if (isBallCaught) {
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            switch (name) {
+            switch (colliderName) {
                 case "Top":
                     transform.position = new Vector2(transform.position.x, (((worldHeight / 2) - toolbar.transform.lossyScale.y) - enemyHeight));
                     sprite.flipY = true;
@@ -77,18 +75,20 @@ public class Enemy : MonoBehaviour
                     break;
             }
 
-            if (name == "Top" || name == "Bottom")
+            if (colliderName == "Top" || colliderName == "Bottom")
                 Utils.ActivateAnimation(Utils.isCatch1, animator);
             else
                 Utils.ActivateAnimation(Utils.isCatch2, animator);
             jump.enabled = false;
+            idle.enabled = false;
+            movement.enabled = false;
             rBody.simulated = false;
             gameOver.enabled = true;
             score.enabled = false;
             yourScore.enabled = false;
         }
 
-        if (name == "Ball") {
+        if (colliderName == "Ball") {
             isBallCaught = true;
             isJump = true;
         }   else {
@@ -96,17 +96,40 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void HandleMovementCaught()
+    {
+        Debug.Log("Hey");
+        if (currentSide == "Top" || currentSide == "Bottom")
+            Utils.ActivateAnimation(Utils.isCatch1, animator);
+        else
+            Utils.ActivateAnimation(Utils.isCatch2, animator);
+        jump.enabled = false;
+        idle.enabled = false;
+        movement.enabled = false;
+        rBody.simulated = false;
+        gameOver.enabled = true;
+        score.enabled = false;
+        yourScore.enabled = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        colliderName = collider.gameObject.name;
+        if (colliderName != "Ball")
+            currentSide = colliderName;
+        HandleJumpCaught(colliderName);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (isBallCaught) {
-            movement.enabled = false;
-            idle.enabled = false;
+            HandleMovementCaught();
         } else {
             jumpDur -= Time.deltaTime;
             if (jumpDur <= 0f) {
                 isJump = true;
-                if (Random.Range(0, 10) == 0) isIdle = true;
+                if (Random.Range(0, 1) == 0) isIdle = true;
                 else isIdle = false;
                 jumpDur = Random.Range(0f, maxJumpDur);
                 idleDur = Random.Range(0f, maxJumpDur);

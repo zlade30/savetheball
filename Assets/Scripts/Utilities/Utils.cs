@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Utils {
+
+    // Animation states
+
     public static string isIdle1 = "isIdle1";
     public static string isIdle2 = "isIdle2";
     public static string isRunning = "isRunning";
@@ -23,4 +26,13 @@ public class Utils {
                 animator.SetBool(Utils.animations[i], false);
         }
     }
+
+    // Powerups
+
+    public static string fire = "Fire";
+    public static string ice = "Ice";
+    public static string shield = "Shield";
+    public static string teleport = "Teleport";
+    public static string life = "Life";
+    public static string star = "Star";
 }
