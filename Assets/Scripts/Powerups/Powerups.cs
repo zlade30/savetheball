@@ -18,10 +18,13 @@ public class Powerups : MonoBehaviour
     private Image shieldBar;
     [SerializeField]
     private Image teleportBar;
+<<<<<<< HEAD
     [SerializeField]
     private GameObject enemy;
     [SerializeField]
     private GameObject ball;
+=======
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     public float fireDur = 0.5f;
     public float iceDur = 5f;
     public float shieldDur = 5f;
@@ -48,11 +51,15 @@ public class Powerups : MonoBehaviour
 
         if (isShieldTrigger) {
             shieldBar.fillAmount -= 1.0f / shieldDur * Time.deltaTime;
+<<<<<<< HEAD
             Physics2D.IgnoreCollision(enemy.GetComponent<BoxCollider2D>(), ball.GetComponent<CircleCollider2D>());
             if (shieldBar.fillAmount <= 0f) {
                 isShieldTrigger = false;
                 Physics2D.IgnoreCollision(enemy.GetComponent<BoxCollider2D>(), ball.GetComponent<CircleCollider2D>(), false);
             }
+=======
+            if (shieldBar.fillAmount <= 0f) isShieldTrigger = false;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
         }
 
         if (isTeleportTrigger) {

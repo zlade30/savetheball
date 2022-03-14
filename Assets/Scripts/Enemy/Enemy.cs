@@ -98,18 +98,33 @@ public class Enemy : MonoBehaviour
 
     void HandleMovementCaught()
     {
+<<<<<<< HEAD
+=======
+        Debug.Log("Hey");
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
         if (currentSide == "Top" || currentSide == "Bottom")
             Utils.ActivateAnimation(Utils.isCatch1, animator);
         else
             Utils.ActivateAnimation(Utils.isCatch2, animator);
+<<<<<<< HEAD
         idle.enabled = false;
         movement.enabled = false;
+=======
+        jump.enabled = false;
+        idle.enabled = false;
+        movement.enabled = false;
+        rBody.simulated = false;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
         gameOver.enabled = true;
         score.enabled = false;
         yourScore.enabled = false;
     }
 
+<<<<<<< HEAD
     void OnTriggerEnter2D(Collider2D collider)
+=======
+    void OnCollisionEnter2D(Collision2D collider)
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     {
         colliderName = collider.gameObject.name;
         if (colliderName != "Ball")
@@ -126,7 +141,11 @@ public class Enemy : MonoBehaviour
             jumpDur -= Time.deltaTime;
             if (jumpDur <= 0f) {
                 isJump = true;
+<<<<<<< HEAD
                 if (Random.Range(0, 10) == 0) isIdle = true;
+=======
+                if (Random.Range(0, 1) == 0) isIdle = true;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
                 else isIdle = false;
                 jumpDur = Random.Range(0f, maxJumpDur);
                 idleDur = Random.Range(0f, maxJumpDur);

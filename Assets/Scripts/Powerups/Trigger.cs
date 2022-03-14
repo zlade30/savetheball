@@ -43,7 +43,11 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
         if (name == Utils.teleport || name == "TeleportValue") {
             powerups.isTeleportTrigger = true;
         }
+<<<<<<< HEAD
 
+=======
+        Debug.Log(name);
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
         bar.fillAmount = 1f;
     }
 }

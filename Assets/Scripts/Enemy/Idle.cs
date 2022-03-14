@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Idle : MonoBehaviour
 {
+<<<<<<< HEAD
+=======
+    [SerializeField]
+    private Sprite[] sprites;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     private SpriteRenderer sp;
     private Rigidbody2D rb;
     private Animator animator;
@@ -12,9 +17,15 @@ public class Idle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
+=======
+        sp = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     }
 
     // Update is called once per frame
@@ -38,7 +49,11 @@ public class Idle : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
+<<<<<<< HEAD
     void OnTriggerEnter2D(Collider2D collider)
+=======
+    void OnCollisionEnter2D(Collision2D collider)
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     {
         currentEdge = collider.gameObject.name;
     }

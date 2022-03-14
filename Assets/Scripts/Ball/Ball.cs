@@ -21,7 +21,10 @@ public class Ball : MonoBehaviour
     private bool following = false;
 	private bool isCaught = false;
 	private bool isDrag = false;
+<<<<<<< HEAD
 	private bool isInit = false;
+=======
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
 	private CircleCollider2D col;
     
     // Start is called before the first frame update
@@ -36,6 +39,7 @@ public class Ball : MonoBehaviour
 		powerups = powerups.GetComponent<Powerups>();
     }
 
+<<<<<<< HEAD
 	void HandleBallMovement()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
@@ -76,6 +80,45 @@ public class Ball : MonoBehaviour
     }
 
 	void OnTriggerEnter2D(Collider2D collider)
+=======
+    // Update is called once per frame
+    void Update()
+    {
+		if (powerups.isTeleportTrigger) {
+			isDrag = true;
+			following = true;
+		}
+		
+        mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        
+        if (following && isDrag) {
+            if (mousePosition.x > ((worldWidth / 2) - (ballWidth / 2))) {
+				bX = ((worldWidth / 2) - (ballWidth / 2));
+				mousePosition.Set (bX, mousePosition.y, mousePosition.z);
+				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			} else if(mousePosition.x < -((worldWidth / 2) - (ballWidth / 2))){
+				bX = -((worldWidth / 2) - (ballWidth / 2));
+				mousePosition.Set (bX, mousePosition.y, mousePosition.z);
+				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			}
+				
+			if (mousePosition.y < -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2))) {
+				bY = -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2));
+				mousePosition.Set (mousePosition.x, bY, mousePosition.z);
+				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			}
+
+			if (mousePosition.y > (((worldHeight / 2) - toolbar.transform.lossyScale.y) - (ballHeight / 2))) {
+				bY = (((worldHeight / 2) - toolbar.transform.lossyScale.y) - (ballHeight / 2));
+				mousePosition.Set (mousePosition.x, bY, mousePosition.z);
+				transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			}
+			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+        }
+    }
+
+	void OnCollisionEnter2D(Collision2D collider)
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     {
         if (collider.gameObject.name == "Enemy") {
 			col.enabled = false;

@@ -76,7 +76,11 @@ public class Jump : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     void OnTriggerEnter2D(Collider2D collider)
+=======
+    void OnCollisionEnter2D(Collision2D collider)
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     {
         if (collider.gameObject.name == "Ball") {
             isBallCaught = true;

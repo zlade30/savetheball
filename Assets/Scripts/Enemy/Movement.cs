@@ -31,8 +31,12 @@ public class Movement : MonoBehaviour
     private Animator animator;
     private TextMeshProUGUI score;
 
+<<<<<<< HEAD
     // Start is called before the first frame update
     void Start()
+=======
+    void Awake()
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     {
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -41,8 +45,19 @@ public class Movement : MonoBehaviour
         walkFlipDur = maxWalkFlipDur;
         worldHeight = Camera.main.orthographicSize * 2;
 		worldWidth = worldHeight * Screen.width / Screen.height;
+<<<<<<< HEAD
         enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+=======
+		enemyWidth = transform.lossyScale.x;
+		enemyHeight = transform.lossyScale.y;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
     }
 
     // Update is called once per frame
@@ -58,6 +73,7 @@ public class Movement : MonoBehaviour
         HandleSpeed();
     }
 
+<<<<<<< HEAD
     void OnTriggerEnter2D(Collider2D collider)
     {
         currentEdge = collider.gameObject.name;
@@ -73,6 +89,24 @@ public class Movement : MonoBehaviour
                 break;
             case "Right":
                 transform.position = new Vector2((worldWidth / 2) - (enemyWidth / 2), transform.position.y);
+=======
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        currentEdge = collider.gameObject.name;
+        // rBody.position = new Vector2(0f, 0f);
+        switch (currentEdge) {
+            case "Top":
+                transform.position = new Vector2(transform.position.x, (((worldHeight / 2) - toolbar.transform.lossyScale.y) - enemyHeight));
+                break;
+            case "Bottom":
+                transform.position = new Vector2(transform.position.x, -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - enemyHeight));
+                break;
+            case "Left":
+                transform.position = new Vector2(-((worldWidth / 2) - (enemyWidth / 2)), transform.position.y);
+                break;
+            case "Right":
+                transform.position = new Vector2(((worldWidth / 2) - (enemyWidth / 2)), transform.position.y);
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
                 break;
             default:
                 break;
@@ -92,12 +126,17 @@ public class Movement : MonoBehaviour
         if (currentEdge == "Top" || currentEdge == "Bottom") {
             currentPosition = horPos[position];
             Utils.ActivateAnimation(Utils.isRunning, animator);
+<<<<<<< HEAD
             if (currentEdge == "Top") {
                 sprite.flipY = true;
             } else {
                 sprite.flipY = false;
             }
 
+=======
+            if (currentEdge == "Top") sprite.flipY = true;
+            else sprite.flipY = false;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
             if (currentPosition == "Right") {
                 rBody.MovePosition(transform.position + transform.right * walkSpeed * Time.fixedDeltaTime);
                 sprite.flipX = true;
@@ -119,6 +158,7 @@ public class Movement : MonoBehaviour
                 rBody.MovePosition(transform.position - transform.up * walkSpeed * Time.fixedDeltaTime);
             }
         }
+<<<<<<< HEAD
 
         if (transform.position.y > (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)) {
             float y = (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2);
@@ -140,6 +180,9 @@ public class Movement : MonoBehaviour
             transform.position = new Vector2(x, transform.position.y);
         }
 
+=======
+        rBody.velocity = rBody.velocity.normalized;
+>>>>>>> bc65015e256f2f8be1ac57ee881862b5c941e9c1
         rBody.constraints = RigidbodyConstraints2D.None;
     }
 
