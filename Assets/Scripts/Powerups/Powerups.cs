@@ -37,17 +37,21 @@ public class Powerups : MonoBehaviour
     void Update()
     {
         if (isFireTrigger) {
-            fireBar.fillAmount -= 1.0f / fireDur * Time.deltaTime;
+            fireBar.fillAmount -= 1.0f / fireDur * Time.unscaledDeltaTime;
             if (fireBar.fillAmount <= 0f) isFireTrigger = false;
         }
 
         if (isIceTrigger) {
-            iceBar.fillAmount -= 1.0f / iceDur * Time.deltaTime;
-            if (iceBar.fillAmount <= 0f) isIceTrigger = false;
+            iceBar.fillAmount -= 1.0f / iceDur * Time.unscaledDeltaTime;
+            Time.timeScale = 0f;
+            if (iceBar.fillAmount <= 0f) {
+                isIceTrigger = false;
+                Time.timeScale = 1f;
+            }
         }
 
         if (isShieldTrigger) {
-            shieldBar.fillAmount -= 1.0f / shieldDur * Time.deltaTime;
+            shieldBar.fillAmount -= 1.0f / shieldDur * Time.unscaledDeltaTime;
             Physics2D.IgnoreCollision(enemy.GetComponent<BoxCollider2D>(), ball.GetComponent<CircleCollider2D>());
             if (shieldBar.fillAmount <= 0f) {
                 isShieldTrigger = false;
@@ -56,7 +60,7 @@ public class Powerups : MonoBehaviour
         }
 
         if (isTeleportTrigger) {
-            teleportBar.fillAmount -= 1.0f / teleportDur * Time.deltaTime;
+            teleportBar.fillAmount -= 1.0f / teleportDur * Time.unscaledDeltaTime;
             if (teleportBar.fillAmount <= 0f) isTeleportTrigger = false;
         }
     }

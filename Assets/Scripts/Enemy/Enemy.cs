@@ -115,6 +115,7 @@ public class Enemy : MonoBehaviour
         if (colliderName != "Ball")
             currentSide = colliderName;
         HandleJumpCaught(colliderName);
+        rBody.constraints = RigidbodyConstraints2D.None;
     }
 
     // Update is called once per frame
