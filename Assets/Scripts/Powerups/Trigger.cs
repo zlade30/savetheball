@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -27,6 +25,8 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         string name = eventData.pointerCurrentRaycast.gameObject.name;
+
+        Debug.Log(name);
 
         if (name == Utils.fire || name == "FireValue") {
             powerups.isFireTrigger = true;
