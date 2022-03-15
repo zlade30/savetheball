@@ -35,7 +35,7 @@ public class Powerups : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!game.isPause) {
+        if (!game.isPause && !game.isOver) {
             if (isFireTrigger) {
                 fireBar.fillAmount -= 1.0f / fireDur * Time.unscaledDeltaTime;
                 if (fireBar.fillAmount <= 0f) isFireTrigger = false;

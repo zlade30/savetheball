@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 {
     private float worldWidth, worldHeight;
 	private float ballWidth, ballHeight;
@@ -36,6 +37,29 @@ public class Ball : MonoBehaviour
 		powerups = powerups.GetComponent<Powerups>();
     }
 
+	void Start()
+    {
+        EventTrigger trigger = GetComponent<EventTrigger>();
+        
+		EventTrigger.Entry drag = new EventTrigger.Entry();
+        drag.eventID = EventTriggerType.Drag;
+        drag.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
+		trigger.triggers.Add(drag);
+    }
+
+    public void OnDragDelegate(PointerEventData data)
+    {
+		if (!game.isPause) {
+			HandleBallMovement();
+		}
+		
+    }
+
+	public void OnInitializePotentialDrag(PointerEventData data)
+	{
+		data.useDragThreshold = false;
+	}
+
 	void HandleBallMovement()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
@@ -63,20 +87,6 @@ public class Ball : MonoBehaviour
 		transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (!game.isPause) {
-			if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
-				HandleBallMovement();
-			} 
-			
-			if (following && isDrag) {
-				HandleBallMovement();
-			}
-		}
-    }
-
 	void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.name == "Enemy") {
@@ -86,17 +96,10 @@ public class Ball : MonoBehaviour
 		}
     }
 
-	private void OnMouseDown()
+	void Update()
 	{
-		isDrag = true;
-		if (following)
-			following = false;
-		else
-			following = true;
-	}
-
-	private void OnMouseUp() {
-		following = false;
-		isDrag = false;
+		if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
+			HandleBallMovement();
+		}
 	}
 }

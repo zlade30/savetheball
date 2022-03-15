@@ -28,7 +28,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
     {
         string name = eventData.pointerCurrentRaycast.gameObject.name;
 
-        if (!game.isPause) {
+        if (!game.isPause && !game.isOver) {
             if (name == Utils.fire || name == "FireValue") {
                 powerups.isFireTrigger = true;
             }

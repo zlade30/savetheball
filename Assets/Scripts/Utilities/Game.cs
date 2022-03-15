@@ -22,6 +22,7 @@ public class Game : MonoBehaviour
     [SerializeField]
     GameObject pausePanel;
     public bool isPause = false; 
+    public bool isOver = false;
     private float resumeCD = 3.0f;
     private bool isResume = false;
 
@@ -85,6 +86,7 @@ public class Game : MonoBehaviour
         yourScore.gameObject.SetActive(true);
         yourScore.text = score.score.ToString("0000");
         score.enabled = false;
+        isOver = true;
         StartCoroutine(FadeIn());
     }
 
