@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     float walkSpeed = 2f;
     [SerializeField]
-    float maxWalkFlipDur = 3f;
+    float maxWalkFlipDur = 1f;
     [SerializeField]
     float walkFlipDur;
     [SerializeField]
@@ -162,7 +162,7 @@ public class Movement : MonoBehaviour
     {
         walkFlipDur -= Time.deltaTime;
         if (walkFlipDur <= 0) {
-            walkFlipDur = Random.Range(1f, maxWalkFlipDur);
+            walkFlipDur = Random.Range(0f, maxWalkFlipDur);
             position = Random.Range(0, 2);
         }
     }

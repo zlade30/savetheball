@@ -508,7 +508,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dd097f75154064699ba63ef070f6c085, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138799473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1264244f7179744ed8771f558426ca0b, type: 3}
   m_Name: 
@@ -580,10 +580,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJump: 0
   isIdle: 0
-  jumpDur: 5
   abilityDur: 5
+  jumpDur: 3
   toolbar: {fileID: 371435759}
   btmBorder: {fileID: 1437986959}
+  idleDur: 5
+  idleStateDur: 3
+  isGrounded: 0
+  isAbilityCast: 0
 --- !u!95 &138799484
 Animator:
   serializedVersion: 4
@@ -664,7 +668,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138799473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78241201d8af44be6ab9b6be36ba4a79, type: 3}
   m_Name: 
