@@ -9,11 +9,13 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject powerupsObject;
     private Powerups powerups;
+    private Game game;
 
     // Start is called before the first frame update
     void Start()
     {
         powerups = powerupsObject.GetComponent<Powerups>();
+        game = Camera.main.GetComponent<Game>();
     }
 
     // Update is called once per frame
@@ -26,24 +28,23 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
     {
         string name = eventData.pointerCurrentRaycast.gameObject.name;
 
-        Debug.Log(name);
+        if (!game.isPause) {
+            if (name == Utils.fire || name == "FireValue") {
+                powerups.isFireTrigger = true;
+            }
 
-        if (name == Utils.fire || name == "FireValue") {
-            powerups.isFireTrigger = true;
+            if (name == Utils.ice || name == "IceValue") {
+                powerups.isIceTrigger = true;
+            }
+
+            if (name == Utils.shield || name == "ShieldValue") {
+                powerups.isShieldTrigger = true;
+            }
+
+            if (name == Utils.teleport || name == "TeleportValue") {
+                powerups.isTeleportTrigger = true;
+            }
+            bar.fillAmount = 1f;
         }
-
-        if (name == Utils.ice || name == "IceValue") {
-            powerups.isIceTrigger = true;
-        }
-
-        if (name == Utils.shield || name == "ShieldValue") {
-            powerups.isShieldTrigger = true;
-        }
-
-        if (name == Utils.teleport || name == "TeleportValue") {
-            powerups.isTeleportTrigger = true;
-        }
-
-        bar.fillAmount = 1f;
     }
 }

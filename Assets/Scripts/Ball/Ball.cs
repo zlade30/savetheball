@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
 	private bool isDrag = false;
 	private bool isInit = false;
 	private CircleCollider2D col;
+	private Game game;
     
     // Start is called before the first frame update
     void Awake()
@@ -30,6 +31,7 @@ public class Ball : MonoBehaviour
 		ballWidth = transform.lossyScale.x;
 		ballHeight = transform.lossyScale.y;
         toolbarHeight = toolbar.transform.lossyScale.y;
+		game = Camera.main.GetComponent<Game>();
 		col = GetComponent<CircleCollider2D>();
 		powerups = powerups.GetComponent<Powerups>();
     }
@@ -64,13 +66,15 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
-			HandleBallMovement();
-		} 
-        
-        if (following && isDrag) {
-			HandleBallMovement();
-        }
+		if (!game.isPause) {
+			if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
+				HandleBallMovement();
+			} 
+			
+			if (following && isDrag) {
+				HandleBallMovement();
+			}
+		}
     }
 
 	void OnTriggerEnter2D(Collider2D collider)

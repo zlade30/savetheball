@@ -26,9 +26,7 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sprite;
     private Rigidbody2D rBody;
-    private GameOver gameOver;
-    private Score score;
-    private Score yourScore;
+    private Game game;
     void Start()
     {
         movement = GetComponent<Movement>();
@@ -37,9 +35,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         rBody = GetComponent<Rigidbody2D>();
-        gameOver = GameObject.Find("Main Camera").GetComponent<GameOver>();
-        score = GameObject.Find("Score").GetComponent<Score>();
-        yourScore = GameObject.Find("YourScore").GetComponent<Score>();
+        game = Camera.main.GetComponent<Game>();
         worldHeight = Camera.main.orthographicSize * 2;
 		worldWidth = worldHeight * Screen.width / Screen.height;
 		enemyWidth = transform.lossyScale.x;
@@ -81,9 +77,7 @@ public class Enemy : MonoBehaviour
             idle.enabled = false;
             movement.enabled = false;
             rBody.simulated = false;
-            gameOver.enabled = true;
-            score.enabled = false;
-            yourScore.enabled = false;
+            game.GameOver();
         }
 
         if (colliderName == "Ball") {
@@ -102,9 +96,7 @@ public class Enemy : MonoBehaviour
             Utils.ActivateAnimation(Utils.isCatch2, animator);
         idle.enabled = false;
         movement.enabled = false;
-        gameOver.enabled = true;
-        score.enabled = false;
-        yourScore.enabled = false;
+        game.GameOver();
     }
 
     void OnTriggerEnter2D(Collider2D collider)

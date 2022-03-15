@@ -47,10 +47,6 @@ public class Movement : MonoBehaviour
     void Update()
     {
         FlipDuration();
-    }
-
-    void FixedUpdate()
-    {
         HandleMovement();
         DisableGravity();
         HandleSpeed();
@@ -97,12 +93,14 @@ public class Movement : MonoBehaviour
             }
 
             if (currentPosition == "Right") {
-                rBody.MovePosition(transform.position + transform.right * walkSpeed * Time.fixedDeltaTime);
                 sprite.flipX = true;
+                transform.position = new Vector2(transform.position.x + walkSpeed * Time.deltaTime, transform.position.y);
+                // rBody.MovePosition(transform.position + transform.right * walkSpeed * Time.fixedDeltaTime);
             }
             else {
                 sprite.flipX = false;
-                rBody.MovePosition(transform.position - transform.right * walkSpeed * Time.fixedDeltaTime);
+                transform.position = new Vector2(transform.position.x - walkSpeed * Time.deltaTime, transform.position.y);
+                // rBody.MovePosition(transform.position - transform.right * walkSpeed * Time.fixedDeltaTime);
             }
         } else if (currentEdge == "Right" || currentEdge == "Left") {
             currentPosition = vertPos[position];
@@ -111,10 +109,12 @@ public class Movement : MonoBehaviour
             else sprite.flipX = false;
             if (currentPosition == "Top") {
                 Utils.ActivateAnimation(Utils.isSideRunning, animator);
-                rBody.MovePosition(transform.position + transform.up * walkSpeed * Time.fixedDeltaTime);
+                transform.position = new Vector2(transform.position.x, transform.position.y + walkSpeed * Time.deltaTime);
+                // rBody.MovePosition(transform.position + transform.up * walkSpeed * Time.fixedDeltaTime);
             }   else {
                 Utils.ActivateAnimation(Utils.isSliding, animator);
-                rBody.MovePosition(transform.position - transform.up * walkSpeed * Time.fixedDeltaTime);
+                transform.position = new Vector2(transform.position.x, transform.position.y - walkSpeed * Time.deltaTime);
+                // rBody.MovePosition(transform.position - transform.up * walkSpeed * Time.fixedDeltaTime);
             }
         }
 
@@ -143,17 +143,17 @@ public class Movement : MonoBehaviour
 
     void HandleSpeed()
     {
-        if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 199) {
+        if (int.Parse(score.text) >= 50 && int.Parse(score.text) <= 99) {
             walkSpeed = 2.5f;
-        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 299) {
+        } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 149) {
             walkSpeed = 3f;
-        } else if (int.Parse(score.text) >= 300 && int.Parse(score.text) <= 399) {
+        } else if (int.Parse(score.text) >= 150 && int.Parse(score.text) <= 199) {
             walkSpeed = 3.5f;
-        } else if (int.Parse(score.text) >= 400 && int.Parse(score.text) <= 499) {
+        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 249) {
             walkSpeed = 4f;
-        } else if (int.Parse(score.text) >= 500 && int.Parse(score.text) <= 599) {
+        } else if (int.Parse(score.text) >= 250 && int.Parse(score.text) <= 299) {
             walkSpeed = 4.5f;
-        } else if (int.Parse(score.text) >= 600) {
+        } else if (int.Parse(score.text) >= 300) {
             walkSpeed = 5f;
         }
     }
