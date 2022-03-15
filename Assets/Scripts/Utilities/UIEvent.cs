@@ -22,7 +22,8 @@ public class UIEvent : MonoBehaviour, IPointerClickHandler
         string uiName = eventData.pointerCurrentRaycast.gameObject.name;
         switch (uiName) {
             case "Back":
-                game.Pause();
+                if (!game.isOver)
+                    game.Pause();
                 break;
             case "Resume":
                 game.Resume();

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class Utils {
 
@@ -33,4 +35,60 @@ public class Utils {
     public static string teleport = "Teleport";
     public static string life = "Life";
     public static string star = "Star";
+
+    public static IEnumerator FadeOutSprite(SpriteRenderer sprite)
+    {
+        float alphaVal = sprite.color.a;
+        Color tmp = sprite.color;
+
+        while (sprite.color.a > 0)
+        {
+            alphaVal -= 0.01f;
+            tmp.a = alphaVal;
+            sprite.color = tmp;
+            yield return new WaitForSeconds(0.05f); // update interval
+        }
+    }
+ 
+    public static IEnumerator FadeInSprite(SpriteRenderer sprite)
+    {
+        float alphaVal = sprite.color.a;
+        Color tmp = sprite.color;
+
+        while (sprite.color.a < 1)
+        {
+            alphaVal += 0.01f;
+            tmp.a = alphaVal;
+            sprite.color = tmp;
+            yield return new WaitForSeconds(0.01f); // update interval
+        }
+    }
+
+    public static IEnumerator FadeOutImage(Image sprite)
+    {
+        float alphaVal = sprite.color.a;
+        Color tmp = sprite.color;
+
+        while (sprite.color.a > 0)
+        {
+            alphaVal -= 0.01f;
+            tmp.a = alphaVal;
+            sprite.color = tmp;
+            yield return new WaitForSeconds(0.05f); // update interval
+        }
+    }
+ 
+    public static IEnumerator FadeInImage(Image sprite)
+    {
+        float alphaVal = sprite.color.a;
+        Color tmp = sprite.color;
+
+        while (sprite.color.a < 1)
+        {
+            alphaVal += 0.01f;
+            tmp.a = alphaVal;
+            sprite.color = tmp;
+            yield return new WaitForSeconds(0.01f); // update interval
+        }
+    }
 }
