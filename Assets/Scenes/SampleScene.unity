@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 138799475}
   - component: {fileID: 138799474}
   - component: {fileID: 138799480}
+  - component: {fileID: 138799488}
   - component: {fileID: 138799478}
   - component: {fileID: 138799479}
   - component: {fileID: 138799487}
@@ -580,6 +581,7 @@ MonoBehaviour:
   isJump: 0
   isIdle: 0
   jumpDur: 5
+  abilityDur: 5
   toolbar: {fileID: 371435759}
   btmBorder: {fileID: 1437986959}
 --- !u!95 &138799484
@@ -653,6 +655,18 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5ae7b6d20ab746e88127856744ead3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &138799488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138799473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78241201d8af44be6ab9b6be36ba4a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &211722708
@@ -3747,7 +3761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 0
+  m_DragThreshold: 10
 --- !u!4 &1625274959
 Transform:
   m_ObjectHideFlags: 0

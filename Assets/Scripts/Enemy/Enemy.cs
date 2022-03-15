@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
 		worldWidth = worldHeight * Screen.width / Screen.height;
 		enemyWidth = transform.lossyScale.x;
 		enemyHeight = transform.lossyScale.y;
+        StartCoroutine(FadeOut());
     }
 
     void HandleJumpCaught(string colliderName)
@@ -143,6 +145,21 @@ public class Enemy : MonoBehaviour
                     idle.enabled = false;
                 }
             }
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float alphaVal = sprite.color.a;
+        Color tmp = sprite.color;
+
+        while (sprite.color.a > 0)
+        {
+            alphaVal -= 0.01f;
+            tmp.a = alphaVal;
+            sprite.color = tmp;
+
+            yield return new WaitForSeconds(0.01f); // update interval
         }
     }
 }

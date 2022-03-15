@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
             tmp.a = alphaVal;
             gameOverSprite.color = tmp;
 
-            yield return new WaitForSeconds(0.05f); // update interval
+            yield return new WaitForSeconds(0.01f); // update interval
         }
     }
  
