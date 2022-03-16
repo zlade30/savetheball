@@ -7,9 +7,13 @@ using System.Collections;
 public class Game : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer gameOverSprite;
+    private Image gameOverSprite;
+    [SerializeField]
+    private Image restartSprite;
     [SerializeField]
     private Image playSprite;
+    [SerializeField]
+    private Image exitSprite;
     [SerializeField]
     private TextMeshProUGUI highScore;
     [SerializeField]
@@ -21,6 +25,12 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     GameObject pausePanel;
+    [SerializeField]
+    GameObject outOfLifePanel;
+    [SerializeField]
+    GameObject outOfStarPanel;
+    [SerializeField]
+    GameObject gameOverPanel;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -60,6 +70,7 @@ public class Game : MonoBehaviour
 
     public void Play()
     {
+        PlayerPrefs.SetFloat("score", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -71,6 +82,18 @@ public class Game : MonoBehaviour
         score.enabled = false;
     }
 
+    public void OutOfStar()
+    {
+        gameOverPanel.SetActive(false);
+        outOfStarPanel.SetActive(true);
+    }
+
+    public void OutOfLife()
+    {
+        gameOverPanel.SetActive(false);
+        outOfLifePanel.SetActive(true);
+    }
+
     public void Resume()
     {
         isResume = true;
@@ -80,24 +103,23 @@ public class Game : MonoBehaviour
 
     public void Continue()
     {
-        gameOverSprite.gameObject.SetActive(false);
-        playSprite.gameObject.SetActive(false);
-        highScore.gameObject.SetActive(false);
-        yourScore.gameObject.SetActive(false);
-        isOver = false;
-        score.enabled = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GameOver()
     {
-        gameOverSprite.gameObject.SetActive(true);
-        playSprite.gameObject.SetActive(true);
-        highScore.gameObject.SetActive(true);
-        yourScore.gameObject.SetActive(true);
-        yourScore.text = "Your Score: "+score.score.ToString("0000");
+        // gameOverSprite.gameObject.SetActive(true);
+        // restartSprite.gameObject.SetActive(true);
+        // playSprite.gameObject.SetActive(true);
+        // exitSprite.gameObject.SetActive(true);
+        // highScore.gameObject.SetActive(true);
+        // yourScore.gameObject.SetActive(true);
+        gameOverPanel.SetActive(true);
+        yourScore.text = score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
-        StartCoroutine(FadeIn());
+        PlayerPrefs.SetFloat("score", score.score);
+        // StartCoroutine(FadeIn());
     }
 
     private IEnumerator FadeOut()
@@ -125,7 +147,9 @@ public class Game : MonoBehaviour
             alphaVal += 0.01f;
             tmp.a = alphaVal;
             gameOverSprite.color = tmp;
+            restartSprite.color = tmp;
             playSprite.color = tmp;
+            exitSprite.color = tmp;
             highScore.color = tmp;
             yourScore.color = tmp;
 

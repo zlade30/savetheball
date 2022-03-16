@@ -29,8 +29,36 @@ public class UIEvent : MonoBehaviour, IPointerClickHandler
                 game.Resume();
                 break;
             case "Play":
-                if (game.isOver) game.Continue();
-                else game.Play();
+                if (game.isOver) {
+                    if (PlayerPrefs.GetInt(Utils.star) != 0) {
+                        int value = PlayerPrefs.GetInt(Utils.star);
+                        --value;
+                        PlayerPrefs.SetInt(Utils.star, value);
+                        game.Continue();
+                    } else {
+                        game.OutOfStar();
+                    }
+                }
+                else {
+                    if (PlayerPrefs.GetInt(Utils.life) != 0) {
+                        int value = PlayerPrefs.GetInt(Utils.life);
+                        --value;
+                        PlayerPrefs.SetInt(Utils.life, value);
+                        game.Play();
+                    } else {
+                        game.OutOfLife();
+                    }
+                }
+                break;
+            case "Restart":
+                if (PlayerPrefs.GetInt(Utils.life) != 0) {
+                    int value = PlayerPrefs.GetInt(Utils.life);
+                    --value;
+                    PlayerPrefs.SetInt(Utils.life, value);
+                    game.Play();
+                } else {
+                    game.OutOfLife();
+                }
                 break;
             default:
                 break;

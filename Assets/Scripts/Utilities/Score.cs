@@ -10,6 +10,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
+        score = PlayerPrefs.GetFloat("score");
     }
 
     // Update is called once per frame
