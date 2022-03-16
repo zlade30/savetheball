@@ -29,7 +29,8 @@ public class UIEvent : MonoBehaviour, IPointerClickHandler
                 game.Resume();
                 break;
             case "Play":
-                game.Play();
+                if (game.isOver) game.Continue();
+                else game.Play();
                 break;
             default:
                 break;

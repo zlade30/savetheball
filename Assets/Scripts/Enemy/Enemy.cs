@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     static float maxAbilityDur = 5f;
     [SerializeField]
-    float abilityDur = maxAbilityDur;
+    public float abilityDur { set; get; } = maxAbilityDur;
     [SerializeField]
     static float maxJumpDur = 5f;
     [SerializeField]
@@ -29,27 +29,27 @@ public class Enemy : MonoBehaviour
     private float idleStateDur = maxIdleStateDur;
     private float worldWidth, worldHeight;
 	private float enemyWidth, enemyHeight;
-    private string colliderName;
+    public string colliderName;
     private string currentSide;
     private Movement movement;
     private Jump jump;
     private Idle idle;
     private bool isBallCaught = false;
-    private bool isInit = false;
+    private bool isBallJumpCaught = false;
+    public bool isInit { set; get; } = false;
     public bool isGrounded = false;
     public bool isAbilityCast = false;
     private Animator animator;
     private SpriteRenderer sprite;
     private Rigidbody2D rBody;
     private Game game;
-    private Ability ability;
+    private Abilities abilities;
     void Start()
     {
         movement = GetComponent<Movement>();
         jump = GetComponent<Jump>();
         idle = GetComponent<Idle>();
         animator = GetComponent<Animator>();
-        ability = GetComponent<Ability>();
         sprite = GetComponent<SpriteRenderer>();
         rBody = GetComponent<Rigidbody2D>();
         game = Camera.main.GetComponent<Game>();
@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
 		worldWidth = worldHeight * Screen.width / Screen.height;
 		enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+        abilities = GetComponent<Abilities>();
         StartCoroutine(FadeIn());
     }
 
@@ -80,7 +81,7 @@ public class Enemy : MonoBehaviour
                     break;
                 case "Right":
                     transform.position = new Vector2((worldWidth / 2) - (enemyWidth / 2), transform.position.y);
-                    sprite.flipY = false;
+                    sprite.flipY = true;
                     sprite.flipX = true;
                     break;
                 default:
@@ -94,16 +95,20 @@ public class Enemy : MonoBehaviour
             jump.enabled = false;
             idle.enabled = false;
             movement.enabled = false;
+            abilities.enabled = false;
             rBody.simulated = false;
             game.GameOver();
         }
 
         if (colliderName == "Ball") {
             isBallCaught = true;
-            isJump = true;
+            jump.enabled = true;
         }   else {
-            isJump = false;
-            isGrounded = true;
+            if (isInit) {
+                jump.enabled = false;
+                movement.enabled = true;
+                isGrounded = true;
+            }
         }
     }
 
@@ -121,9 +126,66 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         colliderName = collider.gameObject.name;
-        if (colliderName != "Ball")
+        if (colliderName == "Ball") {
+            if (isGrounded) {
+                if (currentSide == "Top" || currentSide == "Bottom")
+                    Utils.ActivateAnimation(Utils.isCatch1, animator);
+                else
+                    Utils.ActivateAnimation(Utils.isCatch2, animator);
+                idle.enabled = false;
+                movement.enabled = false;
+                jump.enabled = false;
+                abilities.enabled = false;
+                game.GameOver();
+            } else {
+                Utils.ActivateAnimation(Utils.isCatch1, animator);
+                isBallJumpCaught = true;
+            }
+        } else {
             currentSide = colliderName;
-        HandleJumpCaught(colliderName);
+            isGrounded = true;
+            
+            if (isInit) {
+                movement.enabled = true;
+                jump.enabled = false;
+            }
+
+            if (isBallJumpCaught) {
+                if (currentSide == "Top" || currentSide == "Bottom")
+                    Utils.ActivateAnimation(Utils.isCatch1, animator);
+                else
+                    Utils.ActivateAnimation(Utils.isCatch2, animator);
+
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                switch (colliderName) {
+                    case "Top":    
+                        transform.position = new Vector2(transform.position.x, (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2));
+                        sprite.flipY = true;
+                        break;
+                    case "Bottom":
+                        transform.position = new Vector2(transform.position.x, (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2));
+                        sprite.flipY = false;
+                        break;
+                    case "Left":
+                        transform.position = new Vector2(-(worldWidth / 2) + (enemyWidth / 2), transform.position.y);
+                        sprite.flipY = false;
+                        sprite.flipX = false;
+                        break;
+                    case "Right":
+                        transform.position = new Vector2((worldWidth / 2) - (enemyWidth / 2), transform.position.y); 
+                        sprite.flipY = false;  
+                        sprite.flipX = true;
+                        break;
+                    default:
+                        break;
+                }
+                idle.enabled = false;
+                movement.enabled = false;
+                jump.enabled = false;
+                abilities.enabled = false;
+                game.GameOver();
+            }
+        }
         rBody.constraints = RigidbodyConstraints2D.None;
     }
 
@@ -133,15 +195,18 @@ public class Enemy : MonoBehaviour
         if (!isInit) 
             transform.position = new Vector2(transform.position.x, (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2));
         else {
-            if (isBallCaught) {
-                HandleMovementCaught();
-            } else {
+            if (!game.isOver) {
                 HandleJumpDur();
                 IdleDur();
-                if (isIdle) Idle();
+                AbilitiesDur();
 
-                if (isJump) Jump();
-                else Movement();
+                if (abilities.enabled) {
+                    Abilities();
+                } else {
+                    if (jump.enabled) Jump();
+                    if (movement.enabled) Movement();
+                    if (idle.enabled) Idle();
+                }
             }
         }
     }
@@ -150,8 +215,8 @@ public class Enemy : MonoBehaviour
     {
         jumpDur -= Time.deltaTime;
         if (jumpDur <= 0f) {
-            isJump = true;
-            jumpDur = Random.Range(0f, maxJumpDur);
+            jump.enabled = true;
+            jumpDur = Random.Range(1f, maxJumpDur);
         }
     }
 
@@ -159,62 +224,62 @@ public class Enemy : MonoBehaviour
     {
         idleDur -= Time.deltaTime;
         if (idleDur <= 0f && isGrounded) {
-            if (Random.Range(0, 5) == 0) isIdle = true;
-            idleDur = Random.Range(0f, maxIdleDur);
+            if (Random.Range(0, 5) == 0) {
+                Debug.Log("Idle");
+                idle.enabled = true;
+                jump.enabled = false;
+                movement.enabled = false;
+                abilities.enabled = false;
+            } 
+            idleDur = Random.Range(1f, maxIdleDur);
+        }
+    }
+    
+    void AbilitiesDur()
+    {
+        abilityDur -= Time.deltaTime;
+        if (abilityDur <= 0f && isGrounded) {
+            if (Random.Range(0, 5) == 0) abilities.enabled = true;
+            else abilityDur = Random.Range(1f, maxAbilityDur);
         }
     }
 
-    void HandleAbilities()
+    void Abilities()
     {
-        // abilityDur -= Time.deltaTime;
-        // if (abilityDur <= 0f && isGrounded) {
-        //     isAbilityCast = true;
-        //     jump.enabled = false;
-        //     movement.enabled = false;
-        //     idle.enabled = false;
-        //     ability.FadeInOutCatch(this);
-        // }
+        movement.enabled = false;
+        idle.enabled = false;
+        jump.enabled = false;
     }
 
     void Idle()
     {
-        if (isIdle) {
+        if (idle.enabled) {
             idleStateDur -= Time.deltaTime;
-            idle.enabled = true;
-            jump.enabled = false;
-            movement.enabled = false;
-            ability.enabled = false;
             if (idleStateDur <= 0f) {
-                isIdle = false;
                 idle.enabled = false;
-
-                // isJump false = movement
-                if (Random.Range(0, 5) == 0) isJump = true;
-                else isJump = false;
-                
-                idleStateDur = Random.Range(0, maxIdleStateDur);
+                if (Random.Range(0, 5) == 0) movement.enabled = true;
+                else jump.enabled = true;
+                idleStateDur = Random.Range(1, maxIdleStateDur);
             }
         }
     }
 
     void Jump()
     {
-        if (isJump) {
-            jump.enabled = true;
+        if (jump.enabled) {
             movement.enabled = false;
             idle.enabled = false;
-            ability.enabled = false;
+            abilities.enabled = false;
             isGrounded = false;
         }
     }
 
     void Movement()
     {
-        if (!isIdle && !isJump) {
-            movement.enabled = true;
+        if (movement.enabled) {
             jump.enabled = false;
             idle.enabled = false;
-            ability.enabled = false;
+            abilities.enabled = false;
             isGrounded = true;
         }
     }

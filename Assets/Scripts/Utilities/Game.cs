@@ -78,13 +78,23 @@ public class Game : MonoBehaviour
         resumeCDText.gameObject.SetActive(true);
     }
 
+    public void Continue()
+    {
+        gameOverSprite.gameObject.SetActive(false);
+        playSprite.gameObject.SetActive(false);
+        highScore.gameObject.SetActive(false);
+        yourScore.gameObject.SetActive(false);
+        isOver = false;
+        score.enabled = true;
+    }
+
     public void GameOver()
     {
         gameOverSprite.gameObject.SetActive(true);
         playSprite.gameObject.SetActive(true);
         highScore.gameObject.SetActive(true);
         yourScore.gameObject.SetActive(true);
-        yourScore.text = score.score.ToString("0000");
+        yourScore.text = "Your Score: "+score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
         StartCoroutine(FadeIn());

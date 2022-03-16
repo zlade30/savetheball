@@ -30,6 +30,17 @@ public class Powerups : MonoBehaviour
     void Start()
     {
         game = Camera.main.GetComponent<Game>();
+        if (PlayerPrefs.GetInt("initialize") != 1) {
+            // Give default values when newly installed
+            PlayerPrefs.SetInt("initialize", 1);
+            PlayerPrefs.SetInt(Utils.life, 3);
+            PlayerPrefs.SetInt(Utils.star, 3);
+            PlayerPrefs.SetInt(Utils.fire, 3);
+            PlayerPrefs.SetInt(Utils.ice, 3);
+            PlayerPrefs.SetInt(Utils.shield, 3);
+            PlayerPrefs.SetInt(Utils.teleport, 3);
+        }
+        // PlayerPrefs.DeleteAll();
     }
 
     // Update is called once per frame

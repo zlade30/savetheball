@@ -35,6 +35,7 @@ public class Utils {
     public static string teleport = "Teleport";
     public static string life = "Life";
     public static string star = "Star";
+    public static string[] powerups = { fire, ice, shield, teleport, life, star };
 
     public static IEnumerator FadeOutSprite(SpriteRenderer sprite)
     {

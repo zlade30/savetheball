@@ -29,22 +29,37 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
         string name = eventData.pointerCurrentRaycast.gameObject.name;
 
         if (!game.isPause && !game.isOver) {
-            if (name == Utils.fire || name == "FireValue") {
+            if ((name == Utils.fire || name == "FireValue") && PlayerPrefs.GetInt(Utils.fire) != 0) {
+                int value = PlayerPrefs.GetInt(Utils.fire);
+                --value;
+                PlayerPrefs.SetInt(Utils.fire, value);
                 powerups.isFireTrigger = true;
+                bar.fillAmount = 1f;
             }
 
-            if (name == Utils.ice || name == "IceValue") {
+            if ((name == Utils.ice || name == "IceValue") && PlayerPrefs.GetInt(Utils.ice) != 0) {
+                int value = PlayerPrefs.GetInt(Utils.ice);
+                --value;
+                PlayerPrefs.SetInt(Utils.ice, value);
                 powerups.isIceTrigger = true;
+                bar.fillAmount = 1f;
             }
 
-            if (name == Utils.shield || name == "ShieldValue") {
+            if ((name == Utils.shield || name == "ShieldValue") && PlayerPrefs.GetInt(Utils.shield) != 0) {
+                int value = PlayerPrefs.GetInt(Utils.shield);
+                --value;
+                PlayerPrefs.SetInt(Utils.shield, value);
                 powerups.isShieldTrigger = true;
+                bar.fillAmount = 1f;
             }
 
-            if (name == Utils.teleport || name == "TeleportValue") {
+            if ((name == Utils.teleport || name == "TeleportValue") && PlayerPrefs.GetInt(Utils.teleport) != 0) {
+                int value = PlayerPrefs.GetInt(Utils.teleport);
+                --value;
+                PlayerPrefs.SetInt(Utils.teleport, value);
                 powerups.isTeleportTrigger = true;
+                bar.fillAmount = 1f;
             }
-            bar.fillAmount = 1f;
         }
     }
 }

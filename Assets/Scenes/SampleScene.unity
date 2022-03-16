@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 16262874}
   - component: {fileID: 16262876}
   - component: {fileID: 16262875}
+  - component: {fileID: 16262877}
   m_Layer: 0
   m_Name: FireValue
   m_TagString: Untagged
@@ -181,7 +182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -258,6 +259,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16262873}
   m_CullTransparentMesh: 1
+--- !u!114 &16262877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16262873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Fire
 --- !u!1 &94427707
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,12 +594,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJump: 0
   isIdle: 0
-  abilityDur: 5
   jumpDur: 3
   toolbar: {fileID: 371435759}
   btmBorder: {fileID: 1437986959}
   idleDur: 5
   idleStateDur: 3
+  colliderName: 
   isGrounded: 0
   isAbilityCast: 0
 --- !u!95 &138799484
@@ -673,6 +687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78241201d8af44be6ab9b6be36ba4a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolbar: {fileID: 371435759}
+  btmBorder: {fileID: 1437986959}
+  world: Speedy
 --- !u!1 &211722708
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +867,7 @@ GameObject:
   - component: {fileID: 282723023}
   - component: {fileID: 282723025}
   - component: {fileID: 282723024}
+  - component: {fileID: 282723026}
   m_Layer: 0
   m_Name: TeleportValue
   m_TagString: Untagged
@@ -897,7 +915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -974,6 +992,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282723022}
   m_CullTransparentMesh: 1
+--- !u!114 &282723026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282723022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Teleport
 --- !u!1 &308807097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1719,7 @@ GameObject:
   - component: {fileID: 518238784}
   - component: {fileID: 518238786}
   - component: {fileID: 518238785}
+  - component: {fileID: 518238787}
   m_Layer: 0
   m_Name: IceValue
   m_TagString: Untagged
@@ -1735,7 +1767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -1812,6 +1844,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518238783}
   m_CullTransparentMesh: 1
+--- !u!114 &518238787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518238783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Ice
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,6 +2275,7 @@ GameObject:
   - component: {fileID: 710493325}
   - component: {fileID: 710493327}
   - component: {fileID: 710493326}
+  - component: {fileID: 710493328}
   m_Layer: 0
   m_Name: ShieldValue
   m_TagString: Untagged
@@ -2277,7 +2323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -2354,6 +2400,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710493324}
   m_CullTransparentMesh: 1
+--- !u!114 &710493328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710493324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Shield
 --- !u!1 &921295542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,7 +3372,7 @@ GameObject:
   - component: {fileID: 1303730537}
   - component: {fileID: 1303730536}
   m_Layer: 0
-  m_Name: Star
+  m_Name: StarIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3388,6 +3447,7 @@ GameObject:
   - component: {fileID: 1360460388}
   - component: {fileID: 1360460390}
   - component: {fileID: 1360460389}
+  - component: {fileID: 1360460391}
   m_Layer: 0
   m_Name: LifeValue
   m_TagString: Untagged
@@ -3435,7 +3495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -3512,6 +3572,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360460387}
   m_CullTransparentMesh: 1
+--- !u!114 &1360460391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360460387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Life
 --- !u!1 &1437986959
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,7 +3723,7 @@ GameObject:
   - component: {fileID: 1548998422}
   - component: {fileID: 1548998421}
   m_Layer: 0
-  m_Name: Life
+  m_Name: LifeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3916,8 +3989,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Speedy has the ability to increase his speed over time. Be alert for he
-    will catch you no matter what!
+  m_text: Speedy has the ability to teleport and increase his speed over time. Be
+    alert for he will catch you no matter what!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
   m_sharedMaterial: {fileID: -2796716303347297270, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
@@ -4635,6 +4708,7 @@ GameObject:
   - component: {fileID: 2017404172}
   - component: {fileID: 2017404174}
   - component: {fileID: 2017404173}
+  - component: {fileID: 2017404175}
   m_Layer: 0
   m_Name: StarValue
   m_TagString: Untagged
@@ -4682,7 +4756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
   m_sharedMaterial: {fileID: -4597957556319669966, guid: 24dcc176ebfac402fbd326684f675871, type: 2}
@@ -4759,6 +4833,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017404171}
   m_CullTransparentMesh: 1
+--- !u!114 &2017404175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017404171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f3e0f03feb24dd0914c8cf6075bd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: Star
 --- !u!1 &2040418980
 GameObject:
   m_ObjectHideFlags: 0
