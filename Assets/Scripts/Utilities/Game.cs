@@ -26,9 +26,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     GameObject pausePanel;
     [SerializeField]
-    GameObject outOfLifePanel;
+    public GameObject outOfLifePanel;
     [SerializeField]
-    GameObject outOfStarPanel;
+    public GameObject outOfStarPanel;
     [SerializeField]
     GameObject gameOverPanel;
     public bool isPause = false; 
@@ -84,13 +84,11 @@ public class Game : MonoBehaviour
 
     public void OutOfStar()
     {
-        gameOverPanel.SetActive(false);
         outOfStarPanel.SetActive(true);
     }
 
     public void OutOfLife()
     {
-        gameOverPanel.SetActive(false);
         outOfLifePanel.SetActive(true);
     }
 

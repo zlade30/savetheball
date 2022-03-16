@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
 
                 transform.eulerAngles = new Vector3(0f, 0f, 0f);
                 switch (colliderName) {
-                    case "Top":    
+                    case "Top":
                         transform.position = new Vector2(transform.position.x, (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2));
                         sprite.flipY = true;
                         break;
@@ -196,13 +196,12 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector2(transform.position.x, (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2));
         else {
             if (!game.isOver) {
-                HandleJumpDur();
-                IdleDur();
                 AbilitiesDur();
-
                 if (abilities.enabled) {
                     Abilities();
                 } else {
+                    IdleDur();
+                    HandleJumpDur();
                     if (jump.enabled) Jump();
                     if (movement.enabled) Movement();
                     if (idle.enabled) Idle();

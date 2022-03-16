@@ -60,6 +60,10 @@ public class UIEvent : MonoBehaviour, IPointerClickHandler
                     game.OutOfLife();
                 }
                 break;
+            case "Ads":
+                game.outOfLifePanel.SetActive(false);
+                game.outOfStarPanel.SetActive(false);
+                break;
             default:
                 break;
         }
