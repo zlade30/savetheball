@@ -29,10 +29,11 @@ public class AdsEvent : MonoBehaviour, IPointerClickHandler
         string uiName = eventData.pointerCurrentRaycast.gameObject.name;
 
         if (uiName == "Back") {
-            if (!game.isOver && game.isPause)
+            if (!game.isOver && game.isPause && PlayerPrefs.GetInt("remove_ads") == 0)
                 interstitialAds.ShowAd();
         } else {
-            rewardedAds.ShowAd();
+            if (PlayerPrefs.GetInt("remove_ads") == 0)
+                rewardedAds.ShowAd();
         }
     }
 }

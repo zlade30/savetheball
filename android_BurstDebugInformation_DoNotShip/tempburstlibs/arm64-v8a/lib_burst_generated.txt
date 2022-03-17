@@ -146,6 +146,7 @@ Library: lib_burst_generated
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.Burst.dll
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.2D.Animation.Runtime.dll
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.TextMeshPro.dll
+--root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/UnityEngine.Advertisements.dll
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.Timeline.dll
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=/Users/zal/Documents/Work/Personal/SaveTheBall/Temp/StagingArea/Data/Managed/Unity.2D.PixelPerfect.dll
