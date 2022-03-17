@@ -37,59 +37,25 @@ public class Utils {
     public static string star = "Star";
     public static string[] powerups = { fire, ice, shield, teleport, life, star };
 
-    public static IEnumerator FadeOutSprite(SpriteRenderer sprite)
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
+    // Products
 
-        while (sprite.color.a > 0)
-        {
-            alphaVal -= 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-            yield return new WaitForSeconds(0.05f); // update interval
-        }
-    }
- 
-    public static IEnumerator FadeInSprite(SpriteRenderer sprite)
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
+    public const string removeAdsId = "com.zalstudio.savedball.remove.ads";
+    public const string lifeId = "com.zalstudio.savedball.life";
+    public const string starId = "com.zalstudio.savedball.star";
+    public const string fireId = "com.zalstudio.savedball.fire";
+    public const string iceId = "com.zalstudio.savedball.ice";
+    public const string shieldId = "com.zalstudio.savedball.shield";
+    public const string teleportId = "com.zalstudio.savedball.teleport";
+    public const string basketBallSkinId = "com.zalstudio.savedball.skin.basketball";
+    public const string soccerBallSkinId = "com.zalstudio.savedball.skin.soccerball";
+    public const string tennisBallSkinId = "com.zalstudio.savedball.skin.tennisball";
+    public const string billiardBallSkinId = "com.zalstudio.savedball.skin.billiardball";
+    public static string[] products = { removeAdsId, lifeId, starId, fireId, iceId, shieldId, teleportId, basketBallSkinId, soccerBallSkinId, tennisBallSkinId, billiardBallSkinId };
 
-        while (sprite.color.a < 1)
-        {
-            alphaVal += 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-            yield return new WaitForSeconds(0.01f); // update interval
-        }
-    }
-
-    public static IEnumerator FadeOutImage(Image sprite)
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
-
-        while (sprite.color.a > 0)
-        {
-            alphaVal -= 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-            yield return new WaitForSeconds(0.05f); // update interval
-        }
-    }
- 
-    public static IEnumerator FadeInImage(Image sprite)
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
-
-        while (sprite.color.a < 1)
-        {
-            alphaVal += 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-            yield return new WaitForSeconds(0.01f); // update interval
-        }
-    }
+    public const string defaultSkin = "ballSkin";
+    public const string basketBallSkin = "basketBallSkin";
+    public const string soccerBallSkin = "soccerBallSkin";
+    public const string tennisBallSkin = "tennisBallSkin";
+    public const string billiardBallSkin = "billiardBallSkin";
+    public const string currentSkin = defaultSkin;
 }

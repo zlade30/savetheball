@@ -1,23 +1,37 @@
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
+using System;
 
 public class ShopManager : MonoBehaviour, IStoreListener {
-
-    private IStoreController controller;
-    private IExtensionProvider extensions;
-
     [SerializeField]
-    private IAPButton lifePrice;
+    private Text lifePrice;
     [SerializeField]
-    private IAPButton starPrice;
+    private Text starPrice;
     [SerializeField]
-    private IAPButton firePrice;
+    private Text firePrice;
     [SerializeField]
-    private IAPButton icePrice;
+    private Text icePrice;
     [SerializeField]
-    private IAPButton shieldPrice;
+    private Text shieldPrice;
     [SerializeField]
-    private IAPButton teleportPrice;
+    private Text teleportPrice;
+    [SerializeField]
+    private Text basketBallPrice;
+    [SerializeField]
+    private Text soccerBallPrice;
+    [SerializeField]
+    private Text tennisBallPrice;
+    [SerializeField]
+    private Text billiardBallPrice;
+    [SerializeField]
+    private GameObject successfulPurchasePanel;
+    [SerializeField]
+    private GameObject errorPurchasePanel;
+    [SerializeField]
+    private GameObject powerupPanel;
+    [SerializeField]
+    private GameObject skinPanel;
 
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
@@ -46,21 +60,29 @@ public class ShopManager : MonoBehaviour, IStoreListener {
 
         // // Add a product to sell / restore by way of its identifier, associating the general identifier
         // // with its store-specific identifiers.
-        builder.AddProduct("com.zalstudio.savedball.remove.ads", ProductType.NonConsumable);
-        // // Continue adding the non-consumable product.
-        // builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
-        // // And finish adding the subscription product. Notice this uses store-specific IDs, illustrating
-        // // if the Product ID was configured differently between Apple and Google stores. Also note that
-        // // one uses the general kProductIDSubscription handle inside the game - the store-specific IDs 
-        // // must only be referenced here. 
-        // builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs(){
-        //     { kProductNameAppleSubscription, AppleAppStore.Name },
-        //     { kProductNameGooglePlaySubscription, GooglePlay.Name },
-        // });
-
-        // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
-        // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
+        foreach (string productId in Utils.products) {
+            if (productId == Utils.removeAdsId)
+                builder.AddProduct(productId, ProductType.NonConsumable);
+            else if (productId == Utils.basketBallSkinId)
+                builder.AddProduct(productId, ProductType.NonConsumable);
+            else if (productId == Utils.soccerBallSkinId)
+                builder.AddProduct(productId, ProductType.NonConsumable);
+            else if (productId == Utils.tennisBallSkinId)
+                builder.AddProduct(productId, ProductType.NonConsumable);
+            else if (productId == Utils.billiardBallSkinId)
+                builder.AddProduct(productId, ProductType.NonConsumable);
+            else
+                builder.AddProduct(productId, ProductType.Consumable);
+            Debug.Log(productId);
+        }
+        
         UnityPurchasing.Initialize(this, builder);
+    }
+
+    private bool IsInitialized()
+    {
+        // Only say we are initialized if both the Purchasing references are set.
+        return m_StoreController != null && m_StoreExtensionProvider != null;
     }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -73,14 +95,60 @@ public class ShopManager : MonoBehaviour, IStoreListener {
         // Store specific subsystem, for accessing device-specific store features.
         m_StoreExtensionProvider = extensions;
 
-        foreach (var product in controller.products.all) {
-            Debug.Log (product.metadata.localizedTitle);
-            Debug.Log (product.metadata.localizedDescription);
-            Debug.Log (product.metadata.localizedPriceString);
-            Debug.Log (product.metadata.isoCurrencyCode);
-        }
+        // foreach (var product in controller.products.all) {
+        //     Debug.Log (product.metadata.localizedTitle);
+        //     Debug.Log (product.metadata.localizedDescription);
+        //     Debug.Log (product.metadata.localizedPriceString);
+        // }
+        
+        Product lifeProduct = m_StoreController.products.WithID(Utils.lifeId);
+        Product starProduct = m_StoreController.products.WithID(Utils.starId);
+        Product fireProduct = m_StoreController.products.WithID(Utils.fireId);
+        Product iceProduct = m_StoreController.products.WithID(Utils.iceId);
+        Product shieldProduct = m_StoreController.products.WithID(Utils.shieldId);
+        Product teleportProduct = m_StoreController.products.WithID(Utils.teleportId);
+        Product basketBallSkinProduct = m_StoreController.products.WithID(Utils.basketBallSkinId);
+        Product soccerBallSkinProduct = m_StoreController.products.WithID(Utils.soccerBallSkinId);
+        Product tennisBallSkinProduct = m_StoreController.products.WithID(Utils.tennisBallSkinId);
+        Product billiardBallSkinProduct = m_StoreController.products.WithID(Utils.billiardBallSkinId);
+        
+        lifePrice.text = ""+lifeProduct.metadata.isoCurrencyCode+" "+lifeProduct.metadata.localizedPriceString;
+        starPrice.text = ""+starProduct.metadata.isoCurrencyCode+" "+starProduct.metadata.localizedPriceString;
+        firePrice.text = ""+fireProduct.metadata.isoCurrencyCode+" "+fireProduct.metadata.localizedPriceString;
+        icePrice.text = ""+iceProduct.metadata.isoCurrencyCode+" "+iceProduct.metadata.localizedPriceString;
+        shieldPrice.text = ""+shieldProduct.metadata.isoCurrencyCode+" "+shieldProduct.metadata.localizedPriceString;
+        teleportPrice.text = ""+teleportProduct.metadata.isoCurrencyCode+" "+teleportProduct.metadata.localizedPriceString;
+        
+        basketBallPrice.text = ""+basketBallSkinProduct.metadata.isoCurrencyCode+" "+basketBallSkinProduct.metadata.localizedPriceString;
+        soccerBallPrice.text = ""+soccerBallSkinProduct.metadata.isoCurrencyCode+" "+soccerBallSkinProduct.metadata.localizedPriceString;
+        tennisBallPrice.text = ""+tennisBallSkinProduct.metadata.isoCurrencyCode+" "+tennisBallSkinProduct.metadata.localizedPriceString;
+        billiardBallPrice.text = ""+billiardBallSkinProduct.metadata.isoCurrencyCode+" "+billiardBallSkinProduct.metadata.localizedPriceString;
     }
 
+    void Update()
+    {
+        if (skinPanel.activeSelf) {
+            if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
+                basketBallPrice.GetComponentInParent<Button>().interactable = false;
+                basketBallPrice.text = "Owned";
+            }
+
+            if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
+                soccerBallPrice.GetComponentInParent<Button>().interactable = false;
+                soccerBallPrice.text = "Owned";
+            }
+
+            if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
+                tennisBallPrice.GetComponentInParent<Button>().interactable = false;
+                tennisBallPrice.text = "Owned";
+            }
+
+            if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
+                billiardBallPrice.GetComponentInParent<Button>().interactable = false;
+                billiardBallPrice.text = "Owned";
+            }
+        }
+    }
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
@@ -91,30 +159,76 @@ public class ShopManager : MonoBehaviour, IStoreListener {
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args) 
     {
-        // // A consumable product has been purchased by this user.
-        // if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
-        // {
-        //     Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //     // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //     ScoreManager.score += 100;
-        // }
-        // // Or ... a non-consumable product has been purchased by this user.
-        // else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
-        // {
-        //     Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //     // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
-        // }
-        // // Or ... a subscription product has been purchased by this user.
-        // else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
-        // {
-        //     Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //     // TODO: The subscription item has been successfully purchased, grant this to the player.
-        // }
-        // // Or ... an unknown product has been purchased by this user. Fill in additional products here....
-        // else 
-        // {
-        //     Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
-        // }
+        string productId = args.purchasedProduct.definition.id;
+        int value = 0;
+        switch (productId) {
+
+            // Consumables
+
+            case Utils.lifeId:
+                Debug.Log("Success Life Purchase");
+                value = PlayerPrefs.GetInt(Utils.life);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.life, value);
+                break;
+            case Utils.starId:
+                Debug.Log("Success Star Purchase");
+                value = PlayerPrefs.GetInt(Utils.star);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.star, value);
+                break;
+            case Utils.fireId:
+                Debug.Log("Success Fire Purchase");
+                value = PlayerPrefs.GetInt(Utils.fire);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.fire, value);
+                break;
+            case Utils.iceId:
+                Debug.Log("Success Ice Purchase");
+                value = PlayerPrefs.GetInt(Utils.ice);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.ice, value);
+                break;
+            case Utils.shieldId:
+                Debug.Log("Success Shield Purchase");
+                value = PlayerPrefs.GetInt(Utils.shield);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.shield, value);
+                break;
+            case Utils.teleportId:
+                Debug.Log("Success Teleport Purchase");
+                value = PlayerPrefs.GetInt(Utils.teleport);
+                value += 3;
+                PlayerPrefs.SetInt(Utils.teleport, value);
+                break;
+            
+            // Non Consumables
+
+            case Utils.removeAdsId:
+                Debug.Log("Remove ads purchase success");
+                PlayerPrefs.SetInt(Utils.removeAdsId, 1);
+                break;
+            case Utils.basketBallSkinId:
+                Debug.Log("Basket ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.basketBallSkinId, 1);
+                break;
+            case Utils.soccerBallSkinId:
+                Debug.Log("Soccer ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.soccerBallSkinId, 1);
+                break;
+            case Utils.tennisBallSkinId:
+                Debug.Log("Tennis ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.tennisBallSkinId, 1);
+                break;
+            case Utils.billiardBallSkinId:
+                Debug.Log("Billiard ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.billiardBallSkinId, 1);
+                break;
+            default:
+                break;
+        }
+
+        PurchasedSuccessful();
 
         // Return a flag indicating whether this product has completely been received, or if the application needs 
         // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
@@ -122,65 +236,29 @@ public class ShopManager : MonoBehaviour, IStoreListener {
         return PurchaseProcessingResult.Complete;
     }
 
-
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
         // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing 
         // this reason with the user to guide their troubleshooting actions.
+        PurchasedError();
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
     }
 
-    public void OnLifePurchaseComplete()
+    public void PurchasedSuccessful()
     {
-        Debug.Log("Success Life Purchase");
-        int value = PlayerPrefs.GetInt(Utils.life);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.life, value);
+        successfulPurchasePanel.SetActive(true);
+        errorPurchasePanel.SetActive(false);
     }
 
-    public void OnStarPurchaseComplete()
+    public void PurchasedError()
     {
-        Debug.Log("Success Star Purchase");
-        int value = PlayerPrefs.GetInt(Utils.star);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.star, value);
+        successfulPurchasePanel.SetActive(false);
+        errorPurchasePanel.SetActive(true);
     }
 
-    public void OnFirePurchaseComplete()
+    public void ClosePurchasesPanel()
     {
-        Debug.Log("Success Fire Purchase");
-        int value = PlayerPrefs.GetInt(Utils.fire);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.fire, value);
-    }
-
-    public void OnIcePurchaseComplete()
-    {
-        Debug.Log("Success Ice Purchase");
-        int value = PlayerPrefs.GetInt(Utils.ice);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.ice, value);
-    }
-
-    public void OnShieldPurchaseComplete()
-    {
-        Debug.Log("Success Shield Purchase");
-        int value = PlayerPrefs.GetInt(Utils.shield);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.shield, value);
-    }
-
-    public void OnTeleportPurchaseComplete()
-    {
-        Debug.Log("Success Teleport Purchase");
-        int value = PlayerPrefs.GetInt(Utils.teleport);
-        value += 3;
-        PlayerPrefs.SetInt(Utils.teleport, value);
-    }
-
-    public void OnRemoveAdsPurchaseComplete()
-    {
-        Debug.Log("Success RemoveAds Purchase");
-        PlayerPrefs.SetInt("remove_ads", 1);
+        successfulPurchasePanel.SetActive(false);
+        errorPurchasePanel.SetActive(false);
     }
 }
