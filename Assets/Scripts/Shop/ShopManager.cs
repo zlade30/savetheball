@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
-using System;
+using UnityEngine.SceneManagement;
 
 public class ShopManager : MonoBehaviour, IStoreListener {
     [SerializeField]
@@ -260,5 +260,9 @@ public class ShopManager : MonoBehaviour, IStoreListener {
     {
         successfulPurchasePanel.SetActive(false);
         errorPurchasePanel.SetActive(false);
+    }
+
+    public void Back() {
+        SceneManager.LoadScene(Utils.mainMenu);
     }
 }

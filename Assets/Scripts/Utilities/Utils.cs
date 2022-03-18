@@ -57,5 +57,10 @@ public class Utils {
     public const string soccerBallSkin = "soccerBallSkin";
     public const string tennisBallSkin = "tennisBallSkin";
     public const string billiardBallSkin = "billiardBallSkin";
-    public const string currentSkin = defaultSkin;
+    public const string currentSkin = "currentSkin";
+
+    public const int mainMenu = 0;
+    public const int shop = 1;
+    public const int inventory = 2;
+    public const int speedyWorld = 3;
 }
