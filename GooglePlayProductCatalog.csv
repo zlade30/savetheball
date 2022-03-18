@@ -1,0 +1,12 @@
+Product ID,Published State,Purchase Type,Auto Translate,Locale; Title; Description,Auto Fill Prices,Price,Pricing Template ID
+com.zalstudio.savedball.remove.ads,published,managed_by_android,false,en_US;Remove Ads;Remove Ads,true,2990000,
+com.zalstudio.savedball.life,published,managed_by_android,false,en_US;Life;Enables you to play the game.,true,1990000,
+com.zalstudio.savedball.star,published,managed_by_android,false,en_US;Star;Allows you to continue the game without losing the current score.,true,1990000,
+com.zalstudio.savedball.fire,published,managed_by_android,false,en_US;Fire;Remove all active objects that are currently cast by the enemy.,true,990000,
+com.zalstudio.savedball.ice,published,managed_by_android,false,en_US;Ice;Freeze enemies and objects within 5 seconds.,true,990000,
+com.zalstudio.savedball.shield,published,managed_by_android,false,en_US;Shield;Protect you from any harm within 5 seconds.,true,990000,
+com.zalstudio.savedball.teleport,published,managed_by_android,false,en_US;Teleport;Teleports the ball to the tapped area.,true,990000,
+com.zalstudio.savedball.skin.basketball,published,managed_by_android,false,en_US;Basket Ball;Basket Ball Skin,true,990000,
+com.zalstudio.savedball.skin.soccerball,published,managed_by_android,false,en_US;Soccer Ball;Soccer Ball Skin,true,990000,
+com.zalstudio.savedball.skin.tennisball,published,managed_by_android,false,en_US;Tennis Ball;Tennis Ball Skin,true,990000,
+com.zalstudio.savedball.skin.billiardball,published,managed_by_android,false,en_US;Billiard Ball;Billiard Ball Skin,true,990000,

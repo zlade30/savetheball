@@ -39,17 +39,17 @@ public class Utils {
 
     // Products
 
-    public const string removeAdsId = "com.zalstudio.savedball.remove.ads";
-    public const string lifeId = "com.zalstudio.savedball.life";
-    public const string starId = "com.zalstudio.savedball.star";
-    public const string fireId = "com.zalstudio.savedball.fire";
-    public const string iceId = "com.zalstudio.savedball.ice";
-    public const string shieldId = "com.zalstudio.savedball.shield";
-    public const string teleportId = "com.zalstudio.savedball.teleport";
-    public const string basketBallSkinId = "com.zalstudio.savedball.skin.basketball";
-    public const string soccerBallSkinId = "com.zalstudio.savedball.skin.soccerball";
-    public const string tennisBallSkinId = "com.zalstudio.savedball.skin.tennisball";
-    public const string billiardBallSkinId = "com.zalstudio.savedball.skin.billiardball";
+    public const string removeAdsId = "com.zalstudio.savedball.removeads";
+    public const string lifeId = "com.zalstudio.savedball.powerups.life";
+    public const string starId = "com.zalstudio.savedball.powerups.star";
+    public const string fireId = "com.zalstudio.savedball.powerups.fire";
+    public const string iceId = "com.zalstudio.savedball.powerups.ice";
+    public const string shieldId = "com.zalstudio.savedball.powerups.shield";
+    public const string teleportId = "com.zalstudio.savedball.powerups.teleport";
+    public const string basketBallSkinId = "com.zalstudio.savedball.skins.basketball";
+    public const string soccerBallSkinId = "com.zalstudio.savedball.skins.soccerball";
+    public const string tennisBallSkinId = "com.zalstudio.savedball.skins.tennisball";
+    public const string billiardBallSkinId = "com.zalstudio.savedball.skins.billiardball";
     public static string[] products = { removeAdsId, lifeId, starId, fireId, iceId, shieldId, teleportId, basketBallSkinId, soccerBallSkinId, tennisBallSkinId, billiardBallSkinId };
 
     public const string defaultSkin = "ballSkin";
