@@ -130,4 +130,8 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     public void HideErrorPanel() {
         purchaseErrorPanel.SetActive(false);
     }
+
+    public void Play() {
+        SceneManager.LoadScene(Utils.world);
+    }
 }

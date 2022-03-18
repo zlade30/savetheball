@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UIEvent : MonoBehaviour, IPointerClickHandler
 {
@@ -63,6 +64,9 @@ public class UIEvent : MonoBehaviour, IPointerClickHandler
             case "Ads":
                 game.outOfLifePanel.SetActive(false);
                 game.outOfStarPanel.SetActive(false);
+                break;
+            case "Exit":
+                SceneManager.LoadScene(Utils.world);
                 break;
             default:
                 break;

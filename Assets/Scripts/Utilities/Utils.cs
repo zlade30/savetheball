@@ -62,5 +62,6 @@ public class Utils {
     public const int mainMenu = 0;
     public const int shop = 1;
     public const int inventory = 2;
-    public const int speedyWorld = 3;
+    public const int world = 3;
+    public const int speedyWorld = 4;
 }
