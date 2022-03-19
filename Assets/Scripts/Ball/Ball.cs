@@ -37,7 +37,6 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 		game = Camera.main.GetComponent<Game>();
 		col = GetComponent<CircleCollider2D>();
 		powerups = powerups.GetComponent<Powerups>();
-
 		HandleSkin();
     }
 
@@ -121,7 +120,19 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			col.enabled = false;
 			isCaught = true;
 			gameObject.SetActive(false);
+		} else if (collider.gameObject.name == "Explosion") {
+			game.GameOver();
+			col.enabled = false;
+			isCaught = true;
+			enemy.movement.enabled = false;
+			enemy.abilities.enabled = false;
+			enemy.jump.enabled = false;
+			enemy.idle.enabled = false;
+			Utils.ActivateAnimation(Utils.isIdle1, enemy.GetComponent<Animator>());
+			gameObject.SetActive(false);
 		}
+
+		Debug.Log(collider.gameObject.name);
     }
 
 	void Update()

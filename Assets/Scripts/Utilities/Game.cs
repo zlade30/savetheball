@@ -33,7 +33,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        
     }
 
     // Update is called once per frame
@@ -127,9 +127,6 @@ public class Game : MonoBehaviour
 
     public void Restart() {
         if (PlayerPrefs.GetInt(Utils.life) != 0) {
-            int value = PlayerPrefs.GetInt(Utils.life);
-            --value;
-            PlayerPrefs.SetInt(Utils.life, value);
             Play();
         } else {
             OutOfLife();

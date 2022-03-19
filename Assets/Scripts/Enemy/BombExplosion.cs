@@ -6,6 +6,10 @@ public class BombExplosion : MonoBehaviour
 {
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    private Game game;
+    [SerializeField]
+    private Enemy enemy;
     private float explodeDur = 5f;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,13 @@ public class BombExplosion : MonoBehaviour
         explodeDur -= Time.deltaTime;
         if (explodeDur <= 0f) {
             explodeDur = 5f;
+            GameObject exp = Instantiate(explosion, transform.position, Quaternion.identity);
+            exp.SetActive(true);
+            exp.name = "Explosion";
+            Destroy(gameObject);
+        }
+
+        if (game.isOver) {
             Instantiate(explosion, transform.position, Quaternion.identity).SetActive(true);
             Destroy(gameObject);
         }

@@ -9,7 +9,7 @@ public class BombyAbility
         if (!isInit) {
             Object.Instantiate(stickyBomb, enemy.transform.position, Quaternion.identity).SetActive(true);
             isInit = false;
-            enemy.abilityDur = Random.Range(3f, 6f);
+            enemy.abilityDur = Random.Range(3f, 10f);
             enemy.GetComponent<Jump>().enabled = true;
             enemy.GetComponent<Abilities>().enabled = false;
         }
@@ -19,7 +19,7 @@ public class BombyAbility
         if (!isInit) {
             Object.Instantiate(walkingBomb, enemy.transform.position, Quaternion.identity).SetActive(true);
             isInit = false;
-            enemy.abilityDur = Random.Range(3f, 6f);
+            enemy.abilityDur = Random.Range(3f, 10f);
             enemy.GetComponent<Jump>().enabled = true;
             enemy.GetComponent<Abilities>().enabled = false;
         }

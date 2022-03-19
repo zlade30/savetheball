@@ -112,7 +112,7 @@ public class SpeedyAbility
         }
         isFade = false;
         isInit = false;
-        enemy.abilityDur = 5f;
+        enemy.abilityDur = Random.Range(0f, 20f);;
         enemy.GetComponent<Jump>().enabled = true;
         enemy.GetComponent<Abilities>().enabled = false;
     }

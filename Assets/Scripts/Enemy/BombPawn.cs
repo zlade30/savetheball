@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class Movement : MonoBehaviour
+public class BombPawn : MonoBehaviour
 {
     private string[] edges = {"Top", "Right", "Bottom", "Left"};
     private string [] vertPos = {"Top", "Bottom"};
@@ -42,8 +42,9 @@ public class Movement : MonoBehaviour
         enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
         Physics2D.IgnoreLayerCollision(3, 6);
-        Physics2D.IgnoreLayerCollision(3, 8);
         Physics2D.IgnoreLayerCollision(6, 6);
+        Physics2D.IgnoreLayerCollision(6, 7);
+        Physics2D.IgnoreLayerCollision(6, 8);
     }
 
     // Update is called once per frame
@@ -88,7 +89,6 @@ public class Movement : MonoBehaviour
 
         if (currentEdge == "Top" || currentEdge == "Bottom") {
             currentPosition = horPos[position];
-            Utils.ActivateAnimation(Utils.isRunning, animator);
             if (currentEdge == "Top") {
                 sprite.flipY = true;
             } else {
@@ -111,11 +111,9 @@ public class Movement : MonoBehaviour
             if (currentEdge == "Right") sprite.flipX = true;
             else sprite.flipX = false;
             if (currentPosition == "Top") {
-                Utils.ActivateAnimation(Utils.isSideRunning, animator);
                 transform.position = new Vector2(transform.position.x, transform.position.y + walkSpeed * Time.deltaTime);
                 // rBody.MovePosition(transform.position + transform.up * walkSpeed * Time.fixedDeltaTime);
             }   else {
-                Utils.ActivateAnimation(Utils.isSliding, animator);
                 transform.position = new Vector2(transform.position.x, transform.position.y - walkSpeed * Time.deltaTime);
                 // rBody.MovePosition(transform.position - transform.up * walkSpeed * Time.fixedDeltaTime);
             }

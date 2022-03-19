@@ -767,8 +767,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3f2a0264834914bf4aa758d9028664f2, type: 3}
   - {fileID: 21300000, guid: 65a21ede89c394a989d4f775d5268a13, type: 3}
   colliderName: 
+  movement: {fileID: 0}
+  jump: {fileID: 0}
+  idle: {fileID: 0}
   isGrounded: 0
   isAbilityCast: 0
+  abilities: {fileID: 0}
 --- !u!95 &138799484
 Animator:
   serializedVersion: 4
@@ -2259,6 +2263,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4804815981612152122, guid: b12de66eae03f4bf581ea9b7ee77965b, type: 3}
+      propertyPath: game
+      value: 
+      objectReference: {fileID: 519420036}
+    - target: {fileID: -4804815981612152122, guid: b12de66eae03f4bf581ea9b7ee77965b, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 138799480}
+    - target: {fileID: -4804815981612152122, guid: b12de66eae03f4bf581ea9b7ee77965b, type: 3}
       propertyPath: explosion
       value: 
       objectReference: {fileID: 2119377211}
@@ -3624,6 +3636,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1437986960}
     - target: {fileID: 8292155717660449656, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
+      propertyPath: game
+      value: 
+      objectReference: {fileID: 519420036}
+    - target: {fileID: 8292155717660449656, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 138799480}
+    - target: {fileID: 8292155717660449656, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
       propertyPath: explosion
       value: 
       objectReference: {fileID: 2119377211}
@@ -3679,13 +3699,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4054870791260163272, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
 --- !u!1 &759509889 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8550541938762762667, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
   m_PrefabInstance: {fileID: 759509888}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &759509890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759509889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c14df6ab47943c38a7035c8bc45322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEdge: 
+  currentPosition: 
+  walkSpeed: 2
+  maxWalkFlipDur: 1
+  walkFlipDur: 0
+  toolbar: {fileID: 371435762}
+  btmBorder: {fileID: 1437986960}
+  score: {fileID: 1750680763}
 --- !u!1 &766255302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4660,7 +4701,7 @@ GameObject:
   - component: {fileID: 982328784}
   - component: {fileID: 982328785}
   - component: {fileID: 982328786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6842,7 +6883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8352236837347299089, guid: 724cb531575204da9a9540c5c0f20383, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8352236837347299089, guid: 724cb531575204da9a9540c5c0f20383, type: 3}
       propertyPath: m_IsActive
@@ -9141,3 +9182,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8352236837347299089, guid: 724cb531575204da9a9540c5c0f20383, type: 3}
   m_PrefabInstance: {fileID: 1488689109}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &2119377216
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119377211}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

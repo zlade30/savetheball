@@ -35,9 +35,9 @@ public class Enemy : MonoBehaviour
 	private float enemyWidth, enemyHeight;
     public string colliderName;
     private string currentSide;
-    private Movement movement;
-    private Jump jump;
-    private Idle idle;
+    public Movement movement;
+    public Jump jump;
+    public Idle idle;
     private bool isBallCaught = false;
     private bool isBallJumpCaught = false;
     public bool isInit { set; get; } = false;
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sprite;
     private Rigidbody2D rBody;
     private Game game;
-    private Abilities abilities;
+    public Abilities abilities;
     void Start()
     {
         movement = GetComponent<Movement>();
