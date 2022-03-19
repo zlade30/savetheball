@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0133e2fd79bff4fd692f0209dc75caf3
+guid: 19291d737be0f452583c2ef67f69bf4f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bomby_run_side_sprites_unity_0
+      name: sticky_bomb_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 197
+        width: 50
+        height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +142,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca15b202d1a9e47c294325dba51d633c
-      internalID: 1796415209
+      spriteID: cb2d67b31566e421d9d6494b1871982a
+      internalID: 85387349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bomby_run_side_sprites_unity_1
+      name: sticky_bomb_1
       rect:
         serializedVersion: 2
-        x: 100
+        x: 50
         y: 0
-        width: 100
-        height: 197
+        width: 50
+        height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,50 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83851129cc2bb4786881e413635562c2
-      internalID: 797799852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bomby_run_side_sprites_unity_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 197
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3aeb2b26f991844f9be42f9ee9513396
-      internalID: 1415247315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bomby_run_side_sprites_unity_3
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 100
-        height: 197
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3dc844d588e524aff8287c07b86f29d8
-      internalID: -1779958777
+      spriteID: 44384ca06feb44ff0869fc9346b4a474
+      internalID: -1674127818
       vertices: []
       indices: 
       edges: []
@@ -222,10 +180,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bomby_run_side_sprites_unity_0: 1796415209
-      bomby_run_side_sprites_unity_2: 1415247315
-      bomby_run_side_sprites_unity_1: 797799852
-      bomby_run_side_sprites_unity_3: -1779958777
+      sticky_bomb_1: -1674127818
+      sticky_bomb_0: 85387349
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

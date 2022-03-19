@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     static float maxAbilityDur = 5f;
     [SerializeField]
-    public float abilityDur { set; get; } = maxAbilityDur;
+    public float abilityDur = maxAbilityDur;
     [SerializeField]
     static float maxJumpDur = 5f;
     [SerializeField]
@@ -132,17 +132,18 @@ public class Enemy : MonoBehaviour
         colliderName = collider.gameObject.name;
         if (colliderName == "Ball") {
             if (isGrounded) {
-                if (currentSide == "Top" || currentSide == "Bottom")
-                    Utils.ActivateAnimation(Utils.isCatch1, animator);
+                if (currentSide == "Top" || currentSide == "Bottom") {
+                    HandleCatch1Animation();
+                }
                 else
-                    Utils.ActivateAnimation(Utils.isCatch2, animator);
+                    HandleCatch2Animation();
                 idle.enabled = false;
                 movement.enabled = false;
                 jump.enabled = false;
                 abilities.enabled = false;
                 game.GameOver();
             } else {
-                Utils.ActivateAnimation(Utils.isCatch1, animator);
+                HandleCatch1Animation();
                 isBallJumpCaught = true;
             }
         } else {
@@ -156,9 +157,9 @@ public class Enemy : MonoBehaviour
 
             if (isBallJumpCaught) {
                 if (currentSide == "Top" || currentSide == "Bottom")
-                    Utils.ActivateAnimation(Utils.isCatch1, animator);
+                    HandleCatch1Animation();
                 else
-                    Utils.ActivateAnimation(Utils.isCatch2, animator);
+                    HandleCatch2Animation();
 
                 transform.eulerAngles = new Vector3(0f, 0f, 0f);
                 switch (colliderName) {
@@ -191,6 +192,56 @@ public class Enemy : MonoBehaviour
             }
         }
         rBody.constraints = RigidbodyConstraints2D.None;
+    }
+
+    void HandleCatch1Animation() {
+        string equippedSkin = PlayerPrefs.GetString(Utils.currentSkin);
+        animator.enabled = false;
+		switch (equippedSkin) {
+			case Utils.currentSkin:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[0];
+				break;
+			case Utils.basketBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[1];
+				break;
+			case Utils.soccerBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[2];
+				break;
+			case Utils.tennisBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[3];
+				break;
+			case Utils.billiardBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[4];
+				break;
+			default:
+				GetComponent<SpriteRenderer>().sprite = catch1Sprites[0];
+				break;
+		}
+    }
+
+    void HandleCatch2Animation() {
+        string equippedSkin = PlayerPrefs.GetString(Utils.currentSkin);
+        animator.enabled = false;
+		switch (equippedSkin) {
+			case Utils.currentSkin:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[0];
+				break;
+			case Utils.basketBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[1];
+				break;
+			case Utils.soccerBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[2];
+				break;
+			case Utils.tennisBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[3];
+				break;
+			case Utils.billiardBallSkin:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[4];
+				break;
+			default:
+				GetComponent<SpriteRenderer>().sprite = catch2Sprites[0];
+				break;
+		}
     }
 
     // Update is called once per frame
@@ -242,8 +293,7 @@ public class Enemy : MonoBehaviour
     {
         abilityDur -= Time.deltaTime;
         if (abilityDur <= 0f && isGrounded) {
-            if (Random.Range(0, 5) == 0) abilities.enabled = true;
-            else abilityDur = Random.Range(1f, maxAbilityDur);
+            abilities.enabled = true;
         }
     }
 

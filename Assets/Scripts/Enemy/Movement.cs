@@ -17,9 +17,9 @@ public class Movement : MonoBehaviour
     [SerializeField]
     float walkFlipDur;
     [SerializeField]
-    private GameObject toolbar;
-	[SerializeField]
-	private GameObject btmBorder;
+    private Transform toolbar;
+    [SerializeField]
+	private Transform btmBorder;
 
     private float worldWidth, worldHeight;
 	private float enemyWidth, enemyHeight;
@@ -27,6 +27,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rBody;
     private SpriteRenderer sprite;
     private Animator animator;
+    [SerializeField]
     private TextMeshProUGUI score;
 
     // Start is called before the first frame update
@@ -35,12 +36,13 @@ public class Movement : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        score = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         walkFlipDur = maxWalkFlipDur;
         worldHeight = Camera.main.orthographicSize * 2;
 		worldWidth = worldHeight * Screen.width / Screen.height;
         enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+        Physics2D.IgnoreLayerCollision(3, 6);
+        Physics2D.IgnoreLayerCollision(6, 6);
     }
 
     // Update is called once per frame

@@ -10,9 +10,6 @@ public class EdgeCollider : MonoBehaviour
     private Vector3 cameraPos;
     // Use this for initialization
     void Start () {
-        //Generate our empty objects
-        rightCollider = GetComponent<Transform> ().Find ("Right");
-        leftCollider = GetComponent<Transform> ().Find ("Left");
 
         //Make them the child of whatever object this script is on, preferably on the Camera so the objects move with the camera without extra scripting
         rightCollider.parent = transform;
