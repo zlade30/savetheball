@@ -67,7 +67,7 @@ public class Game : MonoBehaviour
 
     public void Play()
     {
-        PlayerPrefs.SetFloat("score", 0);
+        PlayerPrefs.SetFloat(Utils.score, 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -113,7 +113,7 @@ public class Game : MonoBehaviour
         yourScore.text = score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
-        PlayerPrefs.SetFloat("score", score.score);
+        PlayerPrefs.SetFloat(Utils.score, score.score);
         // StartCoroutine(FadeIn());
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ShopManager : MonoBehaviour, IStoreListener {
     [SerializeField]
@@ -32,6 +33,10 @@ public class ShopManager : MonoBehaviour, IStoreListener {
     private GameObject powerupPanel;
     [SerializeField]
     private GameObject skinPanel;
+    [SerializeField]
+    private GameObject samplePanel;
+    [SerializeField]
+    private TextMeshProUGUI samplePanelText;
 
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.

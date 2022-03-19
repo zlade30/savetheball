@@ -15,6 +15,10 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     [SerializeField]
     private GameObject purchaseErrorPanel;
     [SerializeField]
+    private GameObject sample;
+    [SerializeField]
+    private TextMeshProUGUI sampleText;
+    [SerializeField]
     private GameObject menuPanel;
     [SerializeField]
     private Image removeAdIcon;
@@ -25,11 +29,7 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     void Start()
     {
         // If we haven't set up the Unity Purchasing reference
-        if (ISController == null)
-        {
-            // Begin to configure our connection to Purchasing
-            InitializePurchasing();
-        }
+        InitializePurchasing();
 
         if (PlayerPrefs.GetInt(Utils.removeAdsId) == 1) {
             menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
@@ -53,6 +53,9 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
 
         Product removeAdProduct = ISController.products.WithID(Utils.removeAdsId);
         removeAdsPrice.text = ""+removeAdProduct.metadata.isoCurrencyCode+" "+removeAdProduct.metadata.localizedPriceString;
+    
+        // sample.SetActive(true);
+        // sampleText.text = ""+removeAdProduct.metadata.isoCurrencyCode+" "+removeAdProduct.metadata.localizedPriceString;
     }
 
     // Update is called once per frame
@@ -65,6 +68,8 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     {
         // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
         Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+        // sample.SetActive(true);
+        // sampleText.text = error.ToString();
     }
 
 
