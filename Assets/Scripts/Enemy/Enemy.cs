@@ -27,6 +27,10 @@ public class Enemy : MonoBehaviour
     static float maxIdleStateDur = 3f;
     [SerializeField]
     private float idleStateDur = maxIdleStateDur;
+    [SerializeField]
+    private Sprite[] catch1Sprites;
+    [SerializeField]
+    private Sprite[] catch2Sprites;
     private float worldWidth, worldHeight;
 	private float enemyWidth, enemyHeight;
     public string colliderName;

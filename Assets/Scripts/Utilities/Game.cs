@@ -7,14 +7,6 @@ using System.Collections;
 public class Game : MonoBehaviour
 {
     [SerializeField]
-    private Image gameOverSprite;
-    [SerializeField]
-    private Image restartSprite;
-    [SerializeField]
-    private Image playSprite;
-    [SerializeField]
-    private Image exitSprite;
-    [SerializeField]
     private TextMeshProUGUI highScore;
     [SerializeField]
     private TextMeshProUGUI yourScore;
@@ -31,6 +23,8 @@ public class Game : MonoBehaviour
     public GameObject outOfStarPanel;
     [SerializeField]
     GameObject gameOverPanel;
+    [SerializeField]
+    GameObject exitConfirmationPanel;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -67,8 +61,15 @@ public class Game : MonoBehaviour
 
     public void Play()
     {
-        PlayerPrefs.SetFloat(Utils.score, 0);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (PlayerPrefs.GetInt(Utils.life) != 0) {
+            int value = PlayerPrefs.GetInt(Utils.life);
+            --value;
+            PlayerPrefs.SetInt(Utils.life, value);
+            PlayerPrefs.SetFloat(Utils.score, 0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else {
+            OutOfLife();
+        }
     }
 
     public void Pause()
@@ -98,57 +99,121 @@ public class Game : MonoBehaviour
 
     public void Continue()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (isOver) {
+            if (PlayerPrefs.GetInt(Utils.star) != 0) {
+                int value = PlayerPrefs.GetInt(Utils.star);
+                --value;
+                PlayerPrefs.SetInt(Utils.star, value);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            } else {
+                OutOfStar();
+            }
+        }
     }
 
     public void GameOver()
     {
-        // gameOverSprite.gameObject.SetActive(true);
-        // restartSprite.gameObject.SetActive(true);
-        // playSprite.gameObject.SetActive(true);
-        // exitSprite.gameObject.SetActive(true);
-        // highScore.gameObject.SetActive(true);
-        // yourScore.gameObject.SetActive(true);
         gameOverPanel.SetActive(true);
         yourScore.text = score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
         PlayerPrefs.SetFloat(Utils.score, score.score);
-        // StartCoroutine(FadeIn());
     }
 
-    private IEnumerator FadeOut()
-    {
-        float alphaVal = gameOverSprite.color.a;
-        Color tmp = gameOverSprite.color;
+    public void Back() {
+        if(!isOver) Pause();
+        else exitConfirmationPanel.SetActive(true);
+    }
 
-        while (gameOverSprite.color.a > 0)
-        {
-            alphaVal -= 0.01f;
-            tmp.a = alphaVal;
-            gameOverSprite.color = tmp;
-
-            yield return new WaitForSeconds(0.01f); // update interval
+    public void Restart() {
+        if (PlayerPrefs.GetInt(Utils.life) != 0) {
+            int value = PlayerPrefs.GetInt(Utils.life);
+            --value;
+            PlayerPrefs.SetInt(Utils.life, value);
+            Play();
+        } else {
+            OutOfLife();
         }
     }
- 
-    private IEnumerator FadeIn()
-    {
-        float alphaVal = gameOverSprite.color.a;
-        Color tmp = gameOverSprite.color;
 
-        while (gameOverSprite.color.a < 1)
-        {
-            alphaVal += 0.01f;
-            tmp.a = alphaVal;
-            gameOverSprite.color = tmp;
-            restartSprite.color = tmp;
-            playSprite.color = tmp;
-            exitSprite.color = tmp;
-            highScore.color = tmp;
-            yourScore.color = tmp;
-
-            yield return new WaitForSeconds(0.01f); // update interval
-        }
+    public void WatchRewardedAds() {
+        outOfLifePanel.SetActive(false);
+        outOfStarPanel.SetActive(false);
     }
+
+    public void OpenShop() {
+        SceneManager.LoadScene(Utils.shop);
+    }
+
+    public void Exit() {
+        exitConfirmationPanel.SetActive(true);
+    }
+
+    public void YesExit() {
+        SceneManager.LoadScene(Utils.world);
+    }
+
+    public void NoExit() {
+        exitConfirmationPanel.SetActive(false);
+    }
+
+    public void Close() {
+        outOfLifePanel.SetActive(false);
+        outOfStarPanel.SetActive(false);
+        exitConfirmationPanel.SetActive(false);
+    }
+
+    // public void OnPointerClick(PointerEventData eventData)
+    // {
+    //     string uiName = eventData.pointerCurrentRaycast.gameObject.name;
+    //     switch (uiName) {
+    //         case "Back":
+    //             if (!game.isOver)
+    //                 game.Pause();
+    //             break;
+    //         case "Resume":
+    //             game.Resume();
+    //             break;
+    //         case "Play":
+    //             if (game.isOver) {
+    //                 if (PlayerPrefs.GetInt(Utils.star) != 0) {
+    //                     int value = PlayerPrefs.GetInt(Utils.star);
+    //                     --value;
+    //                     PlayerPrefs.SetInt(Utils.star, value);
+    //                     game.Continue();
+    //                 } else {
+    //                     game.OutOfStar();
+    //                 }
+    //             }
+    //             else {
+    //                 if (PlayerPrefs.GetInt(Utils.life) != 0) {
+    //                     int value = PlayerPrefs.GetInt(Utils.life);
+    //                     --value;
+    //                     PlayerPrefs.SetInt(Utils.life, value);
+    //                     game.Play();
+    //                 } else {
+    //                     game.OutOfLife();
+    //                 }
+    //             }
+    //             break;
+    //         case "Restart":
+    //             if (PlayerPrefs.GetInt(Utils.life) != 0) {
+    //                 int value = PlayerPrefs.GetInt(Utils.life);
+    //                 --value;
+    //                 PlayerPrefs.SetInt(Utils.life, value);
+    //                 game.Play();
+    //             } else {
+    //                 game.OutOfLife();
+    //             }
+    //             break;
+    //         case "Ads":
+                
+    //             break;
+    //         case "Exit":
+                
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 }

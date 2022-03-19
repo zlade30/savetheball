@@ -7,15 +7,6 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 	private float ballWidth, ballHeight;
 	private float toolbarWidth, toolbarHeight;
     private float bX, bY;
-
-    [SerializeField]
-    private GameObject toolbar;
-	[SerializeField]
-	private GameObject btmBorder;
-	[SerializeField]
-	private Enemy enemy;
-	[SerializeField]
-	private Powerups powerups;
     private Vector3 mousePosition;
     private bool following = false;
 	private bool isCaught = false;
@@ -23,7 +14,18 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 	private bool isInit = false;
 	private CircleCollider2D col;
 	private Game game;
-    
+	[SerializeField]
+    private GameObject toolbar;
+	[SerializeField]
+	private GameObject btmBorder;
+	[SerializeField]
+	private Enemy enemy;
+	[SerializeField]
+	private Powerups powerups;
+	[SerializeField]
+	private Sprite[] sprites;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,6 +37,8 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 		game = Camera.main.GetComponent<Game>();
 		col = GetComponent<CircleCollider2D>();
 		powerups = powerups.GetComponent<Powerups>();
+
+		HandleSkin();
     }
 
 	void Start()
@@ -46,6 +50,30 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
         drag.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
 		trigger.triggers.Add(drag);
     }
+
+	void HandleSkin() {
+		string equippedSkin = PlayerPrefs.GetString(Utils.currentSkin);
+		switch (equippedSkin) {
+			case Utils.currentSkin:
+				GetComponent<SpriteRenderer>().sprite = sprites[0];
+				break;
+			case Utils.basketBallSkin:
+				GetComponent<SpriteRenderer>().sprite = sprites[1];
+				break;
+			case Utils.soccerBallSkin:
+				GetComponent<SpriteRenderer>().sprite = sprites[2];
+				break;
+			case Utils.tennisBallSkin:
+				GetComponent<SpriteRenderer>().sprite = sprites[3];
+				break;
+			case Utils.billiardBallSkin:
+				GetComponent<SpriteRenderer>().sprite = sprites[4];
+				break;
+			default:
+				GetComponent<SpriteRenderer>().sprite = sprites[0];
+				break;
+		}
+	}
 
     public void OnDragDelegate(PointerEventData data)
     {
