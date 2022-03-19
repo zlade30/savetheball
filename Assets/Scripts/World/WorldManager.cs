@@ -21,6 +21,9 @@ public class WorldManager : MonoBehaviour
             case "Speedy":
                 SceneManager.LoadScene(Utils.speedyWorld);
                 break;
+            case "Bomby":
+                SceneManager.LoadScene(Utils.bombyWorld);
+                break;
             default:
                 break;
         }

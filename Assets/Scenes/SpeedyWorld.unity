@@ -717,8 +717,9 @@ MonoBehaviour:
   walkSpeed: 2
   maxWalkFlipDur: 3
   walkFlipDur: 3
-  toolbar: {fileID: 371435759}
-  btmBorder: {fileID: 1437986959}
+  toolbar: {fileID: 371435762}
+  btmBorder: {fileID: 1437986960}
+  score: {fileID: 1750680763}
 --- !u!114 &138799479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJump: 0
   isIdle: 0
+  abilityDur: 5
   jumpDur: 3
   toolbar: {fileID: 371435759}
   btmBorder: {fileID: 1437986959}
@@ -854,6 +856,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolbar: {fileID: 371435759}
   btmBorder: {fileID: 1437986959}
+  stickyBomb: {fileID: 0}
+  walkingBomb: {fileID: 0}
   world: Speedy
 --- !u!1 &177534646
 GameObject:

@@ -157,7 +157,7 @@ PlayerSettings:
     iPhone: com.zalstudio.savedball
   buildNumber:
     Standalone: 0
-    iPhone: 5
+    iPhone: 6
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 4

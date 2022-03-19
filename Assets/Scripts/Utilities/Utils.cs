@@ -64,6 +64,7 @@ public class Utils {
     public const int inventory = 2;
     public const int world = 3;
     public const int speedyWorld = 4;
+    public const int bombyWorld = 5;
 
     public const string score = "score";
 }
