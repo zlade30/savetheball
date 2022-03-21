@@ -11,7 +11,7 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject walkingBomb;
     [SerializeField]
-    private GameObject stretchy;
+    private GameObject shapeShiftyBomb;
     [SerializeField]
     private Score score;
     private Enemy enemy;
@@ -40,7 +40,7 @@ public class Abilities : MonoBehaviour
                 else bomby.SpawnWalkingBomb(enemy, walkingBomb, score);
             }
         } else if (world == "ShapeShifty") {
-            shapeShifty.Stretchy(enemy, stretchy, toolbar, btmBorder, score);
+            shapeShifty.ShapeShiftyBomb(enemy, shapeShiftyBomb, score);
         }
     }
 }
