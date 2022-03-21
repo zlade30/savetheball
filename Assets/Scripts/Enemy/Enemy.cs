@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     private float worldWidth, worldHeight;
 	private float enemyWidth, enemyHeight;
     public string colliderName;
-    private string currentSide;
+    public string currentSide;
     public Movement movement;
     public Jump jump;
     public Idle idle;

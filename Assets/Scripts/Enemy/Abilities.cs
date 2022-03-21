@@ -11,11 +11,14 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject walkingBomb;
     [SerializeField]
+    private GameObject stretchy;
+    [SerializeField]
     private Score score;
     private Enemy enemy;
     public string world = "";
     private SpeedyAbility speedy;
     private BombyAbility bomby;
+    private ShapeShifty shapeShifty;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,7 @@ public class Abilities : MonoBehaviour
         enemy = GetComponent<Enemy>();
         if (world == "Speedy") speedy = new SpeedyAbility();
         else if (world == "Bomby") bomby = new BombyAbility();
+        else if (world == "ShapeShifty") shapeShifty = new ShapeShifty();
     }
 
     // Update is called once per frame
@@ -35,6 +39,8 @@ public class Abilities : MonoBehaviour
                 if (Random.Range(0, 2) == 0) bomby.SpawnStickyBomb(enemy, stickyBomb, score);
                 else bomby.SpawnWalkingBomb(enemy, walkingBomb, score);
             }
+        } else if (world == "ShapeShifty") {
+            shapeShifty.Stretchy(enemy, stretchy, toolbar, btmBorder, score);
         }
     }
 }
