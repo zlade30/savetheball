@@ -32,8 +32,8 @@ public class Abilities : MonoBehaviour
             speedy.FadeInOutCatch(enemy, toolbar, btmBorder, score);
         } else if (world == "Bomby") {
             if (enemy.isGrounded) {
-                if (Random.Range(0, 2) == 0) bomby.SpawnStickyBomb(enemy, stickyBomb);
-                else bomby.SpawnWalkingBomb(enemy, walkingBomb);
+                if (Random.Range(0, 2) == 0) bomby.SpawnStickyBomb(enemy, stickyBomb, score);
+                else bomby.SpawnWalkingBomb(enemy, walkingBomb, score);
             }
         }
     }

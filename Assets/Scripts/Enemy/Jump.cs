@@ -11,6 +11,7 @@ public class Jump : MonoBehaviour
     private SpriteRenderer sprite;
     private Vector2 lastPos;
     private Animator animator;
+    [SerializeField]
     private TextMeshProUGUI score;
     private string jumping = "jumping";
     private bool isInit;
@@ -22,7 +23,6 @@ public class Jump : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        score = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -35,28 +35,26 @@ public class Jump : MonoBehaviour
     void HandleJump()
     {
         if (isBallCaught) Utils.ActivateAnimation(Utils.isCatch1, animator);
-        else {
-            Utils.ActivateAnimation(Utils.isJumping, animator);
-            sprite.flipY = true;
+        else Utils.ActivateAnimation(Utils.isJumping, animator);
+        sprite.flipY = true;
 
-            if (!isInit) {
-                lastPos = ball.transform.position - transform.position;
-                isInit = true;
-            }
-
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                new Vector2(lastPos.x * 7f, lastPos.y * 7f),
-                jumpSpeed * Time.deltaTime
-            );
-
-            var offset = 90f;
-            lastPos.Normalize();
-            float angle = Mathf.Atan2(lastPos.y, lastPos.x) * Mathf.Rad2Deg;       
-            transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
-            
-            rBody.constraints = RigidbodyConstraints2D.None;
+        if (!isInit) {
+            lastPos = ball.transform.position - transform.position;
+            isInit = true;
         }
+
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            new Vector2(lastPos.x * 7f, lastPos.y * 7f),
+            jumpSpeed * Time.deltaTime
+        );
+
+        var offset = 90f;
+        lastPos.Normalize();
+        float angle = Mathf.Atan2(lastPos.y, lastPos.x) * Mathf.Rad2Deg;       
+        transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
+        
+        rBody.constraints = RigidbodyConstraints2D.None;
     }
 
     void HandleSpeed()

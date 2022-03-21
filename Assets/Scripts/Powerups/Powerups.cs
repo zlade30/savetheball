@@ -20,6 +20,8 @@ public class Powerups : MonoBehaviour
     private GameObject enemy;
     [SerializeField]
     private GameObject ball;
+    [SerializeField]
+    private GameObject destroyEffect;
     private Game game;
     public float fireDur = 0.5f;
     public float iceDur = 5f;
@@ -48,6 +50,12 @@ public class Powerups : MonoBehaviour
         if (!game.isPause && !game.isOver) {
             if (isFireTrigger) {
                 fireBar.fillAmount -= 1.0f / fireDur * Time.unscaledDeltaTime;
+                GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
+                foreach(GameObject obj in enemyObjects) {
+                    GameObject.Destroy(obj);
+                    GameObject exp = Instantiate(destroyEffect, obj.transform.position, Quaternion.identity);
+                    exp.SetActive(true);
+                }
                 if (fireBar.fillAmount <= 0f) isFireTrigger = false;
             }
 

@@ -101,6 +101,7 @@ public class SpeedyAbility
     {
         float alphaVal = sprite.color.a;
         Color tmp = sprite.color;
+        Game game = Camera.main.GetComponent<Game>();
 
         while (sprite.color.a < 1)
         {
@@ -120,7 +121,8 @@ public class SpeedyAbility
         else if (score.score >= 500 && score.score <= 599) enemy.abilityDur = Random.Range(0f, 10f);
         else if (score.score >= 600 && score.score <= 699) enemy.abilityDur = Random.Range(0f, 8f);
         else enemy.abilityDur = Random.Range(0f, 6f);
-        enemy.GetComponent<Jump>().enabled = true;
+        if (!game.isOver)
+            enemy.GetComponent<Jump>().enabled = true;
         enemy.GetComponent<Abilities>().enabled = false;
     }
 }

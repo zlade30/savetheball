@@ -22,7 +22,7 @@ public class BombExplosion : MonoBehaviour
     {
         explodeDur -= Time.deltaTime;
         if (explodeDur <= 0f) {
-            explodeDur = 5f;
+            explodeDur = Random.Range(1f, 4f);
             GameObject exp = Instantiate(explosion, transform.position, Quaternion.identity);
             exp.SetActive(true);
             exp.name = "Explosion";

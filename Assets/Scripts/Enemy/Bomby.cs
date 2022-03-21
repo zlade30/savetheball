@@ -5,7 +5,7 @@ public class BombyAbility
     private bool isInit = false;
     private bool isFade = false;
 
-    public void SpawnStickyBomb(Enemy enemy, GameObject stickyBomb) {
+    public void SpawnStickyBomb(Enemy enemy, GameObject stickyBomb, Score score) {
         if (!isInit) {
             Object.Instantiate(stickyBomb, enemy.transform.position, Quaternion.identity).SetActive(true);
             isInit = false;
@@ -15,7 +15,7 @@ public class BombyAbility
         }
     }
 
-    public void SpawnWalkingBomb(Enemy enemy, GameObject walkingBomb) {
+    public void SpawnWalkingBomb(Enemy enemy, GameObject walkingBomb, Score score) {
         if (!isInit) {
             Object.Instantiate(walkingBomb, enemy.transform.position, Quaternion.identity).SetActive(true);
             isInit = false;
