@@ -40,7 +40,6 @@ public class Powerups : MonoBehaviour
             PlayerPrefs.SetInt(Utils.shield, 3);
             PlayerPrefs.SetInt(Utils.teleport, 3);
         }
-        // PlayerPrefs.DeleteAll();
     }
 
     // Update is called once per frame
@@ -63,10 +62,12 @@ public class Powerups : MonoBehaviour
 
             if (isShieldTrigger) {
                 shieldBar.fillAmount -= 1.0f / shieldDur * Time.unscaledDeltaTime;
-                Physics2D.IgnoreCollision(enemy.GetComponent<BoxCollider2D>(), ball.GetComponent<CircleCollider2D>());
+                Physics2D.IgnoreLayerCollision(7, 3);
+                Physics2D.IgnoreLayerCollision(7, 8);
                 if (shieldBar.fillAmount <= 0f) {
                     isShieldTrigger = false;
-                    Physics2D.IgnoreCollision(enemy.GetComponent<BoxCollider2D>(), ball.GetComponent<CircleCollider2D>(), false);
+                    Physics2D.IgnoreLayerCollision(7, 3, false);
+                    Physics2D.IgnoreLayerCollision(7, 8, false);
                 }
             }
 

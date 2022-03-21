@@ -10,6 +10,8 @@ public class Abilities : MonoBehaviour
     private GameObject stickyBomb;
     [SerializeField]
     private GameObject walkingBomb;
+    [SerializeField]
+    private Score score;
     private Enemy enemy;
     public string world = "";
     private SpeedyAbility speedy;
@@ -27,7 +29,7 @@ public class Abilities : MonoBehaviour
     void Update()
     {
         if (world == "Speedy") {
-            speedy.FadeInOutCatch(enemy, toolbar, btmBorder);
+            speedy.FadeInOutCatch(enemy, toolbar, btmBorder, score);
         } else if (world == "Bomby") {
             if (enemy.isGrounded) {
                 if (Random.Range(0, 2) == 0) bomby.SpawnStickyBomb(enemy, stickyBomb);

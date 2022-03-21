@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     static float maxAbilityDur = 5f;
     [SerializeField]
-    public float abilityDur = maxAbilityDur;
+    public float abilityDur { set; get; } = maxAbilityDur;
     [SerializeField]
     static float maxJumpDur = 5f;
     [SerializeField]
@@ -261,6 +261,8 @@ public class Enemy : MonoBehaviour
                     if (movement.enabled) Movement();
                     if (idle.enabled) Idle();
                 }
+            } else {
+                sprite.color = new Color32(255, 255, 255, 255);
             }
         }
     }

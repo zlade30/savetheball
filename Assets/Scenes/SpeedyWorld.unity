@@ -767,8 +767,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b4b476c976d174f0dae16c1b881c48c8, type: 3}
   - {fileID: 21300000, guid: 9a18c1772c1d0436aaf9fce696feb81a, type: 3}
   colliderName: 
+  movement: {fileID: 0}
+  jump: {fileID: 0}
+  idle: {fileID: 0}
   isGrounded: 0
   isAbilityCast: 0
+  abilities: {fileID: 0}
 --- !u!95 &138799484
 Animator:
   serializedVersion: 4
@@ -858,6 +862,7 @@ MonoBehaviour:
   btmBorder: {fileID: 1437986959}
   stickyBomb: {fileID: 0}
   walkingBomb: {fileID: 0}
+  score: {fileID: 1750680765}
   world: Speedy
 --- !u!1 &177534646
 GameObject:

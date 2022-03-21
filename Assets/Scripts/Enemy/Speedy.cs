@@ -6,7 +6,7 @@ public class SpeedyAbility
     private bool isInit = false;
     private bool isFade = false;
 
-    public void FadeInOutCatch(Enemy enemy, GameObject toolbar, GameObject btmBorder)
+    public void FadeInOutCatch(Enemy enemy, GameObject toolbar, GameObject btmBorder, Score score)
     {
         Animator animator = enemy.GetComponent<Animator>();
         SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
@@ -76,7 +76,7 @@ public class SpeedyAbility
                 default:
                     break;
             }
-            enemy.StartCoroutine(FadeIn(sprite, enemy));
+            enemy.StartCoroutine(FadeIn(sprite, enemy, score));
             isFade = false;
         }
     }
@@ -97,7 +97,7 @@ public class SpeedyAbility
         isFade = true;
     }
 
-    private IEnumerator FadeIn(SpriteRenderer sprite, Enemy enemy)
+    private IEnumerator FadeIn(SpriteRenderer sprite, Enemy enemy, Score score)
     {
         float alphaVal = sprite.color.a;
         Color tmp = sprite.color;
@@ -112,7 +112,14 @@ public class SpeedyAbility
         }
         isFade = false;
         isInit = false;
-        enemy.abilityDur = Random.Range(0f, 20f);;
+        if (score.score >= 0f && score.score <= 99) enemy.abilityDur = Random.Range(0f, 20f);
+        else if (score.score >= 100 && score.score <= 199) enemy.abilityDur = Random.Range(0f, 18f);
+        else if (score.score >= 200 && score.score <= 299) enemy.abilityDur = Random.Range(0f, 16f);
+        else if (score.score >= 300 && score.score <= 399) enemy.abilityDur = Random.Range(0f, 14f);
+        else if (score.score >= 400 && score.score <= 499) enemy.abilityDur = Random.Range(0f, 12f);
+        else if (score.score >= 500 && score.score <= 599) enemy.abilityDur = Random.Range(0f, 10f);
+        else if (score.score >= 600 && score.score <= 699) enemy.abilityDur = Random.Range(0f, 8f);
+        else enemy.abilityDur = Random.Range(0f, 6f);
         enemy.GetComponent<Jump>().enabled = true;
         enemy.GetComponent<Abilities>().enabled = false;
     }
