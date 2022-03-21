@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 2087317587532943688}
   - component: {fileID: 2087317587532943695}
   - component: {fileID: -4804815981612152122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StickyBomb
-  m_TagString: Untagged
+  m_TagString: EnemyObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2087317587532943689
 Transform:
   m_ObjectHideFlags: 0
@@ -118,3 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd2538ec1d324dccb88e55539e92792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 0}
+  game: {fileID: 0}
+  enemy: {fileID: 0}

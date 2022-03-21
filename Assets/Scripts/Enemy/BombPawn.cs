@@ -122,21 +122,25 @@ public class BombPawn : MonoBehaviour
         if (transform.position.y > (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)) {
             float y = (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2);
             transform.position = new Vector2(transform.position.x, y);
+            rBody.bodyType = RigidbodyType2D.Kinematic;
         }
 
         if (transform.position.y < (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2)) {
             float y = (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2);
             transform.position = new Vector2(transform.position.x, y);
+            rBody.bodyType = RigidbodyType2D.Kinematic;
         }
 
         if (transform.position.x < -(worldWidth / 2) + (enemyWidth / 2)) {
             float x = -(worldWidth / 2) + (enemyWidth / 2);
             transform.position = new Vector2(x, transform.position.y);
+            rBody.bodyType = RigidbodyType2D.Kinematic;
         }
 
         if (transform.position.x > (worldWidth / 2) - (enemyWidth / 2)) {
             float x = (worldWidth / 2) - (enemyWidth / 2);
             transform.position = new Vector2(x, transform.position.y);
+             rBody.bodyType = RigidbodyType2D.Kinematic;
         }
 
         rBody.constraints = RigidbodyConstraints2D.None;
