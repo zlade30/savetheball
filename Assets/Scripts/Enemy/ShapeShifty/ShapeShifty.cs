@@ -4,8 +4,33 @@ using System.Collections;
 public class ShapeShifty
 {
     private bool isTransform = false;
+    private Enemy enemy;
+    private GameObject shapeShiftyBomb;
+    private Score score;
+    private Powerups powerups;
+    private GameObject toolbar;
+    private GameObject btmBorder;
+    private GameObject shapeShityMissile;
 
-    public void ShapeShiftyBomb(Enemy enemy, GameObject shapeShiftyBomb, Score score) {
+    public ShapeShifty(
+        Enemy enemy,
+        GameObject shapeShiftyBomb,
+        GameObject shapeShityMissile,
+        Score score,
+        Powerups powerups,
+        GameObject toolbar,
+        GameObject btmBorder
+    ) {
+        this.enemy = enemy;
+        this.shapeShityMissile = shapeShityMissile;
+        this.shapeShiftyBomb = shapeShiftyBomb;
+        this.score = score;
+        this.powerups = powerups;
+        this.toolbar = toolbar;
+        this.btmBorder = btmBorder;
+    }
+
+    public void ShapeShiftyBomb() {
         if (!isTransform) {
             GameObject transformEffect;
             GameObject bomb = GameObject.Instantiate(shapeShiftyBomb, enemy.transform.position, Quaternion.identity);
@@ -14,7 +39,7 @@ public class ShapeShifty
                     transformEffect = eachChild.gameObject;
                     transformEffect.SetActive(true);
                     bomb.SetActive(true);
-                    enemy.StartCoroutine(Explode(enemy, bomb));
+                    enemy.StartCoroutine(Explode(bomb));
                     enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 0);
                     enemy.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                     if (enemy.currentSide == "Top" || enemy.currentSide == "Bottom") {
@@ -33,43 +58,43 @@ public class ShapeShifty
         }
     }
 
-    private IEnumerator Explode(Enemy enemy, GameObject bomb) {
-        yield return new WaitForSeconds(3f);
+    private IEnumerator Explode(GameObject bomb) {
+        yield return new WaitForSeconds(2f);
         Game game = Camera.main.GetComponent<Game>();
-        if (!game.isOver) {
+        if (!game.isOver && bomb != null) {
             bomb.transform.GetChild(0).gameObject.SetActive(true);
             GameObject bullets;
             foreach (Transform eachChild in bomb.transform) {
                 if (eachChild.name == "Bullets") {
                     bullets = eachChild.gameObject;
                     bullets.SetActive(true);
-                    enemy.StartCoroutine(Destroy(enemy, bomb));
+                    enemy.StartCoroutine(Destroy(bomb));
                 }
             }
         }
     }
 
-    private IEnumerator Destroy(Enemy enemy, GameObject bomb) {
+    private IEnumerator Destroy(GameObject bomb) {
         yield return new WaitForSeconds(2f);
         Game game = Camera.main.GetComponent<Game>();
-        if (!game.isOver) {
-            enemy.StartCoroutine(Idle(enemy, bomb));
+        if (!game.isOver && bomb != null) {
+            enemy.StartCoroutine(Idle(bomb));
         }
     }
 
-    private IEnumerator Idle(Enemy enemy, GameObject bomb) {
+    private IEnumerator Idle(GameObject bomb) {
         yield return new WaitForSeconds(2f);
         Game game = Camera.main.GetComponent<Game>();
-        if (!game.isOver) {
+        if (!game.isOver && bomb != null) {
             GameObject.Destroy(bomb);
             enemy.transform.GetChild(0).gameObject.SetActive(true);
             enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
             enemy.GetComponent<BoxCollider2D>().enabled = true;
-            enemy.StartCoroutine(Move(enemy));
+            enemy.StartCoroutine(Move());
         }
     }
 
-    private IEnumerator Move(Enemy enemy) {
+    private IEnumerator Move() {
         yield return new WaitForSeconds(2f);
         Game game = Camera.main.GetComponent<Game>();
         if (!game.isOver) {
@@ -81,7 +106,7 @@ public class ShapeShifty
         }
     }
 
-    public void ShapeShiftyMissile(Enemy enemy, GameObject shapeShityMissile, GameObject toolbar, GameObject btmBorder, Score score) {
+    public void ShapeShiftyMissile() {
         if (!isTransform) {
             GameObject transformEffect;
             GameObject missile = GameObject.Instantiate(shapeShityMissile, enemy.transform.position, Quaternion.identity);
@@ -157,44 +182,51 @@ public class ShapeShifty
                     missile.SetActive(true);
                     missile.GetComponent<ShapeShiftyMissile>().enabled = false;
                     enemy.GetComponent<BoxCollider2D>().enabled = false;
-                    enemy.StartCoroutine(LaunchMissile(enemy, missile));
+                    enemy.StartCoroutine(LaunchMissile(missile));
                 }
             }
             isTransform = true;
         }
     }
 
-    private IEnumerator LaunchMissile(Enemy enemy, GameObject missile) {
+    private IEnumerator LaunchMissile(GameObject missile) {
         yield return new WaitForSeconds(2f);
         missile.GetComponent<ShapeShiftyMissile>().enabled = true;
-        enemy.StartCoroutine(ExplodeMissile(enemy, missile));
-        // Game game = Camera.main.GetComponent<Game>();
-        // if (!game.isOver) {
-        //     isTransform = false;
-        //     enemy.transform.GetChild(0).gameObject.SetActive(false);
-        //     enemy.abilityDur = Random.Range(3f, 10f);
-        //     enemy.GetComponent<Jump>().enabled = true;
-        //     enemy.GetComponent<Abilities>().enabled = false;
-        // }
+        enemy.StartCoroutine(ExplodeMissile(missile));
+        
     }
 
-    private IEnumerator ExplodeMissile(Enemy enemy, GameObject missile) {
+    private IEnumerator ExplodeMissile(GameObject missile) {
         yield return new WaitForSeconds(5f);
         Game game = Camera.main.GetComponent<Game>();
-        if (!game.isOver) {
+        if (!game.isOver && missile != null) {
             GameObject explosion = GameObject.Instantiate(GameObject.Find("MissileExplode"), missile.transform.position, Quaternion.identity);
             explosion.tag = "EnemyObject";
             var main = explosion.GetComponent<ParticleSystem>().main; 
             main.stopAction = ParticleSystemStopAction.Destroy;
             GameObject.Destroy(missile);
-            enemy.StartCoroutine(Idle(enemy, null));
+            enemy.StartCoroutine(Appear());
         }
     }
 
-    public void Skip(Enemy enemy) {
-        isTransform = false;
-        enemy.abilityDur = Random.Range(3f, 10f);
-        enemy.GetComponent<Jump>().enabled = true;
-        enemy.GetComponent<Abilities>().enabled = false;
+    private IEnumerator Appear() {
+        yield return new WaitForSeconds(2f);
+        Game game = Camera.main.GetComponent<Game>();
+        if (!game.isOver) {
+            enemy.transform.GetChild(0).gameObject.SetActive(true);
+            enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+            enemy.GetComponent<BoxCollider2D>().enabled = true;
+            enemy.StartCoroutine(Move());
+        }
+    }
+
+    public void Skip() {
+        // isTransform = false;
+        enemy.GetComponent<BoxCollider2D>().enabled = true;
+        enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+        enemy.StartCoroutine(Move());
+        // enemy.abilityDur = Random.Range(3f, 10f);
+        // enemy.GetComponent<Jump>().enabled = true;
+        // enemy.GetComponent<Abilities>().enabled = false;
     }
 }

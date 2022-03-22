@@ -72,10 +72,14 @@ public class Powerups : MonoBehaviour
                 shieldBar.fillAmount -= 1.0f / shieldDur * Time.unscaledDeltaTime;
                 Physics2D.IgnoreLayerCollision(7, 3);
                 Physics2D.IgnoreLayerCollision(7, 8);
+                Physics2D.IgnoreLayerCollision(7, 6);
+                Physics2D.IgnoreLayerCollision(7, 9);
                 if (shieldBar.fillAmount <= 0f) {
                     isShieldTrigger = false;
                     Physics2D.IgnoreLayerCollision(7, 3, false);
                     Physics2D.IgnoreLayerCollision(7, 8, false);
+                    Physics2D.IgnoreLayerCollision(7, 6, false);
+                    Physics2D.IgnoreLayerCollision(7, 9, false);
                 }
             }
 

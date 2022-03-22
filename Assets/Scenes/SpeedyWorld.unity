@@ -767,7 +767,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7fb815425887847f6be5384580fd4722, type: 3}
   - {fileID: 21300000, guid: b4b476c976d174f0dae16c1b881c48c8, type: 3}
   - {fileID: 21300000, guid: 9a18c1772c1d0436aaf9fce696feb81a, type: 3}
+  worldWidth: 0
+  worldHeight: 0
+  enemyWidth: 0
+  enemyHeight: 0
   colliderName: 
+  currentSide: 
   movement: {fileID: 0}
   jump: {fileID: 0}
   idle: {fileID: 0}
@@ -863,7 +868,10 @@ MonoBehaviour:
   btmBorder: {fileID: 1437986959}
   stickyBomb: {fileID: 0}
   walkingBomb: {fileID: 0}
+  shapeShiftyBomb: {fileID: 0}
+  shapeShiftyMissile: {fileID: 0}
   score: {fileID: 1750680765}
+  powerups: {fileID: 0}
   world: Speedy
 --- !u!1 &177534646
 GameObject:
@@ -2534,6 +2542,7 @@ MonoBehaviour:
   outOfStarPanel: {fileID: 1150208458}
   gameOverPanel: {fileID: 39175509}
   exitConfirmationPanel: {fileID: 491406006}
+  destroyEffect: {fileID: 0}
   isPause: 0
   isOver: 0
 --- !u!114 &519420037
@@ -4514,7 +4523,7 @@ GameObject:
   - component: {fileID: 982328784}
   - component: {fileID: 982328785}
   - component: {fileID: 982328786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7787,6 +7796,7 @@ MonoBehaviour:
   outOfStarPanel: {fileID: 0}
   gameOverPanel: {fileID: 0}
   exitConfirmationPanel: {fileID: 0}
+  destroyEffect: {fileID: 0}
   isPause: 0
   isOver: 0
 --- !u!1 &1903687780
