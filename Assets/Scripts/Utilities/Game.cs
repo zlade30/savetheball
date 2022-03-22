@@ -25,6 +25,8 @@ public class Game : MonoBehaviour
     GameObject gameOverPanel;
     [SerializeField]
     GameObject exitConfirmationPanel;
+    [SerializeField]
+    private GameObject destroyEffect;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -118,6 +120,12 @@ public class Game : MonoBehaviour
         score.enabled = false;
         isOver = true;
         PlayerPrefs.SetFloat(Utils.score, score.score);
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
+        foreach(GameObject obj in enemyObjects) {
+            GameObject.Destroy(obj);
+            GameObject exp = Instantiate(destroyEffect, obj.transform.position, Quaternion.identity);
+            exp.SetActive(true);
+        }
     }
 
     public void Back() {

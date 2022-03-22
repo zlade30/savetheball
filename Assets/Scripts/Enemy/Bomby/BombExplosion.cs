@@ -28,10 +28,5 @@ public class BombExplosion : MonoBehaviour
             exp.name = "Explosion";
             Destroy(gameObject);
         }
-
-        if (game.isOver) {
-            Instantiate(explosion, transform.position, Quaternion.identity).SetActive(true);
-            Destroy(gameObject);
-        }
     }
 }

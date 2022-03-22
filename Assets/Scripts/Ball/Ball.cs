@@ -130,6 +130,15 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			enemy.idle.enabled = false;
 			Utils.ActivateAnimation(Utils.isIdle1, enemy.GetComponent<Animator>());
 			gameObject.SetActive(false);
+		} else if (collider.gameObject.name == "Bullet") {
+			col.enabled = false;
+			isCaught = true;
+			enemy.movement.enabled = false;
+			enemy.abilities.enabled = false;
+			enemy.jump.enabled = false;
+			enemy.idle.enabled = false;
+			gameObject.SetActive(false);
+			game.GameOver();
 		}
 
 		Debug.Log(collider.gameObject.name);

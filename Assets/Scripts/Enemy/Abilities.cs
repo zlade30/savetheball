@@ -13,6 +13,8 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject shapeShiftyBomb;
     [SerializeField]
+    private GameObject shapeShiftyMissile;
+    [SerializeField]
     private Score score;
     private Enemy enemy;
     public string world = "";
@@ -40,7 +42,24 @@ public class Abilities : MonoBehaviour
                 else bomby.SpawnWalkingBomb(enemy, walkingBomb, score);
             }
         } else if (world == "ShapeShifty") {
-            shapeShifty.ShapeShiftyBomb(enemy, shapeShiftyBomb, score);
+            if (enemy.isGrounded) {
+                shapeShifty.ShapeShiftyMissile(enemy, shapeShiftyMissile, toolbar, btmBorder, score);
+                // int choose = Random.Range(0, 10);
+                // switch (choose) {
+                //     case 0:
+                //         shapeShifty.ShapeShiftyBomb(enemy, shapeShiftyBomb, score);
+                //         break;
+                //     case 1:
+                //         shapeShifty.ShapeShiftyMissile(enemy, shapeShiftyMissile, toolbar, btmBorder, score);
+                //         break;
+                //     case 2:
+                //         shapeShifty.Skip(enemy);
+                //         break;
+                //     default:
+                //         shapeShifty.Skip(enemy);
+                //         break;
+                // }
+            }
         }
     }
 }
