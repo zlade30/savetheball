@@ -121,28 +121,27 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			isCaught = true;
 			gameObject.SetActive(false);
 		} else if (collider.gameObject.name == "Explosion") {
-			game.GameOver();
-			col.enabled = false;
-			isCaught = true;
-			enemy.movement.enabled = false;
-			enemy.abilities.enabled = false;
-			enemy.jump.enabled = false;
-			enemy.idle.enabled = false;
 			Utils.ActivateAnimation(Utils.isIdle1, enemy.GetComponent<Animator>());
-			gameObject.SetActive(false);
+			BallCaught();
 		} else if (collider.gameObject.name == "Bullet") {
-			col.enabled = false;
-			isCaught = true;
-			enemy.movement.enabled = false;
-			enemy.abilities.enabled = false;
-			enemy.jump.enabled = false;
-			enemy.idle.enabled = false;
-			gameObject.SetActive(false);
-			game.GameOver();
+			BallCaught();
+		} else if (collider.gameObject.name == "ShapeShiftyMissile") {
+			BallCaught();
 		}
 
 		Debug.Log(collider.gameObject.name);
     }
+
+	void BallCaught() {
+		col.enabled = false;
+		isCaught = true;
+		enemy.movement.enabled = false;
+		enemy.abilities.enabled = false;
+		enemy.jump.enabled = false;
+		enemy.idle.enabled = false;
+		gameObject.SetActive(false);
+		game.GameOver();
+	}
 
 	void Update()
 	{

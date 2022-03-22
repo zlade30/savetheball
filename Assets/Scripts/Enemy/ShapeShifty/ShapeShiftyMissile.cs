@@ -25,4 +25,14 @@ public class ShapeShiftyMissile : MonoBehaviour
         rBody.angularVelocity = -rotationControl * RotateAmount;
         rBody.velocity = transform.up * speed;
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name == "Ball") {
+            GameObject explosion = GameObject.Instantiate(GameObject.Find("MissileExplode"), transform.transform.position, Quaternion.identity);
+            explosion.name = "Explosion";
+            var main = explosion.GetComponent<ParticleSystem>().main; 
+            main.stopAction = ParticleSystemStopAction.Destroy;
+            Destroy(gameObject);
+        }
+    }
 }

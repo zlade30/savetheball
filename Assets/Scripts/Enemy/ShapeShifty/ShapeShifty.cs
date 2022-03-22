@@ -75,7 +75,7 @@ public class ShapeShifty
     }
 
     private IEnumerator Destroy(GameObject bomb) {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Game game = Camera.main.GetComponent<Game>();
         if (!game.isOver && bomb != null) {
             enemy.StartCoroutine(Idle(bomb));
@@ -83,7 +83,7 @@ public class ShapeShifty
     }
 
     private IEnumerator Idle(GameObject bomb) {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Game game = Camera.main.GetComponent<Game>();
         if (!game.isOver && bomb != null) {
             GameObject.Destroy(bomb);
@@ -110,6 +110,7 @@ public class ShapeShifty
         if (!isTransform) {
             GameObject transformEffect;
             GameObject missile = GameObject.Instantiate(shapeShityMissile, enemy.transform.position, Quaternion.identity);
+            missile.name = "ShapeShiftyMissile";
             SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
             Animator animator = enemy.GetComponent<Animator>();
 
@@ -202,6 +203,7 @@ public class ShapeShifty
         if (!game.isOver && missile != null) {
             GameObject explosion = GameObject.Instantiate(GameObject.Find("MissileExplode"), missile.transform.position, Quaternion.identity);
             explosion.tag = "EnemyObject";
+            explosion.name = "Explosion";
             var main = explosion.GetComponent<ParticleSystem>().main; 
             main.stopAction = ParticleSystemStopAction.Destroy;
             GameObject.Destroy(missile);
