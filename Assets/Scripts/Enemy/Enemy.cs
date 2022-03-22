@@ -31,8 +31,8 @@ public class Enemy : MonoBehaviour
     private Sprite[] catch1Sprites;
     [SerializeField]
     private Sprite[] catch2Sprites;
-    private float worldWidth, worldHeight;
-	private float enemyWidth, enemyHeight;
+    public float worldWidth, worldHeight;
+	public float enemyWidth, enemyHeight;
     public string colliderName;
     public string currentSide;
     public Movement movement;

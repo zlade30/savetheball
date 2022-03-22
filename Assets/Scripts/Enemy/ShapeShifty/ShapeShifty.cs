@@ -87,10 +87,11 @@ public class ShapeShifty
             GameObject missile = GameObject.Instantiate(shapeShityMissile, enemy.transform.position, Quaternion.identity);
             SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
             Animator animator = enemy.GetComponent<Animator>();
-            float worldHeight = Camera.main.orthographicSize * 2;
-            float worldWidth = worldHeight * Screen.width / Screen.height;
-            float enemyWidth = enemy.GetComponent<BoxCollider2D>().bounds.size.x;
-            float enemyHeight = enemy.GetComponent<BoxCollider2D>().bounds.size.y;
+
+            Debug.Log("World Height"+ enemy.worldHeight);
+            Debug.Log("World Width"+ enemy.worldWidth);
+            Debug.Log("Enemy Height"+ enemy.enemyHeight);
+            Debug.Log("Enemy Width"+ enemy.enemyWidth);
 
             enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 0);
             enemy.transform.eulerAngles = new Vector3(0f, 0f, 0f);
@@ -121,26 +122,26 @@ public class ShapeShifty
             switch (choose) {
                 // Top
                 case 0:
-                    enemy.transform.position = new Vector2(Random.Range(-(worldWidth / 2) + (enemyWidth / 2), (worldWidth / 2) - (enemyWidth / 2)), (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2));
+                    enemy.transform.position = new Vector2(Random.Range(-(enemy.worldWidth / 2) + (enemy.enemyWidth / 2), (enemy.worldWidth / 2) - (enemy.enemyWidth / 2)), (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2));
                     sprite.flipY = true;
                     Utils.ActivateAnimation(Utils.isIdle2, animator);
                     break;
                 // Bottom
                 case 1:
-                    enemy.transform.position = new Vector2(Random.Range(-(worldWidth / 2) + (enemyWidth / 2), (worldWidth / 2) - (enemyWidth / 2)), (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2));
+                    enemy.transform.position = new Vector2(Random.Range(-(enemy.worldWidth / 2) + (enemy.enemyWidth / 2), (enemy.worldWidth / 2) - (enemy.enemyWidth / 2)), (-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2));
                     sprite.flipY = false;
                     Utils.ActivateAnimation(Utils.isIdle2, animator);
                     break;
                 // Left
                 case 2:
-                    enemy.transform.position = new Vector2(-(worldWidth / 2) + (enemyWidth / 2), Random.Range((-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2), (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)));
+                    enemy.transform.position = new Vector2(-(enemy.worldWidth / 2) + (enemy.enemyWidth / 2), Random.Range((-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2), (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2)));
                     sprite.flipY = false;
                     sprite.flipX = false;
                     Utils.ActivateAnimation(Utils.isIdleSlide, animator);
                     break;
                 // Right
                 case 3:
-                    enemy.transform.position = new Vector2((worldWidth / 2) - (enemyWidth / 2), Random.Range((-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2), (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)));
+                    enemy.transform.position = new Vector2((enemy.worldWidth / 2) - (enemy.enemyWidth / 2), Random.Range((-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2), (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2)));
                     sprite.flipY = false;
                     sprite.flipX = true;
                     Utils.ActivateAnimation(Utils.isIdleSlide, animator);
