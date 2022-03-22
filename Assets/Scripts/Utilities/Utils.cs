@@ -65,6 +65,7 @@ public class Utils {
     public const int world = 3;
     public const int speedyWorld = 4;
     public const int bombyWorld = 5;
+    public const int shapeShifty = 6;
 
     public const string score = "score";
 }

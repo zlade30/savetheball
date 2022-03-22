@@ -24,6 +24,9 @@ public class WorldManager : MonoBehaviour
             case "Bomby":
                 SceneManager.LoadScene(Utils.bombyWorld);
                 break;
+            case "ShapeShifty":
+                SceneManager.LoadScene(Utils.shapeShifty);
+                break;
             default:
                 break;
         }
