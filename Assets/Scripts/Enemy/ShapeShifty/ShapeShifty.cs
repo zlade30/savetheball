@@ -11,11 +11,13 @@ public class ShapeShifty
     private GameObject toolbar;
     private GameObject btmBorder;
     private GameObject shapeShityMissile;
+    private GameObject shapeShiftyGun;
 
     public ShapeShifty(
         Enemy enemy,
         GameObject shapeShiftyBomb,
         GameObject shapeShityMissile,
+        GameObject shapeShiftyGun,
         Score score,
         Powerups powerups,
         GameObject toolbar,
@@ -24,6 +26,7 @@ public class ShapeShifty
         this.enemy = enemy;
         this.shapeShityMissile = shapeShityMissile;
         this.shapeShiftyBomb = shapeShiftyBomb;
+        this.shapeShiftyGun = shapeShiftyGun;
         this.score = score;
         this.powerups = powerups;
         this.toolbar = toolbar;
@@ -34,6 +37,34 @@ public class ShapeShifty
         if (!isTransform) {
             GameObject transformEffect;
             GameObject bomb = GameObject.Instantiate(shapeShiftyBomb, enemy.transform.position, Quaternion.identity);
+            foreach (Transform eachChild in bomb.transform) {
+                if (eachChild.name == "TransformEffect") {
+                    transformEffect = eachChild.gameObject;
+                    transformEffect.SetActive(true);
+                    bomb.SetActive(true);
+                    enemy.StartCoroutine(Explode(bomb));
+                    enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 0);
+                    enemy.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                    if (enemy.currentSide == "Top" || enemy.currentSide == "Bottom") {
+                        Utils.ActivateAnimation(Utils.isIdle1, enemy.GetComponent<Animator>());
+                        if (enemy.currentSide == "Top") enemy.GetComponent<SpriteRenderer>().flipY = true;
+                        else enemy.GetComponent<SpriteRenderer>().flipY = false;
+                    } else {
+                        Utils.ActivateAnimation(Utils.isIdleSlide, enemy.GetComponent<Animator>());
+                        enemy.GetComponent<SpriteRenderer>().flipY = false;
+                        if (enemy.currentSide == "Right") enemy.GetComponent<SpriteRenderer>().flipX = true;
+                        else enemy.GetComponent<SpriteRenderer>().flipX = false;
+                    }
+                }
+            }
+            isTransform = true;
+        }
+    }
+
+    public void ShapeShiftyGun() {
+        if (!isTransform) {
+            GameObject transformEffect;
+            GameObject bomb = GameObject.Instantiate(shapeShiftyGun, enemy.transform.position, Quaternion.identity);
             foreach (Transform eachChild in bomb.transform) {
                 if (eachChild.name == "TransformEffect") {
                     transformEffect = eachChild.gameObject;
@@ -222,7 +253,7 @@ public class ShapeShifty
         }
     }
 
-    public void Skip() {
+    public void FireTrigger() {
         // isTransform = false;
         enemy.GetComponent<BoxCollider2D>().enabled = true;
         enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);

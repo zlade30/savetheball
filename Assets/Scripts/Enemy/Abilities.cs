@@ -15,6 +15,8 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject shapeShiftyMissile;
     [SerializeField]
+    private GameObject shapeShiftyGun;
+    [SerializeField]
     private Score score;
     [SerializeField]
     private Powerups powerups;
@@ -35,6 +37,7 @@ public class Abilities : MonoBehaviour
                 enemy,
                 shapeShiftyBomb,
                 shapeShiftyMissile,
+                shapeShiftyGun,
                 score,
                 powerups,
                 toolbar,
@@ -54,15 +57,18 @@ public class Abilities : MonoBehaviour
                 else bomby.SpawnWalkingBomb(enemy, walkingBomb, score);
             }
         } else if (world == "ShapeShifty") {
-            if (powerups.isFireTrigger) shapeShifty.Skip();
+            if (powerups.isFireTrigger) shapeShifty.FireTrigger();
             if (enemy.isGrounded) {
-                int choose = Random.Range(0, 2);
+                int choose = Random.Range(0, 3);
                 switch (choose) {
                     case 0:
                         shapeShifty.ShapeShiftyBomb();
                         break;
                     case 1:
                         shapeShifty.ShapeShiftyMissile();
+                        break;
+                    case 2:
+                        shapeShifty.ShapeShiftyGun();
                         break;
                 }
             }

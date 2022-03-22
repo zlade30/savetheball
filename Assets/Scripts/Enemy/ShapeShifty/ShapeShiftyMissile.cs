@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShapeShiftyMissile : MonoBehaviour
 {
+    [SerializeField]
+    private Score score;
     public Transform target;
     public float speed;
     public float acceleration;
@@ -19,6 +21,18 @@ public class ShapeShiftyMissile : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate() {
+        if (score.score >= 0 && score.score <= 99f) {
+            speed = 6f;
+        } else if (score.score >= 100f && score.score <= 199f) {
+            speed = 7f;
+        } else if (score.score >= 200f && score.score <= 299f) {
+            speed = 8f;
+        } else if (score.score >= 300f && score.score <= 399f) {
+            speed = 9f;
+        } else {
+            speed = 10f;
+        }
+
         Vector2 direction = (Vector2) target.position - rBody.position;
         direction.Normalize();
         float RotateAmount = Vector3.Cross(direction, transform.up).z;
