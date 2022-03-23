@@ -72,17 +72,47 @@ public class Ninjy
 
     private IEnumerator CastCloneTechnique() {
         yield return new WaitForSeconds(1f);
-        GameObject explosion = GameObject.Find("Explosion");
-        GameObject explode = GameObject.Instantiate(explosion, enemy.transform.position, Quaternion.identity);
-        var main = explode.GetComponent<ParticleSystem>().main; 
-        main.stopAction = ParticleSystemStopAction.Destroy;
         enemy.StartCoroutine(ActivateClone());
     }
 
     private IEnumerator ActivateClone() {
-        yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < 3; i++) {
-            GameObject clone = GameObject.Instantiate(ninjyClone, enemy.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < 2; i++) {
+            int choose = Random.Range(0, 4);
+            Vector2 position = new Vector2(0f, 0f);
+            float y;
+            float x;
+            switch (choose) {
+                case 0:
+                    y = (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2);
+                    x = Random.Range(-(enemy.worldWidth / 2) + (enemy.enemyWidth / 2), (enemy.worldWidth / 2) - (enemy.enemyWidth / 2));
+                    position = new Vector2(x, y);
+                    break;
+                case 1:
+                    y = (-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2);
+                    x = Random.Range(-(enemy.worldWidth / 2) + (enemy.enemyWidth / 2), (enemy.worldWidth / 2) - (enemy.enemyWidth / 2));
+                    position = new Vector2(x, y);
+                    break;
+                case 2:
+                    x = -(enemy.worldWidth / 2) + (enemy.enemyWidth / 2);
+                    y = Random.Range((-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2), (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2));
+                    position = new Vector2(x, y);
+                    break;
+                case 3:
+                    x = (enemy.worldWidth / 2) - (enemy.enemyWidth / 2);
+                    y = Random.Range((-(enemy.worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemy.enemyHeight / 2), (enemy.worldHeight / 2) - toolbar.transform.lossyScale.y - (enemy.enemyHeight / 2));
+                    position = new Vector2(x, y);
+                    break;
+                default:
+                    break;
+            }
+
+            GameObject explosion = GameObject.Find("Explosion");
+            GameObject explode = GameObject.Instantiate(explosion, position, Quaternion.identity);
+            var main = explode.GetComponent<ParticleSystem>().main; 
+            main.stopAction = ParticleSystemStopAction.Destroy;
+
+            GameObject clone = GameObject.Instantiate(ninjyClone, position, Quaternion.identity);
             clone.name = "NinjyClone";
             clone.tag = "EnemyObject";
             clone.SetActive(true);
@@ -143,15 +173,15 @@ public class Ninjy
         if (score.score >= 0 && score.score <= 99f) {
             shurikenCount = 3;
         } else if (score.score >= 100f && score.score <= 199f) {
-            shurikenCount = 4;
+            shurikenCount = 3;
         } else if (score.score >= 200f && score.score <= 299f) {
-            shurikenCount = 5;
+            shurikenCount = 4;
         } else if (score.score >= 300f && score.score <= 399f) {
-            shurikenCount = 6;
+            shurikenCount = 4;
         } else if (score.score >= 400f && score.score <= 499f) {
-            shurikenCount = 7;
+            shurikenCount = 5;
         } else {
-            shurikenCount = 8;
+            shurikenCount = 6;
         }
 
         for (int i = 0; i < shurikenCount; i++) {

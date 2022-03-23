@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShapeShiftyWorld.unity
     guid: b703f50f198b645d58f68ce884b07859
+  - enabled: 1
+    path: Assets/Scenes/NinjyWorld.unity
+    guid: cf145347be65e4a599d69f61ed9baf78
   m_configObjects: {}

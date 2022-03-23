@@ -28,22 +28,22 @@ public class RadialShuriken : MonoBehaviour
     void Update()
     {
         if (score.score >= 0 && score.score <= 99f) {
-            moveSpeed = 5f;
+            moveSpeed = 4f;
             rotationSpeed = 700f;
         } else if (score.score >= 100f && score.score <= 199f) {
-            moveSpeed = 6f;
+            moveSpeed = 5f;
             rotationSpeed = 750f;
         } else if (score.score >= 200f && score.score <= 299f) {
-            moveSpeed = 7f;
+            moveSpeed = 6f;
             rotationSpeed = 800f;
         } else if (score.score >= 300f && score.score <= 399f) {
-            moveSpeed = 8f;
+            moveSpeed = 7f;
             rotationSpeed = 850f;
         } else if (score.score >= 400f && score.score <= 499f) {
-            moveSpeed = 9f;
+            moveSpeed = 8f;
             rotationSpeed = 900f;
         } else {
-            moveSpeed = 10f;
+            moveSpeed = 9f;
             rotationSpeed = 950f;
         }
 
