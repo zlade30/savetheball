@@ -36,6 +36,17 @@ public class Leaderboard : MonoBehaviour
                 break;
         }
 
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+            FetchLeaderBoard();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void FetchLeaderBoard() {
         Query allCitiesQuery = db.Collection(table).OrderByDescending("score").Limit(20);
         Dictionary<string, object> list;
 
@@ -67,34 +78,6 @@ public class Leaderboard : MonoBehaviour
                     x++;
                 }
                 i++;
-            }
-        });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void FetchLeaderBoard() {
-        Query allCitiesQuery = db.Collection(Utils.speedyCollection);
-        allCitiesQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-        {
-            QuerySnapshot allCitiesQuerySnapshot = task.Result;
-            foreach (DocumentSnapshot documentSnapshot in allCitiesQuerySnapshot.Documents)
-            {
-                Debug.Log("Document data for {0} document:"+ documentSnapshot.Id);
-                Dictionary<string, object> city = documentSnapshot.ToDictionary();
-                foreach (KeyValuePair<string, object> pair in city)
-                {
-                    string key = pair.Key;
-                    object value = pair.Value;
-                    Debug.Log("Value"+ pair.Value);
-                }
-
-                // Newline to separate entries
-                Debug.Log("");
             }
         });
     }

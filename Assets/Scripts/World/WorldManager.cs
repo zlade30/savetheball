@@ -23,7 +23,8 @@ public class WorldManager : MonoBehaviour
         db = FirebaseFirestore.DefaultInstance;
         HandlePlayerNamePanel();
         ClearAllCurrentScore();
-        CheckName();
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+            CheckName();
     }
 
     // Update is called once per frame
@@ -73,18 +74,20 @@ public class WorldManager : MonoBehaviour
         if (nameField.text == "") {
             errorText.gameObject.SetActive(true);
         } else {
-            Dictionary<string, object> city = new Dictionary<string, object>
-            {
-                    { "name", nameField.text },
-                    { "score", "0" }
-            };
-            db.Collection(Utils.userCollection).AddAsync(city).ContinueWithOnMainThread(task => {
-                if (task.IsCompleted) {
-                    DocumentReference addedDocRef = task.Result;
-                    Debug.Log("Added user with ID: {0}."+ addedDocRef.Id);
-                    PlayerPrefs.SetString(Utils.userId, addedDocRef.Id);
-                }
-            });
+            if (Application.internetReachability != NetworkReachability.NotReachable) {
+                Dictionary<string, object> city = new Dictionary<string, object>
+                {
+                        { "name", nameField.text },
+                        { "score", "0" }
+                };
+                db.Collection(Utils.userCollection).AddAsync(city).ContinueWithOnMainThread(task => {
+                    if (task.IsCompleted) {
+                        DocumentReference addedDocRef = task.Result;
+                        Debug.Log("Added user with ID: {0}."+ addedDocRef.Id);
+                        PlayerPrefs.SetString(Utils.userId, addedDocRef.Id);
+                    }
+                });
+            }
             PlayerPrefs.SetString(Utils.userName, nameField.text);
             PlayerPrefs.SetInt(Utils.didPlayerSubmitName, 1);
             playerNamePanel.SetActive(false);
@@ -114,4 +117,12 @@ public class WorldManager : MonoBehaviour
     public void GoBack() {
         SceneManager.LoadScene(Utils.mainMenu);
     }
+
+    // private void OnApplicationQuit() {
+    //     FirebaseFirestore.DefaultInstance.App.Dispose();
+    // }
+
+    // private void OnDestroy() {
+    //     FirebaseFirestore.DefaultInstance.App.Dispose();
+    // }
 }

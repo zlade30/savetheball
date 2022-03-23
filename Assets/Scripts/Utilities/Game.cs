@@ -25,7 +25,11 @@ public class Game : MonoBehaviour
     [SerializeField]
     GameObject gameOverPanel;
     [SerializeField]
+    GameObject leaderBoard;
+    [SerializeField]
     GameObject leaderBoardPanel;
+    [SerializeField]
+    GameObject leaderBoardNetworkPanel;
     [SerializeField]
     GameObject exitConfirmationPanel;
     [SerializeField]
@@ -137,9 +141,6 @@ public class Game : MonoBehaviour
             exp.SetActive(true);
         }
 
-
-        yourScore.text = score.score.ToString("00000");
-
         float highScore = 0f;
         int world = PlayerPrefs.GetInt(Utils.currentWorld);
         switch (world) {
@@ -162,15 +163,19 @@ public class Game : MonoBehaviour
 
     void HandleScores(float highScore, string newHighScore, string currentScore, string collection) {
         highScore = PlayerPrefs.GetFloat(newHighScore);
+        if (score.score > highScore) {
+            PlayerPrefs.SetFloat(newHighScore, score.score);
+            yourHighScore.text = score.score.ToString("00000");
+        } else {
+            yourHighScore.text = highScore.ToString("00000");
+        }
+
         if (highScore == 0f) {
             PlayerPrefs.SetFloat(newHighScore, score.score);
             yourHighScore.text = score.score.ToString("00000");
         }
 
-        if (score.score > highScore) {
-            PlayerPrefs.SetFloat(newHighScore, score.score);
-            yourHighScore.text = score.score.ToString("00000");
-        }
+        yourScore.text = score.score.ToString("00000");
         
         PlayerPrefs.SetFloat(currentScore, score.score);
         string userId = PlayerPrefs.GetString(Utils.userId);
@@ -178,7 +183,7 @@ public class Game : MonoBehaviour
 
         Debug.Log(userId);
 
-        if (userId != "") {
+        if (userId != "" && score.score > highScore) {
             DocumentReference docRef = db.Collection(collection).Document(userId);
             Dictionary<string, object> update = new Dictionary<string, object>
             {
@@ -204,7 +209,15 @@ public class Game : MonoBehaviour
     }
 
     public void ShowLeaderBoard() {
-        leaderBoardPanel.SetActive(true);
+        leaderBoard.SetActive(true);
+        if (Application.internetReachability != NetworkReachability.NotReachable) {
+            leaderBoardPanel.SetActive(true);
+            leaderBoardNetworkPanel.SetActive(false);
+        } else {
+            leaderBoardPanel.SetActive(false);
+            leaderBoardNetworkPanel.SetActive(true);
+        }
+            
     }
 
     public void WatchRewardedAds() {
@@ -232,7 +245,9 @@ public class Game : MonoBehaviour
         outOfLifePanel.SetActive(false);
         outOfStarPanel.SetActive(false);
         exitConfirmationPanel.SetActive(false);
+        leaderBoard.SetActive(false);
         leaderBoardPanel.SetActive(false);
+        leaderBoardNetworkPanel.SetActive(false);
     }
 
     // public void OnPointerClick(PointerEventData eventData)
