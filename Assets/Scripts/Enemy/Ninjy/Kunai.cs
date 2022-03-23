@@ -69,7 +69,7 @@ public class Kunai : MonoBehaviour
         GameObject explosion = GameObject.Find("Explosion");
         GameObject explode = GameObject.Instantiate(explosion, transform.position, Quaternion.identity);
         explode.name = "Explosion";
-        explode.transform.localScale = new Vector2(3f, 3f);
+        explode.transform.localScale = new Vector2(2.5f, 2.5f);
         var main = explode.GetComponent<ParticleSystem>().main; 
         main.stopAction = ParticleSystemStopAction.Destroy;
         Destroy(gameObject);
