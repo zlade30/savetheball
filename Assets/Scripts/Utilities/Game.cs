@@ -35,7 +35,6 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -67,11 +66,18 @@ public class Game : MonoBehaviour
             int value = PlayerPrefs.GetInt(Utils.life);
             --value;
             PlayerPrefs.SetInt(Utils.life, value);
-            PlayerPrefs.SetFloat(Utils.score, 0);
+            ClearAllCurrentScore();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } else {
             OutOfLife();
         }
+    }
+
+    void ClearAllCurrentScore() {
+        PlayerPrefs.SetFloat(Utils.speedyScore, 0);
+        PlayerPrefs.SetFloat(Utils.bombyScore, 0);
+        PlayerPrefs.SetFloat(Utils.shapeShiftyScore, 0);
+        PlayerPrefs.SetFloat(Utils.ninjyScore, 0);
     }
 
     public void Pause()
@@ -119,12 +125,43 @@ public class Game : MonoBehaviour
         yourScore.text = score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
-        PlayerPrefs.SetFloat(Utils.score, score.score);
+
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
         foreach(GameObject obj in enemyObjects) {
             GameObject.Destroy(obj);
             GameObject exp = Instantiate(destroyEffect, obj.transform.position, Quaternion.identity);
             exp.SetActive(true);
+        }
+
+        float highScore = 0f;
+        int world = PlayerPrefs.GetInt(Utils.currentWorld);
+        switch (world) {
+            case Utils.bombyWorld:
+                highScore = PlayerPrefs.GetFloat(Utils.bombyHighScore);
+                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.bombyHighScore, score.score);
+                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.bombyHighScore, score.score);
+                PlayerPrefs.SetFloat(Utils.bombyScore, score.score);
+                break;
+            case Utils.ninjyWorld:
+                highScore = PlayerPrefs.GetFloat(Utils.ninjyHighScore);
+                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.ninjyHighScore, score.score);
+                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.ninjyHighScore, score.score);
+                PlayerPrefs.SetFloat(Utils.ninjyScore, score.score);
+                break;
+            case Utils.speedyWorld:
+                highScore = PlayerPrefs.GetFloat(Utils.speedyHighScore);
+                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.speedyHighScore, score.score);
+                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.speedyHighScore, score.score);
+                PlayerPrefs.SetFloat(Utils.speedyScore, score.score);
+                break;
+            case Utils.shapeShiftyWorld:
+                highScore = PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore);
+                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.shapeShiftyHighScore, score.score);
+                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.shapeShiftyHighScore, score.score);
+                PlayerPrefs.SetFloat(Utils.shapeShiftyScore, score.score);
+                break;
+            default:
+                break;
         }
     }
 

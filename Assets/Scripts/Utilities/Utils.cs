@@ -69,4 +69,20 @@ public class Utils {
     public const int ninjyWorld = 7;
 
     public const string score = "score";
+    public const string highScore = "score";
+
+    public const string speedyScore = "speedyScore";
+    public const string bombyScore = "bombyScore";
+    public const string shapeShiftyScore = "shapeShiftyScore";
+    public const string ninjyScore = "ninjyScore";
+    public const string speedyHighScore = "speedyHighScore";
+    public const string bombyHighScore = "bombyHighScore";
+    public const string shapeShiftyHighScore = "shapeShiftyHighScore";
+    public const string ninjyHighScore = "ninjyHighScore";
+
+    public const string didPlayerSubmitName = "didPlayerSubmitName";
+    public const string currentWorld = "currentWorld";
+    public const string userCollection = "users";
+    public const string userId = "userId";
+    public const string userName = "userName";
 }
