@@ -1216,6 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635aebc87ceb94b55973997292a1daf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 982328781}
   isJump: 0
   isIdle: 0
   jumpDur: 3
@@ -1339,6 +1340,7 @@ MonoBehaviour:
   shapeShiftyBomb: {fileID: 1471807233}
   shapeShiftyMissile: {fileID: 264477152}
   shapeShiftyGun: {fileID: 203135566}
+  ninjyClone: {fileID: 0}
   score: {fileID: 1750680765}
   powerups: {fileID: 94427712}
   world: ShapeShifty
@@ -10909,6 +10911,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e96ccd34a59a94a9c97368713b2a9f29, type: 3}
   - {fileID: 21300000, guid: 41235a3f5e2db438eb6f1fe3fb449eae, type: 3}
   - {fileID: 21300000, guid: b223b15591bff4727b44d0eca5460d91, type: 3}
+  ballCollidedBy: 
 --- !u!212 &982328782
 SpriteRenderer:
   m_ObjectHideFlags: 0

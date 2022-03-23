@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61cb9bd878ba74044817d8864d9daf37
+guid: 10665834b5cdd42cbb7c1c9df2fbbd05
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ninjy_idle1_0
+      name: ninjy_run_side_sprites_unity_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62c357aabf7794383921396f4189cdd7
-      internalID: -1436033522
+      spriteID: 3b9c3f2deb0d3498ba7a7ef2d05fbc53
+      internalID: -2054100181
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ninjy_idle1_1
+      name: ninjy_run_side_sprites_unity_1
       rect:
         serializedVersion: 2
         x: 100
@@ -163,8 +163,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e15762ceab1e434ea91c699dbbef068
-      internalID: -1246901537
+      spriteID: a68da3dfd6e6a4ad7a6a85a1a8db2a9d
+      internalID: -1160167138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninjy_run_side_sprites_unity_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 100
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38330bc3109f44632957b11b44d2f464
+      internalID: -440594168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninjy_run_side_sprites_unity_3
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 100
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dbc90edccc2446ca88e00fa4862d6e9
+      internalID: 1329278647
       vertices: []
       indices: 
       edges: []
@@ -180,8 +222,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ninjy_idle1_1: -1246901537
-      ninjy_idle1_0: -1436033522
+      ninjy_run_side_sprites_unity_0: -2054100181
+      ninjy_run_side_sprites_unity_1: -1160167138
+      ninjy_run_side_sprites_unity_2: -440594168
+      ninjy_run_side_sprites_unity_3: 1329278647
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

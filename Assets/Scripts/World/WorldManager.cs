@@ -25,7 +25,10 @@ public class WorldManager : MonoBehaviour
                 SceneManager.LoadScene(Utils.bombyWorld);
                 break;
             case "ShapeShifty":
-                SceneManager.LoadScene(Utils.shapeShifty);
+                SceneManager.LoadScene(Utils.shapeShiftyWorld);
+                break;
+            case "Ninjy":
+                SceneManager.LoadScene(Utils.ninjyWorld);
                 break;
             default:
                 break;

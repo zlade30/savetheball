@@ -55,6 +55,8 @@ public class Powerups : MonoBehaviour
                     GameObject.Destroy(obj);
                     GameObject exp = Instantiate(destroyEffect, obj.transform.position, Quaternion.identity);
                     exp.SetActive(true);
+                    var main = exp.GetComponent<ParticleSystem>().main; 
+                    main.stopAction = ParticleSystemStopAction.Destroy;
                 }
                 if (fireBar.fillAmount <= 0f) isFireTrigger = false;
             }

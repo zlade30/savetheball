@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public class NinjyClone : MonoBehaviour
 {
-    [SerializeField]
-    private Ball ball;
     [SerializeField]
     bool isJump = false;
     [SerializeField]
@@ -14,7 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     public float abilityDur { set; get; } = maxAbilityDur;
     [SerializeField]
-    static float maxJumpDur = 5f;
+    static float maxJumpDur = 1.5f;
     [SerializeField]
     float jumpDur = maxJumpDur;
     [SerializeField]
@@ -42,14 +40,12 @@ public class Enemy : MonoBehaviour
     public Idle idle;
     private bool isBallCaught = false;
     private bool isBallJumpCaught = false;
-    public bool isInit { set; get; } = false;
     public bool isGrounded = false;
     public bool isAbilityCast = false;
     private Animator animator;
     private SpriteRenderer sprite;
     private Rigidbody2D rBody;
     private Game game;
-    public Abilities abilities;
     void Start()
     {
         movement = GetComponent<Movement>();
@@ -63,8 +59,6 @@ public class Enemy : MonoBehaviour
 		worldWidth = worldHeight * Screen.width / Screen.height;
 		enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        abilities = GetComponent<Abilities>();
-        StartCoroutine(FadeIn());
     }
 
     void HandleJumpCaught(string colliderName)
@@ -101,7 +95,6 @@ public class Enemy : MonoBehaviour
             jump.enabled = false;
             idle.enabled = false;
             movement.enabled = false;
-            abilities.enabled = false;
             rBody.simulated = false;
             game.GameOver();
         }
@@ -110,11 +103,9 @@ public class Enemy : MonoBehaviour
             isBallCaught = true;
             jump.enabled = true;
         }   else {
-            if (isInit) {
-                jump.enabled = false;
-                movement.enabled = true;
-                isGrounded = true;
-            }
+            jump.enabled = false;
+            movement.enabled = true;
+            isGrounded = true;
         }
     }
 
@@ -142,7 +133,6 @@ public class Enemy : MonoBehaviour
                 idle.enabled = false;
                 movement.enabled = false;
                 jump.enabled = false;
-                abilities.enabled = false;
                 game.GameOver();
             } else {
                 HandleCatch1Animation();
@@ -151,11 +141,8 @@ public class Enemy : MonoBehaviour
         } else {
             currentSide = colliderName;
             isGrounded = true;
-            
-            if (isInit) {
-                movement.enabled = true;
-                jump.enabled = false;
-            }
+            movement.enabled = true;
+            jump.enabled = false;
 
             if (isBallJumpCaught) {
                 if (currentSide == "Top" || currentSide == "Bottom")
@@ -189,7 +176,6 @@ public class Enemy : MonoBehaviour
                 idle.enabled = false;
                 movement.enabled = false;
                 jump.enabled = false;
-                abilities.enabled = false;
                 game.GameOver();
             }
         }
@@ -249,46 +235,14 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isInit) 
-            transform.position = new Vector2(transform.position.x, (-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2));
-        else {
-            if (!game.isOver) {
-                AbilitiesDur();
-                if (abilities.enabled) {
-                    Abilities();
-                } else {
-                    IdleDur();
-                    HandleJumpDur();
-                    if (jump.enabled) Jump();
-                    if (movement.enabled) Movement();
-                    if (idle.enabled) Idle();
-                }
-            } else {
-                sprite.color = new Color32(255, 255, 255, 255);
-                abilities.enabled = false;
-                movement.enabled = false;
-                idle.enabled = false;
-                jump.enabled = false;
-
-                if (ball.ballCollidedBy != "Enemy") {
-                    switch (currentSide) {
-                        case "Top":
-                            Utils.ActivateAnimation(Utils.isIdle2, animator);
-                            break;
-                        case "Bottom":
-                            Utils.ActivateAnimation(Utils.isIdle2, animator);
-                            break;
-                        case "Left":
-                            Utils.ActivateAnimation(Utils.isIdleSlide, animator);
-                            break;
-                        case "Right":
-                            Utils.ActivateAnimation(Utils.isIdleSlide, animator);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+        if (!game.isOver) {
+            IdleDur();
+            HandleJumpDur();
+            if (jump.enabled) Jump();
+            if (movement.enabled) Movement();
+            if (idle.enabled) Idle();
+        } else {
+            sprite.color = new Color32(255, 255, 255, 255);
         }
     }
 
@@ -297,7 +251,7 @@ public class Enemy : MonoBehaviour
         jumpDur -= Time.deltaTime;
         if (jumpDur <= 0f) {
             jump.enabled = true;
-            jumpDur = Random.Range(1f, maxJumpDur);
+            jumpDur = maxJumpDur;
         }
     }
 
@@ -310,25 +264,9 @@ public class Enemy : MonoBehaviour
                 idle.enabled = true;
                 jump.enabled = false;
                 movement.enabled = false;
-                abilities.enabled = false;
             } 
             idleDur = Random.Range(1f, maxIdleDur);
         }
-    }
-    
-    void AbilitiesDur()
-    {
-        abilityDur -= Time.deltaTime;
-        if (abilityDur <= 0f && isGrounded) {
-            abilities.enabled = true;
-        }
-    }
-
-    void Abilities()
-    {
-        movement.enabled = false;
-        idle.enabled = false;
-        jump.enabled = false;
     }
 
     void Idle()
@@ -349,7 +287,6 @@ public class Enemy : MonoBehaviour
         if (jump.enabled) {
             movement.enabled = false;
             idle.enabled = false;
-            abilities.enabled = false;
             isGrounded = false;
         }
     }
@@ -359,41 +296,7 @@ public class Enemy : MonoBehaviour
         if (movement.enabled) {
             jump.enabled = false;
             idle.enabled = false;
-            abilities.enabled = false;
             isGrounded = true;
         }
-    }
-
-    private IEnumerator FadeOut()
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
-
-        while (sprite.color.a > 0)
-        {
-            alphaVal -= 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-
-            yield return new WaitForSeconds(0.01f); // update interval
-        }
-    }
-
-    private IEnumerator FadeIn()
-    {
-        float alphaVal = sprite.color.a;
-        Color tmp = sprite.color;
-
-        while (sprite.color.a < 1)
-        {
-            alphaVal += 0.01f;
-            tmp.a = alphaVal;
-            sprite.color = tmp;
-
-            yield return new WaitForSeconds(0.01f); // update interval
-        }
-
-        isInit = true;
-        movement.enabled = true;
     }
 }

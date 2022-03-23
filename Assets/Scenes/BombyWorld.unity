@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635aebc87ceb94b55973997292a1daf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 982328781}
   isJump: 0
   isIdle: 0
   jumpDur: 3
@@ -767,6 +768,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e707ad56e3ec44ea5b7216a2ceb4e35e, type: 3}
   - {fileID: 21300000, guid: 3f2a0264834914bf4aa758d9028664f2, type: 3}
   - {fileID: 21300000, guid: 65a21ede89c394a989d4f775d5268a13, type: 3}
+  worldWidth: 0
+  worldHeight: 0
+  enemyWidth: 0
+  enemyHeight: 0
   colliderName: 
   currentSide: 
   movement: {fileID: 0}
@@ -839,7 +844,11 @@ MonoBehaviour:
   stickyBomb: {fileID: 511324862}
   walkingBomb: {fileID: 759509889}
   shapeShiftyBomb: {fileID: 0}
+  shapeShiftyMissile: {fileID: 0}
+  shapeShiftyGun: {fileID: 0}
+  ninjyClone: {fileID: 0}
   score: {fileID: 0}
+  powerups: {fileID: 0}
   world: Bomby
 --- !u!61 &138799489
 BoxCollider2D:
@@ -4710,6 +4719,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e96ccd34a59a94a9c97368713b2a9f29, type: 3}
   - {fileID: 21300000, guid: 41235a3f5e2db438eb6f1fe3fb449eae, type: 3}
   - {fileID: 21300000, guid: b223b15591bff4727b44d0eca5460d91, type: 3}
+  ballCollidedBy: 
 --- !u!212 &982328782
 SpriteRenderer:
   m_ObjectHideFlags: 0

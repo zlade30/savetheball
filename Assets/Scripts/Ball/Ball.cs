@@ -24,6 +24,7 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 	private Powerups powerups;
 	[SerializeField]
 	private Sprite[] sprites;
+	public string ballCollidedBy = "";
 
 
     // Start is called before the first frame update
@@ -116,7 +117,7 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 
 	void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.name == "Enemy") {
+        if (collider.gameObject.name == "Enemy" || collider.gameObject.name == "NinjyClone") {
 			col.enabled = false;
 			isCaught = true;
 			gameObject.SetActive(false);
@@ -129,7 +130,7 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			BallCaught();
 		}
 
-		Debug.Log(collider.gameObject.name);
+		ballCollidedBy = collider.gameObject.name;
     }
 
 	void BallCaught() {

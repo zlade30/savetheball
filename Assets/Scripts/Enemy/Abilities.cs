@@ -17,6 +17,8 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject shapeShiftyGun;
     [SerializeField]
+    private GameObject ninjyClone;
+    [SerializeField]
     private Score score;
     [SerializeField]
     private Powerups powerups;
@@ -25,6 +27,7 @@ public class Abilities : MonoBehaviour
     private SpeedyAbility speedy;
     private BombyAbility bomby;
     private ShapeShifty shapeShifty;
+    private Ninjy ninjy;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,15 @@ public class Abilities : MonoBehaviour
                 shapeShiftyBomb,
                 shapeShiftyMissile,
                 shapeShiftyGun,
+                score,
+                powerups,
+                toolbar,
+                btmBorder
+            );
+        } else if (world == "Ninjy") {
+            ninjy = new Ninjy(
+                enemy,
+                ninjyClone,
                 score,
                 powerups,
                 toolbar,
@@ -71,6 +83,10 @@ public class Abilities : MonoBehaviour
                         shapeShifty.ShapeShiftyGun();
                         break;
                 }
+            }
+        } else if (world == "Ninjy") {
+            if (enemy.isGrounded) {
+                ninjy.SpawnClone();
             }
         }
     }
