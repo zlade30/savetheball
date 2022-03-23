@@ -34,6 +34,6 @@ public class Score : MonoBehaviour
     void Update()
     {
         score += Time.unscaledDeltaTime * 5f;
-        text.text = score.ToString("0000");
+        text.text = score.ToString("00000");
     }
 }

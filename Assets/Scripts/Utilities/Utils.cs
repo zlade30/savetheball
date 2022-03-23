@@ -85,4 +85,8 @@ public class Utils {
     public const string userCollection = "users";
     public const string userId = "userId";
     public const string userName = "userName";
+    public const string speedyCollection = "speedy";
+    public const string bombyCollection = "bomby";
+    public const string shapeShiftyCollection = "shapeShifty";
+    public const string ninjyCollection = "ninjy";
 }

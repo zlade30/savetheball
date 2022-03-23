@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Collections;
+using Firebase.Firestore;
+using Firebase.Extensions;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI highScore;
+    private TextMeshProUGUI yourHighScore;
     [SerializeField]
     private TextMeshProUGUI yourScore;
     [SerializeField]
@@ -24,6 +25,8 @@ public class Game : MonoBehaviour
     [SerializeField]
     GameObject gameOverPanel;
     [SerializeField]
+    GameObject leaderBoardPanel;
+    [SerializeField]
     GameObject exitConfirmationPanel;
     [SerializeField]
     private GameObject destroyEffect;
@@ -31,10 +34,12 @@ public class Game : MonoBehaviour
     public bool isOver = false;
     private float resumeCD = 3.0f;
     private bool isResume = false;
+    private FirebaseFirestore db;
 
     // Start is called before the first frame update
     void Start()
     {
+        db = FirebaseFirestore.DefaultInstance;
     }
 
     // Update is called once per frame
@@ -122,7 +127,6 @@ public class Game : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
-        yourScore.text = score.score.ToString("0000");
         score.enabled = false;
         isOver = true;
 
@@ -133,35 +137,56 @@ public class Game : MonoBehaviour
             exp.SetActive(true);
         }
 
+
+        yourScore.text = score.score.ToString("00000");
+
         float highScore = 0f;
         int world = PlayerPrefs.GetInt(Utils.currentWorld);
         switch (world) {
             case Utils.bombyWorld:
-                highScore = PlayerPrefs.GetFloat(Utils.bombyHighScore);
-                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.bombyHighScore, score.score);
-                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.bombyHighScore, score.score);
-                PlayerPrefs.SetFloat(Utils.bombyScore, score.score);
+                HandleScores(highScore, Utils.bombyHighScore, Utils.bombyScore, Utils.bombyCollection);
                 break;
             case Utils.ninjyWorld:
-                highScore = PlayerPrefs.GetFloat(Utils.ninjyHighScore);
-                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.ninjyHighScore, score.score);
-                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.ninjyHighScore, score.score);
-                PlayerPrefs.SetFloat(Utils.ninjyScore, score.score);
+                HandleScores(highScore, Utils.ninjyHighScore, Utils.ninjyScore, Utils.ninjyCollection);
                 break;
             case Utils.speedyWorld:
-                highScore = PlayerPrefs.GetFloat(Utils.speedyHighScore);
-                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.speedyHighScore, score.score);
-                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.speedyHighScore, score.score);
-                PlayerPrefs.SetFloat(Utils.speedyScore, score.score);
+                HandleScores(highScore, Utils.speedyHighScore, Utils.speedyScore, Utils.speedyCollection);
                 break;
             case Utils.shapeShiftyWorld:
-                highScore = PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore);
-                if (highScore == 0f) PlayerPrefs.SetFloat(Utils.shapeShiftyHighScore, score.score);
-                if (score.score > highScore) PlayerPrefs.SetFloat(Utils.shapeShiftyHighScore, score.score);
-                PlayerPrefs.SetFloat(Utils.shapeShiftyScore, score.score);
+                HandleScores(highScore, Utils.shapeShiftyHighScore, Utils.shapeShiftyScore, Utils.shapeShiftyCollection);
                 break;
             default:
                 break;
+        }
+    }
+
+    void HandleScores(float highScore, string newHighScore, string currentScore, string collection) {
+        highScore = PlayerPrefs.GetFloat(newHighScore);
+        if (highScore == 0f) {
+            PlayerPrefs.SetFloat(newHighScore, score.score);
+            yourHighScore.text = score.score.ToString("00000");
+        }
+
+        if (score.score > highScore) {
+            PlayerPrefs.SetFloat(newHighScore, score.score);
+            yourHighScore.text = score.score.ToString("00000");
+        }
+        
+        PlayerPrefs.SetFloat(currentScore, score.score);
+        string userId = PlayerPrefs.GetString(Utils.userId);
+        string userName = PlayerPrefs.GetString(Utils.userName);
+
+        Debug.Log(userId);
+
+        if (userId != "") {
+            DocumentReference docRef = db.Collection(collection).Document(userId);
+            Dictionary<string, object> update = new Dictionary<string, object>
+            {
+                { "name", userName },
+                { "score", score.score.ToString("00000") },
+
+            };
+            docRef.SetAsync(update, SetOptions.MergeAll);
         }
     }
 
@@ -176,6 +201,10 @@ public class Game : MonoBehaviour
         } else {
             OutOfLife();
         }
+    }
+
+    public void ShowLeaderBoard() {
+        leaderBoardPanel.SetActive(true);
     }
 
     public void WatchRewardedAds() {
@@ -203,6 +232,7 @@ public class Game : MonoBehaviour
         outOfLifePanel.SetActive(false);
         outOfStarPanel.SetActive(false);
         exitConfirmationPanel.SetActive(false);
+        leaderBoardPanel.SetActive(false);
     }
 
     // public void OnPointerClick(PointerEventData eventData)

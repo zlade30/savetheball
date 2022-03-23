@@ -94,7 +94,8 @@ public class WorldManager : MonoBehaviour
 
     public void CheckName() {
         string name = PlayerPrefs.GetString(Utils.userName);
-        if (name != "") {
+        string userId = PlayerPrefs.GetString(Utils.userId);
+        if (name != "" && userId == "") {
             Dictionary<string, object> city = new Dictionary<string, object>
             {
                     { "name", name },
