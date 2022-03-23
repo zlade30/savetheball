@@ -128,6 +128,8 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			BallCaught();
 		} else if (collider.gameObject.name == "ShapeShiftyMissile") {
 			BallCaught();
+		} else if (collider.gameObject.name == "Shuriken" || collider.gameObject.name == "Kunai") {
+			BallCaught();
 		}
 
 		ballCollidedBy = collider.gameObject.name;

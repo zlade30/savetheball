@@ -21,6 +21,8 @@ public class Abilities : MonoBehaviour
     [SerializeField]
     private GameObject shuriken;
     [SerializeField]
+    private GameObject kunai;
+    [SerializeField]
     private Score score;
     [SerializeField]
     private Powerups powerups;
@@ -53,6 +55,7 @@ public class Abilities : MonoBehaviour
                 enemy,
                 ninjyClone,
                 shuriken,
+                kunai,
                 score,
                 powerups,
                 toolbar,
@@ -90,8 +93,18 @@ public class Abilities : MonoBehaviour
         } else if (world == "Ninjy") {
             if (powerups.isFireTrigger) ninjy.FireTrigger();
             if (enemy.isGrounded) {
-                // ninjy.SpawnClone();
-                ninjy.SpawnShurikens();
+                int choose = Random.Range(0, 3);
+                switch (choose) {
+                    case 0:
+                        ninjy.SpawnClone();
+                        break;
+                    case 1:
+                        ninjy.SpawnShurikens();
+                        break;
+                    case 2:
+                        ninjy.SpawnKunai();
+                        break;
+                }
             }
         }
     }
