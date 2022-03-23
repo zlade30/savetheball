@@ -76,12 +76,14 @@ public class Powerups : MonoBehaviour
                 Physics2D.IgnoreLayerCollision(7, 8);
                 Physics2D.IgnoreLayerCollision(7, 6);
                 Physics2D.IgnoreLayerCollision(7, 9);
+                Physics2D.IgnoreLayerCollision(7, 10);
                 if (shieldBar.fillAmount <= 0f) {
                     isShieldTrigger = false;
                     Physics2D.IgnoreLayerCollision(7, 3, false);
                     Physics2D.IgnoreLayerCollision(7, 8, false);
                     Physics2D.IgnoreLayerCollision(7, 6, false);
                     Physics2D.IgnoreLayerCollision(7, 9, false);
+                    Physics2D.IgnoreLayerCollision(7, 10, false);
                 }
             }
 

@@ -66,10 +66,11 @@ public class Kunai : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log(collider.gameObject.name);
-        GameObject explosion = GameObject.Find("Explosion");
+        GameObject explosion = GameObject.Find("KunaiExplosion");
         GameObject explode = GameObject.Instantiate(explosion, transform.position, Quaternion.identity);
+
         explode.name = "Explosion";
-        explode.transform.localScale = new Vector2(2.5f, 2.5f);
+        explode.transform.localScale = new Vector2(3f, 3f);
         var main = explode.GetComponent<ParticleSystem>().main; 
         main.stopAction = ParticleSystemStopAction.Destroy;
         Destroy(gameObject);

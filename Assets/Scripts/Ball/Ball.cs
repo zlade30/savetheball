@@ -151,5 +151,11 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 		if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
 			HandleBallMovement();
 		}
+
+		if (game.isOver) {
+			col.enabled = false;
+			isCaught = true;
+			gameObject.SetActive(false);
+		}
 	}
 }
