@@ -150,9 +150,11 @@ public class InventoryManager : MonoBehaviour
                 PlayerPrefs.SetString(Utils.currentSkin, Utils.defaultSkin);
                 break;
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Back() {
         SceneManager.LoadScene(Utils.mainMenu);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

@@ -105,38 +105,47 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     public void Shop()
     {
         SceneManager.LoadScene(Utils.shop);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Skin()
     {
         SceneManager.LoadScene(Utils.inventory);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowRemoveAds() {
         removeAdsPanel.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideRemoveAds() {
         removeAdsPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowSuccessPanel() {
         purchaseSuccessfulPanel.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideSuccessPanel() {
         purchaseSuccessfulPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowErrorPanel() {
         purchaseErrorPanel.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideErrorPanel() {
         purchaseErrorPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Play() {
         SceneManager.LoadScene(Utils.world);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

@@ -265,9 +265,11 @@ public class ShopManager : MonoBehaviour, IStoreListener {
     {
         successfulPurchasePanel.SetActive(false);
         errorPurchasePanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Back() {
         SceneManager.LoadScene(Utils.mainMenu);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

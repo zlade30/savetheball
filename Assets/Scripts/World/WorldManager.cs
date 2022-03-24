@@ -61,6 +61,7 @@ public class WorldManager : MonoBehaviour
             default:
                 break;
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     void HandlePlayerNamePanel() {
@@ -92,7 +93,7 @@ public class WorldManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.didPlayerSubmitName, 1);
             playerNamePanel.SetActive(false);
         }
-        
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void CheckName() {
@@ -116,6 +117,7 @@ public class WorldManager : MonoBehaviour
 
     public void GoBack() {
         SceneManager.LoadScene(Utils.mainMenu);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     // private void OnApplicationQuit() {

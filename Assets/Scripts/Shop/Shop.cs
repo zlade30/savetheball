@@ -41,6 +41,7 @@ public class Shop : MonoBehaviour, IPointerClickHandler
                 skinPanel.SetActive(false);
                 powerupText.color = new Color32(255, 255, 255, 255);
                 skinText.color = new Color32(101, 101, 101, 255);
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
                 break;
             case "Skins":
                 skins.GetComponent<Image>().color = new Color32(84, 96, 108, 255);
@@ -49,6 +50,7 @@ public class Shop : MonoBehaviour, IPointerClickHandler
                 skinPanel.SetActive(true);
                 skinText.color = new Color32(255, 255, 255, 255);
                 powerupText.color = new Color32(101, 101, 101, 255);
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
                 break;
             default:
                 break;
