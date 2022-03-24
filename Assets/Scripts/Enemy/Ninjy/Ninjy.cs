@@ -280,6 +280,7 @@ public class Ninjy
         GameObject kunaiClone = GameObject.Instantiate(kunai, enemy.transform.position, Quaternion.identity);
         kunaiClone.name = "Kunai";
         kunaiClone.SetActive(true);
+        kunaiClone.transform.position = new Vector3(kunaiClone.transform.position.x, kunaiClone.transform.position.y, -8f);
         enemy.StartCoroutine(ActivateKunai(kunaiClone));
     }
 

@@ -87,6 +87,7 @@ public class ShapeShifty
                 }
             }
             isTransform = true;
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         }
     }
 
@@ -109,7 +110,6 @@ public class ShapeShifty
 
     private IEnumerator Destroy(GameObject bomb) {
         yield return new WaitForSeconds(1f);
-        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         Game game = Camera.main.GetComponent<Game>();
         if (!game.isOver && bomb != null) {
             enemy.StartCoroutine(Idle(bomb));
@@ -125,6 +125,7 @@ public class ShapeShifty
             enemy.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
             enemy.GetComponent<BoxCollider2D>().enabled = true;
             enemy.StartCoroutine(Move());
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         }
     }
 

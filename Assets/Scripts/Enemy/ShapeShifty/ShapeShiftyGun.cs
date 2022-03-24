@@ -16,7 +16,7 @@ public class ShapeShiftyGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!transform.Find("Bullets").gameObject.activeSelf) {
+        if (!transform.Find("Bullets").gameObject.activeSelf && Time.timeScale == 1) {
             Vector2 dir = ball.transform.position - transform.position;
 
             var offset = 90f;

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class MainMenuManager : MonoBehaviour, IStoreListener
 {
@@ -22,6 +23,10 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     private GameObject menuPanel;
     [SerializeField]
     private Image removeAdIcon;
+    [SerializeField]
+    private Image soundOnIcon;
+    [SerializeField]
+    private Image soundOffIcon;
     private static IStoreController ISController;
     private static IExtensionProvider storeProvider;
 
@@ -34,6 +39,17 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
         if (PlayerPrefs.GetInt(Utils.removeAdsId) == 1) {
             menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
             removeAdIcon.gameObject.SetActive(false);
+        }
+
+        if (PlayerPrefs.GetInt("initialize") != 1) {
+            // Give default values when newly installed
+            PlayerPrefs.SetInt("initialize", 1);
+            PlayerPrefs.SetInt(Utils.life, 3);
+            PlayerPrefs.SetInt(Utils.star, 3);
+            PlayerPrefs.SetInt(Utils.fire, 3);
+            PlayerPrefs.SetInt(Utils.ice, 3);
+            PlayerPrefs.SetInt(Utils.shield, 3);
+            PlayerPrefs.SetInt(Utils.teleport, 3);
         }
     }
 
@@ -61,7 +77,7 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     // Update is called once per frame
     void Update()
     {
-        
+        SoundHandler();
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)
@@ -147,5 +163,27 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     public void Play() {
         SceneManager.LoadScene(Utils.world);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void SoundHandler() {
+        int isVolume = PlayerPrefs.GetInt(Utils.volumeStatus);
+        SFXManager.sfxInstance.audio.mute = Convert.ToBoolean(isVolume);
+        if (Convert.ToBoolean(isVolume)) {
+            soundOnIcon.gameObject.SetActive(false);
+            soundOffIcon.gameObject.SetActive(true);
+        } else {
+            soundOnIcon.gameObject.SetActive(true);
+            soundOffIcon.gameObject.SetActive(false);
+        }
+    }
+
+    public void SoundOn() {
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+        PlayerPrefs.SetInt(Utils.volumeStatus, 0);
+    }
+
+    public void SoundOff() {
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+        PlayerPrefs.SetInt(Utils.volumeStatus, 1);
     }
 }

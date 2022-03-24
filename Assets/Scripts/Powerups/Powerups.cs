@@ -17,31 +17,26 @@ public class Powerups : MonoBehaviour
     [SerializeField]
     private Image teleportBar;
     [SerializeField]
-    private GameObject enemy;
+    public GameObject enemy;
     [SerializeField]
     private GameObject ball;
     [SerializeField]
     private GameObject destroyEffect;
+    public GameObject ice;
     private Game game;
     public float fireDur = 0.5f;
     public float iceDur = 5f;
     public float shieldDur = 5f;
     public float teleportDur = 5f;
 
+    public bool isIceActivated { set; get; } = false;
+    private GameObject iceObject;
+    private GameObject[] icesToDestory;
+
     // Start is called before the first frame update
     void Start()
     {
         game = Camera.main.GetComponent<Game>();
-        if (PlayerPrefs.GetInt("initialize") != 1) {
-            // Give default values when newly installed
-            PlayerPrefs.SetInt("initialize", 1);
-            PlayerPrefs.SetInt(Utils.life, 3);
-            PlayerPrefs.SetInt(Utils.star, 3);
-            PlayerPrefs.SetInt(Utils.fire, 3);
-            PlayerPrefs.SetInt(Utils.ice, 3);
-            PlayerPrefs.SetInt(Utils.shield, 3);
-            PlayerPrefs.SetInt(Utils.teleport, 3);
-        }
     }
 
     // Update is called once per frame
@@ -64,9 +59,32 @@ public class Powerups : MonoBehaviour
             if (isIceTrigger) {
                 iceBar.fillAmount -= 1.0f / iceDur * Time.unscaledDeltaTime;
                 Time.timeScale = 0f;
+                
+                GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
+                GameObject[] ices = enemyObjects;
+                
+                if (isIceActivated) {
+                    iceObject = Instantiate(ice, enemy.transform.position, Quaternion.identity);
+                    iceObject.SetActive(true);
+                    iceObject.gameObject.transform.position = new Vector3(iceObject.gameObject.transform.position.x, iceObject.gameObject.transform.position.y, -8f);
+                    
+                    for (int i = 0; i < enemyObjects.Length; i++) {
+                        GameObject enemyObject = enemyObjects[i];
+                        ices[i] = Instantiate(ice, enemyObject.transform.position, Quaternion.identity);
+                        ices[i].SetActive(true);
+                        ices[i].gameObject.transform.position = new Vector3(ices[i].gameObject.transform.position.x, ices[i].gameObject.transform.position.y, -8f);
+                    }
+                    isIceActivated = false;
+                    icesToDestory = ices;
+                }
+
                 if (iceBar.fillAmount <= 0f) {
                     isIceTrigger = false;
                     Time.timeScale = 1f;
+                    Destroy(iceObject);
+                    for (int i = 0; i < icesToDestory.Length; i++) {
+                        Destroy(icesToDestory[i]);
+                    }
                 }
             }
 

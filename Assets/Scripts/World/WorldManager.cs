@@ -10,6 +10,8 @@ public class WorldManager : MonoBehaviour
     [SerializeField]
     GameObject playerNamePanel;
     [SerializeField]
+    GameObject notEnoughLifePanel;
+    [SerializeField]
     TMP_InputField nameField;
     [SerializeField]
     TextMeshProUGUI errorText;
@@ -41,25 +43,31 @@ public class WorldManager : MonoBehaviour
     }
 
     public void SelectWorld(GameObject world) {
-        switch (world.name) {
-            case "Speedy":
-                SceneManager.LoadScene(Utils.speedyWorld);
-                PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
-                break;
-            case "Bomby":
-                SceneManager.LoadScene(Utils.bombyWorld);
-                PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
-                break;
-            case "ShapeShifty":
-                SceneManager.LoadScene(Utils.shapeShiftyWorld);
-                PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
-                break;
-            case "Ninjy":
-                SceneManager.LoadScene(Utils.ninjyWorld);
-                PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
-                break;
-            default:
-                break;
+        int life = PlayerPrefs.GetInt(Utils.life);
+        if (life > 0) {
+            switch (world.name) {
+                case "Speedy":
+                    SceneManager.LoadScene(Utils.speedyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
+                    break;
+                case "Bomby":
+                    SceneManager.LoadScene(Utils.bombyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
+                    break;
+                case "ShapeShifty":
+                    SceneManager.LoadScene(Utils.shapeShiftyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
+                    break;
+                case "Ninjy":
+                    SceneManager.LoadScene(Utils.ninjyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
+                    break;
+                default:
+                    break;
+            }
+            PlayerPrefs.SetInt(Utils.life, --life);
+        } else {
+            notEnoughLifePanel.SetActive(true);
         }
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
@@ -118,6 +126,11 @@ public class WorldManager : MonoBehaviour
     public void GoBack() {
         SceneManager.LoadScene(Utils.mainMenu);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void Close() {
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+        notEnoughLifePanel.SetActive(false);
     }
 
     // private void OnApplicationQuit() {

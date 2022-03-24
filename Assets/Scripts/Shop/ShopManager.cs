@@ -44,15 +44,12 @@ public class ShopManager : MonoBehaviour, IStoreListener {
     void Start()
     {
         // If we haven't set up the Unity Purchasing reference
-        if (m_StoreController == null)
-        {
-            // Begin to configure our connection to Purchasing
-            InitializePurchasing();
-        }
+        InitializePurchasing();
     }
 
     public void InitializePurchasing() 
     {
+        Debug.Log("Initialize");
         // // If we have already connected to Purchasing ...
         // if (IsInitialized())
         // {

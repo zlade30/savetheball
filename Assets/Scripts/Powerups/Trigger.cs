@@ -45,6 +45,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 powerups.isIceTrigger = true;
                 bar.fillAmount = 1f;
                 SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.freeze);
+                powerups.isIceActivated = true;
             }
 
             if ((name == Utils.shield || name == "ShieldValue") && PlayerPrefs.GetInt(Utils.shield) != 0) {

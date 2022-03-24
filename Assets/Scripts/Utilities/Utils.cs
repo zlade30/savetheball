@@ -89,4 +89,5 @@ public class Utils {
     public const string bombyCollection = "bomby";
     public const string shapeShiftyCollection = "shapeShifty";
     public const string ninjyCollection = "ninjy";
+    public const string volumeStatus = "volumeStatus";
 }
