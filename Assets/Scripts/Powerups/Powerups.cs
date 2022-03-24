@@ -95,6 +95,10 @@ public class Powerups : MonoBehaviour
                 Physics2D.IgnoreLayerCollision(7, 6);
                 Physics2D.IgnoreLayerCollision(7, 9);
                 Physics2D.IgnoreLayerCollision(7, 10);
+
+                GameObject shield = ball.transform.GetChild(0).gameObject;
+                shield.SetActive(true);
+
                 if (shieldBar.fillAmount <= 0f) {
                     isShieldTrigger = false;
                     Physics2D.IgnoreLayerCollision(7, 3, false);
@@ -102,12 +106,18 @@ public class Powerups : MonoBehaviour
                     Physics2D.IgnoreLayerCollision(7, 6, false);
                     Physics2D.IgnoreLayerCollision(7, 9, false);
                     Physics2D.IgnoreLayerCollision(7, 10, false);
+                    shield.SetActive(false);
                 }
             }
 
             if (isTeleportTrigger) {
                 teleportBar.fillAmount -= 1.0f / teleportDur * Time.unscaledDeltaTime;
-                if (teleportBar.fillAmount <= 0f) isTeleportTrigger = false;
+                GameObject teleport = ball.transform.GetChild(1).gameObject;
+                teleport.SetActive(true);
+                if (teleportBar.fillAmount <= 0f) {
+                    isTeleportTrigger = false;
+                    teleport.SetActive(false);
+                }
             }
         }
     }

@@ -80,7 +80,6 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 		if (!game.isPause) {
 			HandleBallMovement();
 		}
-		
     }
 
 	public void OnInitializePotentialDrag(PointerEventData data)
@@ -113,6 +112,9 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
 		}
 		transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+
+		if (powerups.isTeleportTrigger && Input.GetMouseButtonDown(0))
+			SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.teleport);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)

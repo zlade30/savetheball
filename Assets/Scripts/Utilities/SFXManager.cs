@@ -14,6 +14,8 @@ public class SFXManager : MonoBehaviour
     public AudioClip gunShot;
     public AudioClip smoke;
     public AudioClip activate;
+    public AudioClip teleport;
+    public AudioClip shield;
 
     public static SFXManager sfxInstance;
 

@@ -54,7 +54,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.shield, value);
                 powerups.isShieldTrigger = true;
                 bar.fillAmount = 1f;
-                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.shield);
             }
 
             if ((name == Utils.teleport || name == "TeleportValue") && PlayerPrefs.GetInt(Utils.teleport) != 0) {
@@ -63,7 +63,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.teleport, value);
                 powerups.isTeleportTrigger = true;
                 bar.fillAmount = 1f;
-                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.teleport);
             }
         }
     }
