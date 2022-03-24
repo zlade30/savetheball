@@ -15,6 +15,7 @@ public class RadialShuriken : MonoBehaviour
 
     private float moveDur = 2f;
     private Vector2 targetPos;
+    private bool isSoundTrigger = true;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +57,11 @@ public class RadialShuriken : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
             targetPos.Normalize();
-             GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = true;
+            if (isSoundTrigger) {
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.fade);
+                isSoundTrigger = false;
+            }
         } else {
             targetPos = target.transform.position - transform.position;
             GetComponent<BoxCollider2D>().enabled = false;

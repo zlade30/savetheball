@@ -56,6 +56,7 @@ public class ShapeShifty
                         else enemy.GetComponent<SpriteRenderer>().flipX = false;
                     }
                 }
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
             }
             isTransform = true;
         }
@@ -102,11 +103,13 @@ public class ShapeShifty
                     enemy.StartCoroutine(Destroy(bomb));
                 }
             }
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.boom);
         }
     }
 
     private IEnumerator Destroy(GameObject bomb) {
         yield return new WaitForSeconds(1f);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         Game game = Camera.main.GetComponent<Game>();
         if (!game.isOver && bomb != null) {
             enemy.StartCoroutine(Idle(bomb));
@@ -217,6 +220,7 @@ public class ShapeShifty
                     enemy.StartCoroutine(LaunchMissile(missile));
                 }
             }
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
             isTransform = true;
         }
     }
@@ -225,7 +229,6 @@ public class ShapeShifty
         yield return new WaitForSeconds(2f);
         missile.GetComponent<ShapeShiftyMissile>().enabled = true;
         enemy.StartCoroutine(ExplodeMissile(missile));
-        
     }
 
     private IEnumerator ExplodeMissile(GameObject missile) {
@@ -239,6 +242,7 @@ public class ShapeShifty
             main.stopAction = ParticleSystemStopAction.Destroy;
             GameObject.Destroy(missile);
             enemy.StartCoroutine(Appear());
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.boom);
         }
     }
 
@@ -251,6 +255,7 @@ public class ShapeShifty
             enemy.GetComponent<BoxCollider2D>().enabled = true;
             enemy.StartCoroutine(Move());
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
     }
 
     public void FireTrigger() {

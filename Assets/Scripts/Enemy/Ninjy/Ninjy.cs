@@ -66,6 +66,7 @@ public class Ninjy
             }
 
             enemy.StartCoroutine(CastCloneTechnique());
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.activate);
             isInit = true;
         }
     }
@@ -117,6 +118,7 @@ public class Ninjy
             clone.tag = "EnemyObject";
             clone.SetActive(true);
             enemy.StartCoroutine(DestroyClone(clone));
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.smoke);
         }
         isInit = false;
         enemy.abilityDur = Random.Range(3f, 10f);
@@ -134,6 +136,7 @@ public class Ninjy
             main.stopAction = ParticleSystemStopAction.Destroy;
             GameObject.Destroy(clone);
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.smoke);
     }
 
     public void SpawnShurikens() {
@@ -161,7 +164,7 @@ public class Ninjy
                 default:
                     break;
             }
-
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.activate);
             enemy.StartCoroutine(CastShurikenTechnique());
             isInit = true;
         }
@@ -222,6 +225,7 @@ public class Ninjy
             shur.name = "Shuriken";
             shur.tag = "EnemyObject";
             shur.SetActive(true);
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.smoke);
             enemy.StartCoroutine(DestroyShuriken(shur));
         }
     }
@@ -260,6 +264,7 @@ public class Ninjy
                 default:
                     break;
             }
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.activate);
             enemy.StartCoroutine(CastKunaiTechnique());
             isInit = true;
         }
@@ -271,6 +276,7 @@ public class Ninjy
         GameObject explode = GameObject.Instantiate(explosion, enemy.transform.position, Quaternion.identity);
         var main = explode.GetComponent<ParticleSystem>().main; 
         main.stopAction = ParticleSystemStopAction.Destroy;
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.smoke);
         GameObject kunaiClone = GameObject.Instantiate(kunai, enemy.transform.position, Quaternion.identity);
         kunaiClone.name = "Kunai";
         kunaiClone.SetActive(true);

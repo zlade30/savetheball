@@ -6,6 +6,14 @@ public class SFXManager : MonoBehaviour
 {
     public new AudioSource audio;
     public AudioClip tap;
+    public AudioClip freeze;
+    public AudioClip destroy;
+    public AudioClip jump;
+    public AudioClip fade;
+    public AudioClip boom;
+    public AudioClip gunShot;
+    public AudioClip smoke;
+    public AudioClip activate;
 
     public static SFXManager sfxInstance;
 

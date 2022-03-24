@@ -73,6 +73,7 @@ public class Kunai : MonoBehaviour
         explode.transform.localScale = new Vector2(3f, 3f);
         var main = explode.GetComponent<ParticleSystem>().main; 
         main.stopAction = ParticleSystemStopAction.Destroy;
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.boom);
         Destroy(gameObject);
     }
 }

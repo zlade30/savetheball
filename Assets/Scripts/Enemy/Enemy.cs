@@ -298,6 +298,7 @@ public class Enemy : MonoBehaviour
         if (jumpDur <= 0f) {
             jump.enabled = true;
             jumpDur = Random.Range(1f, maxJumpDur);
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.jump);
         }
     }
 

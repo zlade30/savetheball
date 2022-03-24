@@ -26,6 +26,7 @@ public class BombExplosion : MonoBehaviour
             GameObject exp = Instantiate(explosion, transform.position, Quaternion.identity);
             exp.SetActive(true);
             exp.name = "Explosion";
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.boom);
             Destroy(gameObject);
         }
     }

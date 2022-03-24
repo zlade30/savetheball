@@ -35,6 +35,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.fire, value);
                 powerups.isFireTrigger = true;
                 bar.fillAmount = 1f;
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
             }
 
             if ((name == Utils.ice || name == "IceValue") && PlayerPrefs.GetInt(Utils.ice) != 0) {
@@ -43,6 +44,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.ice, value);
                 powerups.isIceTrigger = true;
                 bar.fillAmount = 1f;
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.freeze);
             }
 
             if ((name == Utils.shield || name == "ShieldValue") && PlayerPrefs.GetInt(Utils.shield) != 0) {
@@ -51,6 +53,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.shield, value);
                 powerups.isShieldTrigger = true;
                 bar.fillAmount = 1f;
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
             }
 
             if ((name == Utils.teleport || name == "TeleportValue") && PlayerPrefs.GetInt(Utils.teleport) != 0) {
@@ -59,6 +62,7 @@ public class Trigger : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetInt(Utils.teleport, value);
                 powerups.isTeleportTrigger = true;
                 bar.fillAmount = 1f;
+                SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
             }
         }
     }

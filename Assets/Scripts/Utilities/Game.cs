@@ -80,6 +80,7 @@ public class Game : MonoBehaviour
         } else {
             OutOfLife();
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     void ClearAllCurrentScore() {
@@ -112,6 +113,7 @@ public class Game : MonoBehaviour
         isResume = true;
         pausePanel.SetActive(false);
         resumeCDText.gameObject.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Continue()
@@ -126,6 +128,7 @@ public class Game : MonoBehaviour
                 OutOfStar();
             }
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void GameOver()
@@ -198,6 +201,7 @@ public class Game : MonoBehaviour
     public void Back() {
         if(!isOver) Pause();
         else exitConfirmationPanel.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Restart() {
@@ -206,6 +210,7 @@ public class Game : MonoBehaviour
         } else {
             OutOfLife();
         }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowLeaderBoard() {
@@ -217,28 +222,33 @@ public class Game : MonoBehaviour
             leaderBoardPanel.SetActive(false);
             leaderBoardNetworkPanel.SetActive(true);
         }
-            
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void WatchRewardedAds() {
         outOfLifePanel.SetActive(false);
         outOfStarPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void OpenShop() {
         SceneManager.LoadScene(Utils.shop);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Exit() {
         exitConfirmationPanel.SetActive(true);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void YesExit() {
         SceneManager.LoadScene(Utils.world);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void NoExit() {
         exitConfirmationPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Close() {
@@ -248,6 +258,7 @@ public class Game : MonoBehaviour
         leaderBoard.SetActive(false);
         leaderBoardPanel.SetActive(false);
         leaderBoardNetworkPanel.SetActive(false);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     // public void OnPointerClick(PointerEventData eventData)

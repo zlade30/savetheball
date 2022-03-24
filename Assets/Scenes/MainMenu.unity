@@ -1266,6 +1266,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 401376666}
   tap: {fileID: 8300000, guid: cdd57e2d6b33e4a0f9602b3155bbc279, type: 3}
+  freeze: {fileID: 8300000, guid: a31d2121db2dd4f54901afc3e43c1786, type: 3}
+  destroy: {fileID: 8300000, guid: bb3aede4e642641baae4516627cd324f, type: 3}
+  jump: {fileID: 8300000, guid: 1fe271092ded74773ad9e04d8195318d, type: 3}
+  fade: {fileID: 8300000, guid: 7293931e0959a4dc38d217c7a7c7256a, type: 3}
+  boom: {fileID: 8300000, guid: d2b97c4c94e994baab73d1f2eacf6fed, type: 3}
+  gunShot: {fileID: 8300000, guid: 376c908977ac5426ebb64c8c582751e1, type: 3}
+  smoke: {fileID: 8300000, guid: 356c2bfee30d24caca3777f6c8562e7a, type: 3}
+  activate: {fileID: 8300000, guid: a52801efa13a94b708d1d026aae783ae, type: 3}
 --- !u!82 &401376666
 AudioSource:
   m_ObjectHideFlags: 0

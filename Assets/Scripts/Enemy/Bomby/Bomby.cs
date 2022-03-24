@@ -12,6 +12,7 @@ public class BombyAbility
             enemy.abilityDur = Random.Range(3f, 10f);
             enemy.GetComponent<Jump>().enabled = true;
             enemy.GetComponent<Abilities>().enabled = false;
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         }
     }
 
@@ -22,6 +23,7 @@ public class BombyAbility
             enemy.abilityDur = Random.Range(3f, 10f);
             enemy.GetComponent<Jump>().enabled = true;
             enemy.GetComponent<Abilities>().enabled = false;
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.destroy);
         }
     }
 }

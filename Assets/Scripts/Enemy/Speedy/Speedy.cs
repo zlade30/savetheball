@@ -38,7 +38,7 @@ public class SpeedyAbility
                 default:
                     break;
             }
-
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.fade);
             enemy.StartCoroutine(FadeOut(sprite));
             isInit = true;
         }
@@ -76,6 +76,7 @@ public class SpeedyAbility
                 default:
                     break;
             }
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.fade);
             enemy.StartCoroutine(FadeIn(sprite, enemy, score));
             isFade = false;
         }
