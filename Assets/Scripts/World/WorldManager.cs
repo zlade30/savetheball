@@ -3,6 +3,7 @@ using UnityEngine;
 using Firebase.Firestore;
 using Firebase.Extensions;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
 
 public class WorldManager : MonoBehaviour
@@ -15,6 +16,10 @@ public class WorldManager : MonoBehaviour
     TMP_InputField nameField;
     [SerializeField]
     TextMeshProUGUI errorText;
+    [SerializeField]
+    GameObject worldPanel;
+    [SerializeField]
+    GameObject lockPanel;
 
     private FirebaseFirestore db;
 
@@ -25,14 +30,43 @@ public class WorldManager : MonoBehaviour
         db = FirebaseFirestore.DefaultInstance;
         HandlePlayerNamePanel();
         ClearAllCurrentScore();
-        if (Application.internetReachability != NetworkReachability.NotReachable)
-            CheckName();
+        // if (Application.internetReachability != NetworkReachability.NotReachable)
+        //     CheckName();
+
+        string userName = PlayerPrefs.GetString(Utils.userName);
+        if (userName == "") {
+            EnableWorldButtons(false);
+        } else {
+            EnableWorldButtons(true);
+        }
+        HandleLocksWorld();
+    }
+
+    void EnableWorldButtons(bool status) {
+        worldPanel.transform.GetChild(0).GetComponent<Button>().interactable = status;
+        worldPanel.transform.GetChild(1).GetComponent<Button>().interactable = status;
+        worldPanel.transform.GetChild(2).GetComponent<Button>().interactable = status;
+        worldPanel.transform.GetChild(3).GetComponent<Button>().interactable = status;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void HandleLocksWorld() {
+        if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= 800) {
+            GameObject.Find("BombyLock").SetActive(false);
+        }
+
+        if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= 1500) {
+            GameObject.Find("ShapeShiftyLock").SetActive(false);
+        }
+
+        if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= 2000) {
+            GameObject.Find("NinjyLock").SetActive(false);
+        }
     }
 
     void ClearAllCurrentScore() {
@@ -51,16 +85,31 @@ public class WorldManager : MonoBehaviour
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
                     break;
                 case "Bomby":
-                    SceneManager.LoadScene(Utils.bombyWorld);
-                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
+                    if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= 800) {
+                        SceneManager.LoadScene(Utils.bombyWorld);
+                        PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
+                    } else {
+                        lockPanel.SetActive(true);
+                        lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Bomby is currently locked. You need to have a score of 800 in Speedy World before you can unlock this one.";
+                    }
                     break;
                 case "ShapeShifty":
-                    SceneManager.LoadScene(Utils.shapeShiftyWorld);
-                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
+                    if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= 1500) {
+                        SceneManager.LoadScene(Utils.shapeShiftyWorld);
+                        PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
+                    } else {
+                        lockPanel.SetActive(true);
+                        lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Shapeshifty is currently locked. You need to have a score of 1500 in Bomby World before you can unlock this one.";
+                    }
                     break;
                 case "Ninjy":
-                    SceneManager.LoadScene(Utils.ninjyWorld);
-                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
+                    if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= 2000) {
+                        SceneManager.LoadScene(Utils.ninjyWorld);
+                        PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
+                    } else {
+                        lockPanel.SetActive(true);
+                        lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Ninjy is currently locked. You need to have a score of 2000 in Shapeshifty World before you can unlock this one.";
+                    }
                     break;
                 default:
                     break;
@@ -99,6 +148,7 @@ public class WorldManager : MonoBehaviour
             }
             PlayerPrefs.SetString(Utils.userName, nameField.text);
             PlayerPrefs.SetInt(Utils.didPlayerSubmitName, 1);
+            EnableWorldButtons(true);
             playerNamePanel.SetActive(false);
         }
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
@@ -131,6 +181,7 @@ public class WorldManager : MonoBehaviour
     public void Close() {
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
         notEnoughLifePanel.SetActive(false);
+        lockPanel.SetActive(false);
     }
 
     // private void OnApplicationQuit() {

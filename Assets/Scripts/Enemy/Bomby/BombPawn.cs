@@ -140,7 +140,7 @@ public class BombPawn : MonoBehaviour
         if (transform.position.x > (worldWidth / 2) - (enemyWidth / 2)) {
             float x = (worldWidth / 2) - (enemyWidth / 2);
             transform.position = new Vector2(x, transform.position.y);
-             rBody.bodyType = RigidbodyType2D.Kinematic;
+            rBody.bodyType = RigidbodyType2D.Kinematic;
         }
 
         rBody.constraints = RigidbodyConstraints2D.None;

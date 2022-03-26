@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     string currentPosition = "";
     [SerializeField]
-    float walkSpeed = 2f;
+    float walkSpeed = 3f;
     [SerializeField]
     float maxWalkFlipDur = 1f;
     [SerializeField]
@@ -147,18 +147,18 @@ public class Movement : MonoBehaviour
 
     void HandleSpeed()
     {
-        if (int.Parse(score.text) >= 50 && int.Parse(score.text) <= 99) {
-            walkSpeed = 2.5f;
-        } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 149) {
-            walkSpeed = 3f;
-        } else if (int.Parse(score.text) >= 150 && int.Parse(score.text) <= 199) {
-            walkSpeed = 3.5f;
-        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 249) {
+        if (int.Parse(score.text) >= 0 && int.Parse(score.text) <= 99) {
             walkSpeed = 4f;
-        } else if (int.Parse(score.text) >= 250 && int.Parse(score.text) <= 299) {
+        } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 149) {
             walkSpeed = 4.5f;
-        } else if (int.Parse(score.text) >= 300) {
+        } else if (int.Parse(score.text) >= 150 && int.Parse(score.text) <= 199) {
             walkSpeed = 5f;
+        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 249) {
+            walkSpeed = 5.5f;
+        } else if (int.Parse(score.text) >= 250 && int.Parse(score.text) <= 299) {
+            walkSpeed = 6f;
+        } else if (int.Parse(score.text) >= 300) {
+            walkSpeed = 6.5f;
         }
     }
 

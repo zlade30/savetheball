@@ -184,9 +184,8 @@ public class Game : MonoBehaviour
         string userId = PlayerPrefs.GetString(Utils.userId);
         string userName = PlayerPrefs.GetString(Utils.userName);
 
-        Debug.Log(userId);
-
         if (userId != "" && score.score > highScore) {
+            Debug.Log(userId);
             DocumentReference docRef = db.Collection(collection).Document(userId);
             Dictionary<string, object> update = new Dictionary<string, object>
             {
