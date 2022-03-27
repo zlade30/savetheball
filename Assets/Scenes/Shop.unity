@@ -818,7 +818,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 224084834}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyIce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &224084834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,10 +1199,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -480}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &249478996
 MonoBehaviour:
@@ -1583,7 +1595,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 821184477}
+      - m_Target: {fileID: 519420034}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: ClosePurchasesPanel
         m_Mode: 1
@@ -2182,7 +2194,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458272867}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuySoccerballSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &458272867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2440,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2502,6 +2527,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a66aec9170304e51be6068cfdd5b818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06a6d87792c3451198eccb2bdc73f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifePrice: {fileID: 2096460094}
+  starPrice: {fileID: 1029263030}
+  firePrice: {fileID: 1950494332}
+  icePrice: {fileID: 590168235}
+  shieldPrice: {fileID: 1560579220}
+  teleportPrice: {fileID: 379210727}
+  basketBallPrice: {fileID: 495817665}
+  soccerBallPrice: {fileID: 1644183726}
+  tennisBallPrice: {fileID: 1103564235}
+  billiardBallPrice: {fileID: 1571042120}
+  successfulPurchasePanel: {fileID: 1553331957}
+  errorPurchasePanel: {fileID: 1792433946}
+  powerupPanel: {fileID: 2121545152}
+  skinPanel: {fileID: 1390120547}
+  samplePanel: {fileID: 368784854}
+  samplePanelText: {fileID: 1022709227}
 --- !u!1 &532518142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,10 +2682,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -100}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &533109625
 MonoBehaviour:
@@ -3217,7 +3270,6 @@ GameObject:
   - component: {fileID: 821184474}
   - component: {fileID: 821184476}
   - component: {fileID: 821184475}
-  - component: {fileID: 821184477}
   m_Layer: 0
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -3287,34 +3339,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821184473}
   m_CullTransparentMesh: 1
---- !u!114 &821184477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821184473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06a6d87792c3451198eccb2bdc73f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifePrice: {fileID: 2096460094}
-  starPrice: {fileID: 1029263030}
-  firePrice: {fileID: 1950494332}
-  icePrice: {fileID: 590168235}
-  shieldPrice: {fileID: 1560579220}
-  teleportPrice: {fileID: 379210727}
-  basketBallPrice: {fileID: 495817665}
-  soccerBallPrice: {fileID: 1644183726}
-  tennisBallPrice: {fileID: 1103564235}
-  billiardBallPrice: {fileID: 1571042120}
-  successfulPurchasePanel: {fileID: 1553331957}
-  errorPurchasePanel: {fileID: 1792433946}
-  powerupPanel: {fileID: 2121545152}
-  skinPanel: {fileID: 1390120547}
-  samplePanel: {fileID: 368784854}
-  samplePanelText: {fileID: 1022709227}
 --- !u!1 &821227970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,7 +3406,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287202790
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3786,7 +3810,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 821184477}
+      - m_Target: {fileID: 519420034}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -3882,7 +3906,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 881930927}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyBasketballSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &881930927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4260,7 +4296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 992132943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyTeleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &992132943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4777,7 +4825,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1023748279}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyTennisballSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1023748279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5219,7 +5279,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1121371769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyBilliardballSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1121371769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5282,6 +5354,50 @@ MonoBehaviour:
   titleText: {fileID: 1164823105}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
+--- !u!1 &1154245254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154245256}
+  - component: {fileID: 1154245255}
+  m_Layer: 0
+  m_Name: IAPManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1154245255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154245254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0378d37771135420b86ac4d3c26ff86f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1154245256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154245254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 810, y: 1080, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1164823104
 GameObject:
   m_ObjectHideFlags: 0
@@ -5732,10 +5848,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -290}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1223642894
 MonoBehaviour:
@@ -6105,10 +6221,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -1050}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274385437
 MonoBehaviour:
@@ -6260,10 +6376,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -860}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1337597531
 MonoBehaviour:
@@ -6495,7 +6611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1396829371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyLife
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1396829371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7225,7 +7353,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 821184477}
+      - m_Target: {fileID: 519420034}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: ClosePurchasesPanel
         m_Mode: 1
@@ -8364,7 +8492,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1731001037}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyShield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1731001037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8590,7 +8730,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783608318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyStar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1783608318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8842,10 +8994,10 @@ RectTransform:
   m_Father: {fileID: 2106492714}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 208.29605, y: -670}
+  m_SizeDelta: {x: 396.5921, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1822885888
 MonoBehaviour:
@@ -9145,7 +9297,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1949851797}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154245255}
+        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
+        m_MethodName: BuyFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1949851797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9916,7 +10080,6 @@ GameObject:
   - component: {fileID: 2121545156}
   - component: {fileID: 2121545155}
   - component: {fileID: 2121545154}
-  - component: {fileID: 2121545157}
   m_Layer: 0
   m_Name: PowerupsPanel
   m_TagString: Untagged
@@ -10013,21 +10176,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121545152}
   m_CullTransparentMesh: 1
---- !u!114 &2121545157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121545152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d1d39b2bf9b49ccba02e975a234151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupPanel: {fileID: 0}
-  skinPanel: {fileID: 0}
-  powerups: {fileID: 0}
-  skins: {fileID: 0}
-  powerupText: {fileID: 0}
-  skinText: {fileID: 0}

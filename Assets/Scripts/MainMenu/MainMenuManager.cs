@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class MainMenuManager : MonoBehaviour, IStoreListener
+public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI removeAdsPrice;
@@ -27,15 +27,12 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
     private Image soundOnIcon;
     [SerializeField]
     private Image soundOffIcon;
-    private static IStoreController ISController;
-    private static IExtensionProvider storeProvider;
+    [SerializeField]
+    GameObject iapManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        // If we haven't set up the Unity Purchasing reference
-        InitializePurchasing();
-
         if (PlayerPrefs.GetInt(Utils.removeAdsId) == 1) {
             menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
             removeAdIcon.gameObject.SetActive(false);
@@ -53,69 +50,22 @@ public class MainMenuManager : MonoBehaviour, IStoreListener
         }
     }
 
-    public void InitializePurchasing() 
-    {
-        var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        builder.AddProduct(Utils.removeAdsId, ProductType.NonConsumable);
-        UnityPurchasing.Initialize(this, builder);
-    }
-
-    public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
-    {
-        // Purchasing has succeeded initializing. Collect our Purchasing references.
-        Debug.Log("OnInitialized: PASS");
-        ISController = controller;
-        storeProvider = extensions;
-
-        Product removeAdProduct = ISController.products.WithID(Utils.removeAdsId);
-        removeAdsPrice.text = ""+removeAdProduct.metadata.isoCurrencyCode+" "+removeAdProduct.metadata.localizedPriceString;
-    
-        // sample.SetActive(true);
-        // sampleText.text = ""+removeAdProduct.metadata.isoCurrencyCode+" "+removeAdProduct.metadata.localizedPriceString;
-    }
-
     // Update is called once per frame
     void Update()
     {
         SoundHandler();
     }
 
-    public void OnInitializeFailed(InitializationFailureReason error)
-    {
-        // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
-        Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
-        // sample.SetActive(true);
-        // sampleText.text = error.ToString();
+    public void RemoveAdsPrice(string price) {
+        removeAdsPrice.text = price;
     }
 
-
-    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args) 
-    {
-        string productId = args.purchasedProduct.definition.id;
-        switch (productId) {
-            case Utils.removeAdsId:
-                Debug.Log("Remove ads purchase success");
-                PlayerPrefs.SetInt(Utils.removeAdsId, 1);
-                ShowSuccessPanel();
-                HideRemoveAds();
-                removeAdIcon.gameObject.SetActive(false);
-                menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
-                break;
-            default:
-                break;
-        }
-
-        // Return a flag indicating whether this product has completely been received, or if the application needs 
-        // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
-        // saving purchased products to the cloud, and when that save is delayed. 
-        return PurchaseProcessingResult.Complete;
-    }
-
-    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-    {
-        ShowErrorPanel();
+    public void RemoveAds() {
+        PlayerPrefs.SetInt(Utils.removeAdsId, 1);
+        ShowSuccessPanel();
         HideRemoveAds();
-        Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+        removeAdIcon.gameObject.SetActive(false);
+        menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
     }
 
     public void Shop()
