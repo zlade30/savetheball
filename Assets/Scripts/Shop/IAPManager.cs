@@ -129,7 +129,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         string s;
  
-        s = m_StoreController.products.WithID(ID).metadata.isoCurrencyCode.ToString() +" "+ m_StoreController.products.WithID(ID).metadata.localizedPrice.ToString();
+        s = m_StoreController.products.WithID(ID).metadata.isoCurrencyCode.ToString() +" "+ m_StoreController.products.WithID(ID).metadata.localizedPrice.ToString("0.00");
      
         return s;
     }
