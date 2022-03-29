@@ -41,7 +41,7 @@ public class MainMenuManager : MonoBehaviour
         if (PlayerPrefs.GetInt("initialize") != 1) {
             // Give default values when newly installed
             PlayerPrefs.SetInt("initialize", 1);
-            PlayerPrefs.SetInt(Utils.life, 3);
+            PlayerPrefs.SetInt(Utils.life, 10);
             PlayerPrefs.SetInt(Utils.star, 3);
             PlayerPrefs.SetInt(Utils.fire, 3);
             PlayerPrefs.SetInt(Utils.ice, 3);

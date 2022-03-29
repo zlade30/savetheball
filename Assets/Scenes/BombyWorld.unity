@@ -1660,7 +1660,7 @@ MonoBehaviour:
   ninjyClone: {fileID: 0}
   shuriken: {fileID: 0}
   kunai: {fileID: 0}
-  score: {fileID: 0}
+  score: {fileID: 1750680765}
   powerups: {fileID: 0}
   world: Bomby
 --- !u!61 &138799489
@@ -17017,6 +17017,18 @@ PrefabInstance:
       propertyPath: btmBorder
       value: 
       objectReference: {fileID: 1437986960}
+    - target: {fileID: 759509897, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759509897, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
+      propertyPath: m_Size.y
+      value: 1.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208531828155705999, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8292155717660449656, guid: 9dcb7a916dc164001949320a8fd45d28, type: 3}
       propertyPath: game
       value: 

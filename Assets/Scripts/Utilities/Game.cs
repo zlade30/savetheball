@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using Firebase.Firestore;
-using Firebase.Extensions;
 using System.Collections.Generic;
 
 public class Game : MonoBehaviour
@@ -38,12 +36,11 @@ public class Game : MonoBehaviour
     public bool isOver = false;
     private float resumeCD = 3.0f;
     private bool isResume = false;
-    private FirebaseFirestore db;
 
     // Start is called before the first frame update
     void Start()
     {
-        db = FirebaseFirestore.DefaultInstance;
+
     }
 
     // Update is called once per frame
@@ -181,20 +178,6 @@ public class Game : MonoBehaviour
         yourScore.text = score.score.ToString("00000");
         
         PlayerPrefs.SetFloat(currentScore, score.score);
-        string userId = PlayerPrefs.GetString(Utils.userId);
-        string userName = PlayerPrefs.GetString(Utils.userName);
-
-        if (userId != "" && score.score > highScore) {
-            Debug.Log(userId);
-            DocumentReference docRef = db.Collection(collection).Document(userId);
-            Dictionary<string, object> update = new Dictionary<string, object>
-            {
-                { "name", userName },
-                { "score", score.score.ToString("00000") },
-
-            };
-            docRef.SetAsync(update, SetOptions.MergeAll);
-        }
     }
 
     public void Back() {

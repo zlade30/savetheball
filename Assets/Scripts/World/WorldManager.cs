@@ -1,8 +1,5 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using Firebase.Firestore;
-using Firebase.Extensions;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 
@@ -21,32 +18,12 @@ public class WorldManager : MonoBehaviour
     [SerializeField]
     GameObject lockPanel;
 
-    private FirebaseFirestore db;
-
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1f;
-        db = FirebaseFirestore.DefaultInstance;
-        HandlePlayerNamePanel();
         ClearAllCurrentScore();
-        // if (Application.internetReachability != NetworkReachability.NotReachable)
-        //     CheckName();
-
-        string userName = PlayerPrefs.GetString(Utils.userName);
-        if (userName == "") {
-            EnableWorldButtons(false);
-        } else {
-            EnableWorldButtons(true);
-        }
         HandleLocksWorld();
-    }
-
-    void EnableWorldButtons(bool status) {
-        worldPanel.transform.GetChild(0).GetComponent<Button>().interactable = status;
-        worldPanel.transform.GetChild(1).GetComponent<Button>().interactable = status;
-        worldPanel.transform.GetChild(2).GetComponent<Button>().interactable = status;
-        worldPanel.transform.GetChild(3).GetComponent<Button>().interactable = status;
     }
 
     // Update is called once per frame
@@ -124,58 +101,6 @@ public class WorldManager : MonoBehaviour
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
-    void HandlePlayerNamePanel() {
-        int isSubmitted = PlayerPrefs.GetInt(Utils.didPlayerSubmitName);
-        if (isSubmitted == 0) {
-            playerNamePanel.SetActive(true);
-        }
-    }
-
-    public void OnSubmitName() {
-        if (nameField.text == "") {
-            errorText.gameObject.SetActive(true);
-        } else {
-            if (Application.internetReachability != NetworkReachability.NotReachable) {
-                Dictionary<string, object> city = new Dictionary<string, object>
-                {
-                        { "name", nameField.text },
-                        { "score", "0" }
-                };
-                db.Collection(Utils.userCollection).AddAsync(city).ContinueWithOnMainThread(task => {
-                    if (task.IsCompleted) {
-                        DocumentReference addedDocRef = task.Result;
-                        Debug.Log("Added user with ID: {0}."+ addedDocRef.Id);
-                        PlayerPrefs.SetString(Utils.userId, addedDocRef.Id);
-                    }
-                });
-            }
-            PlayerPrefs.SetString(Utils.userName, nameField.text);
-            PlayerPrefs.SetInt(Utils.didPlayerSubmitName, 1);
-            EnableWorldButtons(true);
-            playerNamePanel.SetActive(false);
-        }
-        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
-    }
-
-    public void CheckName() {
-        string name = PlayerPrefs.GetString(Utils.userName);
-        string userId = PlayerPrefs.GetString(Utils.userId);
-        if (name != "" && userId == "") {
-            Dictionary<string, object> city = new Dictionary<string, object>
-            {
-                    { "name", name },
-                    { "score", "0" }
-            };
-            db.Collection(Utils.userCollection).AddAsync(city).ContinueWithOnMainThread(task => {
-                if (task.IsCompleted) {
-                    DocumentReference addedDocRef = task.Result;
-                    Debug.Log("Added user with ID: {0}."+ addedDocRef.Id);
-                    PlayerPrefs.SetString(Utils.userId, addedDocRef.Id);
-                }
-            });
-        }
-    }
-
     public void GoBack() {
         SceneManager.LoadScene(Utils.mainMenu);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
@@ -186,12 +111,4 @@ public class WorldManager : MonoBehaviour
         notEnoughLifePanel.SetActive(false);
         lockPanel.SetActive(false);
     }
-
-    // private void OnApplicationQuit() {
-    //     FirebaseFirestore.DefaultInstance.App.Dispose();
-    // }
-
-    // private void OnDestroy() {
-    //     FirebaseFirestore.DefaultInstance.App.Dispose();
-    // }
 }

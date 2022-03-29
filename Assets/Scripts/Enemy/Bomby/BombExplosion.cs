@@ -10,11 +10,11 @@ public class BombExplosion : MonoBehaviour
     private Game game;
     [SerializeField]
     private Enemy enemy;
-    private float explodeDur = 5f;
+    private float explodeDur;
     // Start is called before the first frame update
     void Start()
     {
-
+        explodeDur = Random.Range(1f, 3f);
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class BombExplosion : MonoBehaviour
     {
         explodeDur -= Time.deltaTime;
         if (explodeDur <= 0f) {
-            explodeDur = Random.Range(1f, 4f);
+            explodeDur = Random.Range(1f, 3f);
             GameObject exp = Instantiate(explosion, transform.position, Quaternion.identity);
             exp.SetActive(true);
             exp.name = "Explosion";
