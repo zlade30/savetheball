@@ -25,10 +25,10 @@
 public static class GPGSIds
 {
         public const string leaderboard_bomby_leaderboard = "CgkI-r_H8-cIEAIQAg"; // <GPGSID>
+        public const string leaderboard_ninjy_leaderboard = "CgkI-r_H8-cIEAIQBQ"; // <GPGSID>
         public const string achievement_sign_in = "CgkI-r_H8-cIEAIQAw"; // <GPGSID>
-        public const string leaderboard_shapeshifty_world = "CgkI-r_H8-cIEAIQBA"; // <GPGSID>
+        public const string leaderboard_shapeshifty_leaderboard = "CgkI-r_H8-cIEAIQBA"; // <GPGSID>
         public const string leaderboard_speedy_leaderboard = "CgkI-r_H8-cIEAIQAQ"; // <GPGSID>
-        public const string leaderboard_ninjy_world = "CgkI-r_H8-cIEAIQBQ"; // <GPGSID>
 
 }
 

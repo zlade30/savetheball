@@ -23,13 +23,13 @@ public class GoogleLeaderboard : MonoBehaviour
                     PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_bomby_leaderboard);
                     break;
                 case Utils.ninjyWorld:
-                    PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_ninjy_world);
+                    PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_ninjy_leaderboard);
                     break;
                 case Utils.speedyWorld:
                     PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_speedy_leaderboard);
                     break;
                 case Utils.shapeShiftyWorld:
-                    PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_shapeshifty_world);
+                    PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_shapeshifty_leaderboard);
                     break;
                 default:
                     break;
@@ -45,20 +45,20 @@ public class GoogleLeaderboard : MonoBehaviour
                     Social.ReportScore(score, GPGSIds.leaderboard_bomby_leaderboard,
                         (bool success) => {
                             if (success) {
-
+                                Debug.Log("Success post");
                             } else {
-
+                                Debug.Log("Failed post");
                             }
                         }
                     );
                     break;
                 case Utils.ninjyWorld:
-                    Social.ReportScore(score, GPGSIds.leaderboard_ninjy_world,
+                    Social.ReportScore(score, GPGSIds.leaderboard_ninjy_leaderboard,
                         (bool success) => {
                             if (success) {
-
+                                Debug.Log("Success post");
                             } else {
-
+                                Debug.Log("Failed post");
                             }
                         }
                     );
@@ -69,18 +69,18 @@ public class GoogleLeaderboard : MonoBehaviour
                             if (success) {
                                 Debug.Log("Success post");
                             } else {
-                                Debug.Log("Success post");
+                                Debug.Log("Failed post");
                             }
                         }
                     );
                     break;
                 case Utils.shapeShiftyWorld:
-                    Social.ReportScore(score, GPGSIds.leaderboard_shapeshifty_world,
+                    Social.ReportScore(score, GPGSIds.leaderboard_shapeshifty_leaderboard,
                         (bool success) => {
                             if (success) {
-
+                                Debug.Log("Success post");
                             } else {
-
+                                Debug.Log("Failed post");
                             }
                         }
                     );
