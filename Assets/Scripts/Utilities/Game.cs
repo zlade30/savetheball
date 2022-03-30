@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Collections.Generic;
 
 public class Game : MonoBehaviour
 {
@@ -32,6 +31,7 @@ public class Game : MonoBehaviour
     GameObject exitConfirmationPanel;
     [SerializeField]
     private GameObject destroyEffect;
+    private GoogleLeaderboard googleLeaderboard;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        googleLeaderboard = new GoogleLeaderboard();
     }
 
     // Update is called once per frame
@@ -166,6 +166,7 @@ public class Game : MonoBehaviour
         if (score.score > highScore) {
             PlayerPrefs.SetFloat(newHighScore, score.score);
             yourHighScore.text = score.score.ToString("00000");
+            googleLeaderboard.DoLeaderboardPost(int.Parse(score.score.ToString("00000")));
         } else {
             yourHighScore.text = highScore.ToString("00000");
         }
@@ -176,7 +177,6 @@ public class Game : MonoBehaviour
         }
 
         yourScore.text = score.score.ToString("00000");
-        
         PlayerPrefs.SetFloat(currentScore, score.score);
     }
 
@@ -196,15 +196,7 @@ public class Game : MonoBehaviour
     }
 
     public void ShowLeaderBoard() {
-        leaderBoard.SetActive(true);
-        if (Application.internetReachability != NetworkReachability.NotReachable) {
-            leaderBoardPanel.SetActive(true);
-            leaderBoardNetworkPanel.SetActive(false);
-        } else {
-            leaderBoardPanel.SetActive(false);
-            leaderBoardNetworkPanel.SetActive(true);
-        }
-        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+        googleLeaderboard.ShowLeaderboardUI();
     }
 
     public void WatchRewardedAds() {

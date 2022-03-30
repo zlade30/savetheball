@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Purchasing;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using UnityEngine.UI;
 using TMPro;
 using System;
@@ -29,6 +30,13 @@ public class MainMenuManager : MonoBehaviour
     private Image soundOffIcon;
     [SerializeField]
     GameObject iapManager;
+    private PlayGamesClientConfiguration clientConfiguration;
+    private GoogleLeaderboard googleLeaderboard;
+
+    void Awake() {
+        if (Application.platform == RuntimePlatform.Android)
+            PlayGamesPlatform.Activate();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +55,12 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.ice, 3);
             PlayerPrefs.SetInt(Utils.shield, 3);
             PlayerPrefs.SetInt(Utils.teleport, 3);
+        }
+
+        if (Application.platform == RuntimePlatform.Android) {
+            clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
+            googleLeaderboard = new GoogleLeaderboard();
+            SignIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
         }
     }
 
@@ -135,5 +149,22 @@ public class MainMenuManager : MonoBehaviour
     public void SoundOff() {
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
         PlayerPrefs.SetInt(Utils.volumeStatus, 1);
+    }
+
+    public void ShowLeaderboard() {
+
+    }
+
+    internal void SignIntoGPS(SignInInteractivity interactivity, PlayGamesClientConfiguration configuration) {
+        configuration = clientConfiguration;
+        PlayGamesPlatform.InitializeInstance(configuration);
+        PlayGamesPlatform.Instance.Authenticate(interactivity, (code) => {
+            if (code == SignInStatus.Success) {
+                Debug.Log("Success");
+                Debug.Log("Auth: "+PlayGamesPlatform.Instance.IsAuthenticated());
+            } else {
+                Debug.Log("error");
+            }
+        });
     }
 }
