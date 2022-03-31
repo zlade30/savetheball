@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using CloudOnce;
+using System;
 
 public class Game : MonoBehaviour
 {
@@ -31,16 +33,48 @@ public class Game : MonoBehaviour
     GameObject exitConfirmationPanel;
     [SerializeField]
     private GameObject destroyEffect;
-    private GoogleLeaderboard googleLeaderboard;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
     private bool isResume = false;
+    private string platformID = "";
 
     // Start is called before the first frame update
     void Start()
     {
-        googleLeaderboard = new GoogleLeaderboard();
+        int world = PlayerPrefs.GetInt(Utils.currentWorld);
+        switch (world) {
+            case Utils.bombyWorld:
+                #if UNITY_ANDROID
+                    platformID = GPGSIds.leaderboard_bomby_leaderboard;
+                #elif UNITY_IPHONE
+                    platformID = "com.bomby.leaderboard";
+                #endif
+                break;
+            case Utils.ninjyWorld:
+                #if UNITY_ANDROID
+                    platformID = GPGSIds.leaderboard_ninjy_leaderboard;
+                #elif UNITY_IPHONE
+                    platformID = "com.ninjy.leaderboard";
+                #endif
+                break;
+            case Utils.speedyWorld:
+                #if UNITY_ANDROID
+                    platformID = GPGSIds.leaderboard_speedy_leaderboard;
+                #elif UNITY_IPHONE
+                    platformID = "com.speedy.leaderboard";
+                #endif
+                break;
+            case Utils.shapeShiftyWorld:
+                #if UNITY_ANDROID
+                    platformID = GPGSIds.leaderboard_shapeshifty_leaderboard;
+                #elif UNITY_IPHONE
+                    platformID = "com.shapeshifty.leaderboard";
+                #endif
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -159,7 +193,7 @@ public class Game : MonoBehaviour
         if (score.score > highScore) {
             PlayerPrefs.SetFloat(newHighScore, score.score);
             yourHighScore.text = score.score.ToString("00000");
-            googleLeaderboard.DoLeaderboardPost(int.Parse(score.score.ToString("00000")));
+            Cloud.Leaderboards.SubmitScore(platformID, Convert.ToInt64(score.score));
         } else {
             yourHighScore.text = highScore.ToString("00000");
         }
@@ -184,7 +218,7 @@ public class Game : MonoBehaviour
     }
 
     public void ShowLeaderBoard() {
-        googleLeaderboard.ShowLeaderboardUI();
+        Cloud.Leaderboards.ShowOverlay(platformID);
     }
 
     public void WatchRewardedAds() {

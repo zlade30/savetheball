@@ -158,10 +158,10 @@ PlayerSettings:
     iPhone: com.zalstudio.savedball
   buildNumber:
     Standalone: 0
-    iPhone: 3
+    iPhone: 4
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 29
+  AndroidBundleVersionCode: 30
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -176,7 +176,7 @@ PlayerSettings:
   keepLoadedShadersAlive: 0
   StripUnusedMeshComponents: 0
   VertexChannelCompressionMask: 4054
-  iPhoneSdkVersion: 988
+  iPhoneSdkVersion: 989
   iOSTargetOSVersionString: 11.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
@@ -244,7 +244,7 @@ PlayerSettings:
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
-  useCustomProguardFile: 1
+  useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
@@ -280,36 +280,6 @@ PlayerSettings:
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: iPhone
     m_Icons:
-    - m_Textures:
-      - {fileID: 2800000, guid: 034d4204ac0644e99b373b5fbbf23ff1, type: 3}
-      m_Width: 180
-      m_Height: 180
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: 8a1cfaa4214db4b45870683c1e1ab434, type: 3}
-      m_Width: 120
-      m_Height: 120
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: 3b05289deaf594cbaaba330a3348a26d, type: 3}
-      m_Width: 167
-      m_Height: 167
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: f7066dfd76b2d4930ae1e41eb53a72af, type: 3}
-      m_Width: 152
-      m_Height: 152
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: 89a57cdcd28324ca485d0a2890d1555f, type: 3}
-      m_Width: 76
-      m_Height: 76
-      m_Kind: 0
-      m_SubKind: iPad
     - m_Textures:
       - {fileID: 2800000, guid: 8a1cfaa4214db4b45870683c1e1ab434, type: 3}
       m_Width: 120
@@ -394,6 +364,36 @@ PlayerSettings:
       m_Height: 1024
       m_Kind: 4
       m_SubKind: App Store
+    - m_Textures:
+      - {fileID: 2800000, guid: 034d4204ac0644e99b373b5fbbf23ff1, type: 3}
+      m_Width: 180
+      m_Height: 180
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: 8a1cfaa4214db4b45870683c1e1ab434, type: 3}
+      m_Width: 120
+      m_Height: 120
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: 3b05289deaf594cbaaba330a3348a26d, type: 3}
+      m_Width: 167
+      m_Height: 167
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: f7066dfd76b2d4930ae1e41eb53a72af, type: 3}
+      m_Width: 152
+      m_Height: 152
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: 89a57cdcd28324ca485d0a2890d1555f, type: 3}
+      m_Width: 76
+      m_Height: 76
+      m_Kind: 0
+      m_SubKind: iPad
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
@@ -774,7 +774,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Android: UNITY_POST_PROCESSING_STACK_V2
+    Android: UNITY_POST_PROCESSING_STACK_V2;CLOUDONCE_GOOGLE
     CloudRendering: UNITY_POST_PROCESSING_STACK_V2
     EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2
     GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2
@@ -787,6 +787,7 @@ PlayerSettings:
     WebGL: UNITY_POST_PROCESSING_STACK_V2
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2
     XboxOne: UNITY_POST_PROCESSING_STACK_V2
+    iPhone: 
     tvOS: UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}

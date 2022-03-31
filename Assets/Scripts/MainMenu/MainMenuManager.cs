@@ -30,12 +30,10 @@ public class MainMenuManager : MonoBehaviour
     private Image soundOffIcon;
     [SerializeField]
     GameObject iapManager;
-    private PlayGamesClientConfiguration clientConfiguration;
-    private GoogleLeaderboard googleLeaderboard;
-
     void Awake() {
-        if (Application.platform == RuntimePlatform.Android)
+        #if UNITY_ANDROID
             PlayGamesPlatform.Activate();
+        #endif
     }
 
     // Start is called before the first frame update
@@ -57,11 +55,13 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.teleport, 3);
         }
 
-        if (Application.platform == RuntimePlatform.Android) {
-            clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
-            googleLeaderboard = new GoogleLeaderboard();
-            SignIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
-        }
+        // #if UNITY_ANDROID
+        //     if (Application.platform == RuntimePlatform.Android) {
+        //         clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
+        //         googleLeaderboard = new GoogleLeaderboard();
+        //         SignIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
+        //     }
+        // #endif
     }
 
     // Update is called once per frame
@@ -155,20 +155,7 @@ public class MainMenuManager : MonoBehaviour
         #if UNITY_ANDROID
             Application.OpenURL("market://details?id=com.zalstudio.savedball");
         #elif UNITY_IPHONE
-            Application.OpenURL("itms-apps://apps.apple.com/app/savedball/id1615056738")
+            Application.OpenURL("itms-apps://apps.apple.com/app/savedball/id1615056738");
         #endif
-    }
-
-    internal void SignIntoGPS(SignInInteractivity interactivity, PlayGamesClientConfiguration configuration) {
-        configuration = clientConfiguration;
-        PlayGamesPlatform.InitializeInstance(configuration);
-        PlayGamesPlatform.Instance.Authenticate(interactivity, (code) => {
-            if (code == SignInStatus.Success) {
-                Debug.Log("Success");
-                Debug.Log("Auth: "+PlayGamesPlatform.Instance.IsAuthenticated());
-            } else {
-                Debug.Log("error");
-            }
-        });
     }
 }

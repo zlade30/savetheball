@@ -1,0 +1,33 @@
+{
+	"AchievementIDs":[],
+	"LeaderboardIDs":[
+		{
+			"InternalID":"SpeedyLeaderboard",
+			"AppleID":"com.speedy.leaderboard",
+			"GoogleID":"CgkI-r_H8-cIEAIQAQ"
+		},
+		{
+			"InternalID":"BombyLeaderboard",
+			"AppleID":"com.bomby.leaderboard",
+			"GoogleID":"CgkI-r_H8-cIEAIQAg"
+		},
+		{
+			"InternalID":"ShapeshiftyLeaderboard",
+			"AppleID":"com.shapeshifty.leaderboard",
+			"GoogleID":"CgkI-r_H8-cIEAIQBA"
+		},
+		{
+			"InternalID":"NinjyLeaderboard",
+			"AppleID":"com.ninjy.leaderboard",
+			"GoogleID":"CgkI-r_H8-cIEAIQBQ"
+		}
+	],
+	"CloudVariables":[],
+	"AppleSupported":true,
+	"GoogleSupported":true,
+	"GoogleAppID":"302769102842",
+	"GoogleSetupRun":true,
+	"DebugModeEnabled":false,
+	"Version":"2.7.5",
+	"SettingsLocation":"0"
+}
