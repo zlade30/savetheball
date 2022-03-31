@@ -148,17 +148,17 @@ public class Movement : MonoBehaviour
     void HandleSpeed()
     {
         if (int.Parse(score.text) >= 0 && int.Parse(score.text) <= 99) {
-            walkSpeed = 4f;
+            walkSpeed = 3f;
         } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 149) {
-            walkSpeed = 4.5f;
+            walkSpeed = 3.5f;
         } else if (int.Parse(score.text) >= 150 && int.Parse(score.text) <= 199) {
-            walkSpeed = 5f;
+            walkSpeed = 4f;
         } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 249) {
-            walkSpeed = 5.5f;
+            walkSpeed = 4.5f;
         } else if (int.Parse(score.text) >= 250 && int.Parse(score.text) <= 299) {
-            walkSpeed = 6f;
+            walkSpeed = 5f;
         } else if (int.Parse(score.text) >= 300) {
-            walkSpeed = 6.5f;
+            walkSpeed = 5.5f;
         }
     }
 

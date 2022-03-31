@@ -4994,7 +4994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &494513392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13374,8 +13374,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Star allows you to continue the game without losing the current score.
-    Purchase more in the shop or complete watching ads to gain 1 life or 1 star '
+  m_text: Star allows you to continue the game without losing the current score.
+    Purchase more in the shop or complete watching ads to gain +1 random powerup.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
   m_sharedMaterial: {fileID: -2796716303347297270, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
@@ -25152,7 +25152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+  m_DragThreshold: 0
 --- !u!4 &1625274959
 Transform:
   m_ObjectHideFlags: 0
@@ -27778,7 +27778,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -55,7 +55,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         builder.AddProduct(Utils.soccerBallSkinId, ProductType.NonConsumable);
         builder.AddProduct(Utils.tennisBallSkinId, ProductType.NonConsumable);
         builder.AddProduct(Utils.billiardBallSkinId, ProductType.NonConsumable);
-        builder.AddProduct(Utils.lifeId, ProductType.Consumable);
         builder.AddProduct(Utils.starId, ProductType.Consumable);
         builder.AddProduct(Utils.iceId, ProductType.Consumable);
         builder.AddProduct(Utils.fireId, ProductType.Consumable);
@@ -81,7 +80,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
     }
  
     public void RemoveAds() { BuyProductID(Utils.removeAdsId); }
-    public void BuyLife() { BuyProductID(Utils.lifeId); }
     public void BuyStar() { BuyProductID(Utils.starId); }
     public void BuyFire() { BuyProductID(Utils.fireId); }
     public void BuyIce() { BuyProductID(Utils.iceId); }
@@ -224,11 +222,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             Debug.Log("Remove ads purchase success");
             mainMenuManager.RemoveAds();
-        }
-        else if (String.Equals(args.purchasedProduct.definition.id, Utils.lifeId, StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            shopManager.BuyShopProduct(Utils.lifeId);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, Utils.starId, StringComparison.Ordinal))
         {

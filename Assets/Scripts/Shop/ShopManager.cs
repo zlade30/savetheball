@@ -73,12 +73,6 @@ public class ShopManager : MonoBehaviour {
         int value = 0;
         switch (productId) {
             // Consumables
-            case Utils.lifeId:
-                Debug.Log("Success Life Purchase");
-                value = PlayerPrefs.GetInt(Utils.life);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.life, value);
-                break;
             case Utils.starId:
                 Debug.Log("Success Star Purchase");
                 value = PlayerPrefs.GetInt(Utils.star);
@@ -141,9 +135,6 @@ public class ShopManager : MonoBehaviour {
     {
         switch (productId) {
             // Consumables
-            case Utils.lifeId:
-                lifePrice.text = price;
-                break;
             case Utils.starId:
                 starPrice.text = price;
                 break;

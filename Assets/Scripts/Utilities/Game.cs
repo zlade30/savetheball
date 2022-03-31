@@ -68,15 +68,8 @@ public class Game : MonoBehaviour
 
     public void Play()
     {
-        if (PlayerPrefs.GetInt(Utils.life) != 0) {
-            int value = PlayerPrefs.GetInt(Utils.life);
-            --value;
-            PlayerPrefs.SetInt(Utils.life, value);
-            ClearAllCurrentScore();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        } else {
-            OutOfLife();
-        }
+        ClearAllCurrentScore();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
@@ -187,12 +180,7 @@ public class Game : MonoBehaviour
     }
 
     public void Restart() {
-        if (PlayerPrefs.GetInt(Utils.life) != 0) {
-            Play();
-        } else {
-            OutOfLife();
-        }
-        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+        Play();
     }
 
     public void ShowLeaderBoard() {
@@ -234,58 +222,4 @@ public class Game : MonoBehaviour
         leaderBoardNetworkPanel.SetActive(false);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
-
-    // public void OnPointerClick(PointerEventData eventData)
-    // {
-    //     string uiName = eventData.pointerCurrentRaycast.gameObject.name;
-    //     switch (uiName) {
-    //         case "Back":
-    //             if (!game.isOver)
-    //                 game.Pause();
-    //             break;
-    //         case "Resume":
-    //             game.Resume();
-    //             break;
-    //         case "Play":
-    //             if (game.isOver) {
-    //                 if (PlayerPrefs.GetInt(Utils.star) != 0) {
-    //                     int value = PlayerPrefs.GetInt(Utils.star);
-    //                     --value;
-    //                     PlayerPrefs.SetInt(Utils.star, value);
-    //                     game.Continue();
-    //                 } else {
-    //                     game.OutOfStar();
-    //                 }
-    //             }
-    //             else {
-    //                 if (PlayerPrefs.GetInt(Utils.life) != 0) {
-    //                     int value = PlayerPrefs.GetInt(Utils.life);
-    //                     --value;
-    //                     PlayerPrefs.SetInt(Utils.life, value);
-    //                     game.Play();
-    //                 } else {
-    //                     game.OutOfLife();
-    //                 }
-    //             }
-    //             break;
-    //         case "Restart":
-    //             if (PlayerPrefs.GetInt(Utils.life) != 0) {
-    //                 int value = PlayerPrefs.GetInt(Utils.life);
-    //                 --value;
-    //                 PlayerPrefs.SetInt(Utils.life, value);
-    //                 game.Play();
-    //             } else {
-    //                 game.OutOfLife();
-    //             }
-    //             break;
-    //         case "Ads":
-                
-    //             break;
-    //         case "Exit":
-                
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 }

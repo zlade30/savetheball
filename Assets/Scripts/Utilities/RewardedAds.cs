@@ -65,15 +65,40 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
             Debug.Log("Unity Ads Rewarded Ad Completed");
             // Grant a reward.
 
-            int lifeValue = PlayerPrefs.GetInt(Utils.life);
             int starValue = PlayerPrefs.GetInt(Utils.star);
+            int fireValue = PlayerPrefs.GetInt(Utils.fire);
+            int iceValue = PlayerPrefs.GetInt(Utils.ice);
+            int shieldValue = PlayerPrefs.GetInt(Utils.shield);
+            int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
+            
+            int choose = Random.Range(0, 5);
 
-            if (Random.Range(0, 2) == 0) lifeValue++;
-            else starValue++;
+            switch (choose) {
+                case 0:
+                    starValue++;
+                    PlayerPrefs.SetInt(Utils.star, starValue);
+                    break;
+                case 1:
+                    fireValue++;
+                    PlayerPrefs.SetInt(Utils.fire, fireValue);
+                    break;
+                case 2:
+                    iceValue++;
+                    PlayerPrefs.SetInt(Utils.ice, iceValue);
+                    break;
+                case 3:
+                    shieldValue++;
+                    PlayerPrefs.SetInt(Utils.shield, shieldValue);
+                    break;
+                case 4:
+                    teleportValue++;
+                    PlayerPrefs.SetInt(Utils.teleport, teleportValue);
+                    break;
+                default:
+                    break;
 
-            PlayerPrefs.SetInt(Utils.life, lifeValue);
-            PlayerPrefs.SetInt(Utils.star, starValue);
-
+            }
+            
             // Load another ad:
             Advertisement.Load(_adUnitId, this);
         }

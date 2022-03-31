@@ -9612,7 +9612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &494513392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18205,8 +18205,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Star allows you to continue the game without losing the current score.
-    Purchase more in the shop or complete watching ads to gain 1 life or 1 star '
+  m_text: Star allows you to continue the game without losing the current score.
+    Purchase more in the shop or complete watching ads to gain +1 random powerup.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
   m_sharedMaterial: {fileID: -2796716303347297270, guid: 0b0b77bbbac754f04bcae7e31e9f9e1d, type: 2}
@@ -25335,9 +25335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 982328780}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+  m_DragThreshold: 0
 --- !u!4 &1625274959
 Transform:
   m_ObjectHideFlags: 0
@@ -26750,6 +26750,18 @@ MonoBehaviour:
       - m_Target: {fileID: 519420036}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
         m_MethodName: Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 620993505}
+        m_TargetAssemblyTypeName: InterstitialAds, Assembly-CSharp
+        m_MethodName: ShowAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -33225,7 +33237,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

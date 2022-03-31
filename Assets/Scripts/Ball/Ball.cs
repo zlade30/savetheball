@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 	private float toolbarWidth, toolbarHeight;
     private float bX, bY;
     private Vector3 mousePosition;
+	private Vector3 dragOffset;
+	private float speed = 10;
     private bool following = false;
 	private bool isCaught = false;
 	private bool isDrag = false;
@@ -90,28 +92,30 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 	void HandleBallMovement()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+		
 		if (mousePosition.x > ((worldWidth / 2) - (ballWidth / 2))) {
 			bX = ((worldWidth / 2) - (ballWidth / 2));
 			mousePosition.Set (bX, mousePosition.y, mousePosition.z);
-			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			transform.position = Vector2.Lerp (transform.position, mousePosition, 5000 * Time.unscaledDeltaTime);
 		} else if (mousePosition.x < -((worldWidth / 2) - (ballWidth / 2))){
 			bX = -((worldWidth / 2) - (ballWidth / 2));
 			mousePosition.Set (bX, mousePosition.y, mousePosition.z);
-			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			transform.position = Vector2.Lerp (transform.position, mousePosition, 5000 * Time.unscaledDeltaTime);
 		}
 			
 		if (mousePosition.y < -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2))) {
 			bY = -(((worldHeight / 2) - btmBorder.transform.lossyScale.y) - (ballHeight / 2));
 			mousePosition.Set (mousePosition.x, bY, mousePosition.z);
-			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			transform.position = Vector2.Lerp (transform.position, mousePosition, 5000 * Time.unscaledDeltaTime);
 		}
 
 		if (mousePosition.y > (((worldHeight / 2) - toolbar.transform.lossyScale.y) - (ballHeight / 2))) {
 			bY = (((worldHeight / 2) - toolbar.transform.lossyScale.y) - (ballHeight / 2));
 			mousePosition.Set (mousePosition.x, bY, mousePosition.z);
-			transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+			transform.position = Vector2.Lerp (transform.position, mousePosition, 5000 * Time.unscaledDeltaTime);
 		}
-		transform.position = Vector2.Lerp (transform.position, mousePosition, 1.0f);
+
+		transform.position = Vector2.Lerp (transform.position, mousePosition, 5000 * Time.unscaledDeltaTime);
 
 		if (powerups.isTeleportTrigger && Input.GetMouseButtonDown(0))
 			SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.teleport);

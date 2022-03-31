@@ -151,8 +151,12 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt(Utils.volumeStatus, 1);
     }
 
-    public void ShowLeaderboard() {
-
+    public void Rate() {
+        #if UNITY_ANDROID
+            Application.OpenURL("market://details?id=com.zalstudio.savedball");
+        #elif UNITY_IPHONE
+            Application.OpenURL("itms-apps://apps.apple.com/app/savedball/id1615056738")
+        #endif
     }
 
     internal void SignIntoGPS(SignInInteractivity interactivity, PlayGamesClientConfiguration configuration) {
