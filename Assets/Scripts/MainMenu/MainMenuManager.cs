@@ -30,11 +30,11 @@ public class MainMenuManager : MonoBehaviour
     private Image soundOffIcon;
     [SerializeField]
     GameObject iapManager;
-    void Awake() {
-        #if UNITY_ANDROID
-            PlayGamesPlatform.Activate();
-        #endif
-    }
+    // void Awake() {
+    //     #if UNITY_ANDROID
+    //         PlayGamesPlatform.Activate();
+    //     #endif
+    // }
 
     // Start is called before the first frame update
     void Start()
@@ -54,14 +54,6 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.shield, 3);
             PlayerPrefs.SetInt(Utils.teleport, 3);
         }
-
-        // #if UNITY_ANDROID
-        //     if (Application.platform == RuntimePlatform.Android) {
-        //         clientConfiguration = new PlayGamesClientConfiguration.Builder().Build();
-        //         googleLeaderboard = new GoogleLeaderboard();
-        //         SignIntoGPS(SignInInteractivity.CanPromptAlways, clientConfiguration);
-        //     }
-        // #endif
     }
 
     // Update is called once per frame

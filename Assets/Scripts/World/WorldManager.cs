@@ -17,6 +17,8 @@ public class WorldManager : MonoBehaviour
     GameObject worldPanel;
     [SerializeField]
     GameObject lockPanel;
+    [SerializeField]
+    Sprite[] lockSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -33,15 +35,15 @@ public class WorldManager : MonoBehaviour
     }
 
     void HandleLocksWorld() {
-        if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= 800) {
-            GameObject.Find("BombyLock").SetActive(false);
-        }
-
-        if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= 1500) {
+        if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= Utils.shapeShiftyUnlockScore) {
             GameObject.Find("ShapeShiftyLock").SetActive(false);
         }
 
-        if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= 2000) {
+        if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= Utils.bombyUnlockScore) {
+            GameObject.Find("BombyLock").SetActive(false);
+        }
+
+        if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= Utils.ninjyUnlockScore) {
             GameObject.Find("NinjyLock").SetActive(false);
         }
     }
@@ -59,31 +61,34 @@ public class WorldManager : MonoBehaviour
                 SceneManager.LoadScene(Utils.speedyWorld);
                 PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
                 break;
-            case "Bomby":
-                if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= 800) {
-                    SceneManager.LoadScene(Utils.bombyWorld);
-                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
-                } else {
-                    lockPanel.SetActive(true);
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Bomby is currently locked. You need to have a score of 800 in Speedy World before you can unlock this one.";
-                }
-                break;
             case "ShapeShifty":
-                if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= 1500) {
+                if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= Utils.shapeShiftyUnlockScore) {
                     SceneManager.LoadScene(Utils.shapeShiftyWorld);
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
                 } else {
                     lockPanel.SetActive(true);
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Shapeshifty is currently locked. You need to have a score of 1500 in Bomby World before you can unlock this one.";
+                    lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[0];
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Shapeshifty is currently locked. You need to have a score of "+Utils.shapeShiftyUnlockScore+" in Speedy World before you can unlock this one.";
+                }
+                break;
+            case "Bomby":
+                if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= Utils.bombyUnlockScore) {
+                    SceneManager.LoadScene(Utils.bombyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
+                } else {
+                    lockPanel.SetActive(true);
+                    lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[1];
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Bomby is currently locked. You need to have a score of "+Utils.bombyUnlockScore+" in Shapeshifty World before you can unlock this one.";
                 }
                 break;
             case "Ninjy":
-                if (PlayerPrefs.GetFloat(Utils.shapeShiftyHighScore) >= 2000) {
+                if (PlayerPrefs.GetFloat(Utils.bombyHighScore) >= Utils.ninjyUnlockScore) {
                     SceneManager.LoadScene(Utils.ninjyWorld);
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
                 } else {
                     lockPanel.SetActive(true);
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Ninjy is currently locked. You need to have a score of 2000 in Shapeshifty World before you can unlock this one.";
+                    lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[2];
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Ninjy is currently locked. You need to have a score of "+Utils.ninjyUnlockScore+" in Bomby World before you can unlock this one.";
                 }
                 break;
             default:

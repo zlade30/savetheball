@@ -91,4 +91,11 @@ public class Utils {
     public const string ninjyCollection = "ninjy";
     public const string volumeStatus = "volumeStatus";
     public const string isAuth = "isAuth";
+    public const float bombyUnlockScore = 1000;
+    public const float shapeShiftyUnlockScore = 800;
+    public const float ninjyUnlockScore = 1200;
+    public const string isShapeShiftyUnlock = "isShapeShiftyUnlock";
+    public const string isBombyUnlock = "isBombyUnlock";
+    public const string isNinjyUnlock = "isNinjyUnlock";
+
 }

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using CloudOnce;
 using System;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class Game : MonoBehaviour
     GameObject exitConfirmationPanel;
     [SerializeField]
     private GameObject destroyEffect;
+    [SerializeField]
+    private GameObject congratsPanel;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -186,6 +189,56 @@ public class Game : MonoBehaviour
             default:
                 break;
         }
+
+        HandleRewards();
+    }
+
+    void HandleRewards() {
+        int world = PlayerPrefs.GetInt(Utils.currentWorld);
+        switch (world) {
+            case Utils.speedyWorld:
+                if (score.score >= Utils.shapeShiftyUnlockScore && PlayerPrefs.GetInt(Utils.isShapeShiftyUnlock) == 0) {
+                    congratsPanel.SetActive(true);
+                    PlayerPrefs.SetInt(Utils.isShapeShiftyUnlock, 1);
+                }
+                break;
+            case Utils.shapeShiftyWorld:
+                if (score.score >= Utils.bombyUnlockScore && PlayerPrefs.GetInt(Utils.isBombyUnlock) == 0) {
+                    congratsPanel.SetActive(true);
+                    PlayerPrefs.SetInt(Utils.isBombyUnlock, 1);
+                }
+                break;
+            case Utils.bombyWorld:
+                if (score.score >= Utils.ninjyUnlockScore && PlayerPrefs.GetInt(Utils.isNinjyUnlock) == 0) {
+                    congratsPanel.SetActive(true);
+                    PlayerPrefs.SetInt(Utils.isNinjyUnlock, 1);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ClaimRewards() {
+        congratsPanel.SetActive(false);
+
+        int starValue = PlayerPrefs.GetInt(Utils.star);
+        int fireValue = PlayerPrefs.GetInt(Utils.fire);
+        int iceValue = PlayerPrefs.GetInt(Utils.ice);
+        int shieldValue = PlayerPrefs.GetInt(Utils.shield);
+        int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
+
+        starValue++;
+        fireValue++;
+        iceValue++;
+        shieldValue++;
+        teleportValue++;
+
+        PlayerPrefs.SetInt(Utils.star, starValue);
+        PlayerPrefs.SetInt(Utils.fire, fireValue);
+        PlayerPrefs.SetInt(Utils.ice, iceValue);
+        PlayerPrefs.SetInt(Utils.shield, shieldValue);
+        PlayerPrefs.SetInt(Utils.teleport, teleportValue);
     }
 
     void HandleScores(float highScore, string newHighScore, string currentScore, string collection) {

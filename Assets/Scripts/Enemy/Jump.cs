@@ -60,17 +60,17 @@ public class Jump : MonoBehaviour
     void HandleSpeed()
     {
         if (int.Parse(score.text) >= 0 && int.Parse(score.text) <= 99) {
-            jumpSpeed = 6f;
-        } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 149) {
+            jumpSpeed = 6.5f;
+        } else if (int.Parse(score.text) >= 100 && int.Parse(score.text) <= 199) {
             jumpSpeed = 7f;
-        } else if (int.Parse(score.text) >= 150 && int.Parse(score.text) <= 199) {
+        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 299) {
+            jumpSpeed = 7.5f;
+        } else if (int.Parse(score.text) >= 300 && int.Parse(score.text) <= 399) {
             jumpSpeed = 8f;
-        } else if (int.Parse(score.text) >= 200 && int.Parse(score.text) <= 249) {
+        } else if (int.Parse(score.text) >= 400 && int.Parse(score.text) <= 499) {
+            jumpSpeed = 8.5f;
+        } else if (int.Parse(score.text) >= 500) {
             jumpSpeed = 9f;
-        } else if (int.Parse(score.text) >= 250 && int.Parse(score.text) <= 299) {
-            jumpSpeed = 10f;
-        } else if (int.Parse(score.text) >= 300) {
-            jumpSpeed = 11f;
         }
     }
 

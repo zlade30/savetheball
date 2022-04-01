@@ -154,7 +154,7 @@ public class Ball : MonoBehaviour, IInitializePotentialDragHandler
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger) {
+		if (Input.GetMouseButtonDown(0) && powerups.isTeleportTrigger && !game.isPause) {
 			HandleBallMovement();
 		}
 

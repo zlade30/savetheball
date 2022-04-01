@@ -93,7 +93,7 @@ public class SpeedyAbility
             tmp.a = alphaVal;
             sprite.color = tmp;
 
-            yield return new WaitForSeconds(0.01f); // update interval
+            yield return new WaitForSeconds(0.007f); // update interval
         }
         isFade = true;
     }
@@ -110,7 +110,7 @@ public class SpeedyAbility
             tmp.a = alphaVal;
             sprite.color = tmp;
 
-            yield return new WaitForSeconds(0.01f); // update interval
+            yield return new WaitForSeconds(0.007f); // update interval
         }
         isFade = false;
         isInit = false;

@@ -77,7 +77,7 @@ public class Ninjy
     }
 
     private IEnumerator ActivateClone() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0f);
         for (int i = 0; i < 2; i++) {
             int choose = Random.Range(0, 4);
             Vector2 position = new Vector2(0f, 0f);
