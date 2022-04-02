@@ -37,10 +37,14 @@ public class ShopManager : MonoBehaviour {
     private GameObject samplePanel;
     [SerializeField]
     private TextMeshProUGUI samplePanelText;
+    [SerializeField]
+    GameObject restorePurchase;
 
     void Start()
     {
-        
+        if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) {
+            restorePurchase.SetActive(true);
+        }
     }
 
     void Update()

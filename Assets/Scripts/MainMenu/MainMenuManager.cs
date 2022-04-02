@@ -28,8 +28,7 @@ public class MainMenuManager : MonoBehaviour
     private Image soundOnIcon;
     [SerializeField]
     private Image soundOffIcon;
-    [SerializeField]
-    GameObject iapManager;
+
     // void Awake() {
     //     #if UNITY_ANDROID
     //         PlayGamesPlatform.Activate();
@@ -72,6 +71,12 @@ public class MainMenuManager : MonoBehaviour
         HideRemoveAds();
         removeAdIcon.gameObject.SetActive(false);
         menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
+    }
+
+    public void RemoveAdsHasReceipt() {
+        removeAdsPanel.transform.GetChild(0).Find("RemoveAdsContent").GetComponent<TextMeshProUGUI>().text = "You have already purchased this product before. Kindly click the restore button below to continue.";
+        removeAdsPanel.transform.GetChild(0).Find("PurchaseBtn").gameObject.SetActive(false);
+        removeAdsPanel.transform.GetChild(0).Find("RestoreBtn").gameObject.SetActive(true);
     }
 
     public void Shop()

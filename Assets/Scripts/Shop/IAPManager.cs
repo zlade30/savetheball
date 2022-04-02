@@ -286,8 +286,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
         mainMenuManager = Camera.main.GetComponent<MainMenuManager>();
         shopManager = Camera.main.GetComponent<ShopManager>();
         
-        if (mainMenuManager != null)
+        if (mainMenuManager != null) {
             mainMenuManager.RemoveAdsPrice(GetPrice(Utils.removeAdsId));
+            if (GetReceipt(Utils.removeAdsId))
+                mainMenuManager.RemoveAdsHasReceipt();
+        }
 
         if (shopManager != null) {
             shopManager.GetPrice(Utils.basketBallSkinId, GetPrice(Utils.basketBallSkinId));
