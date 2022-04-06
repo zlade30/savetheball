@@ -64,6 +64,11 @@ public class Enemy : MonoBehaviour
 		enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
         abilities = GetComponent<Abilities>();
+        Physics2D.IgnoreLayerCollision(Utils.layerEnemy, Utils.layerBomb);
+        Physics2D.IgnoreLayerCollision(Utils.layerEnemy, Utils.layerExplosion);
+        Physics2D.IgnoreLayerCollision(Utils.layerBomb, Utils.layerBomb);
+        Physics2D.IgnoreLayerCollision(Utils.layerEnemy, Utils.layerEnemy);
+        Physics2D.IgnoreLayerCollision(Utils.layerEnemy, Utils.layerPowerup);
         StartCoroutine(FadeIn());
     }
 

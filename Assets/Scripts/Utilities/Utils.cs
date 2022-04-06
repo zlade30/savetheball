@@ -35,7 +35,8 @@ public class Utils {
     public static string teleport = "Teleport";
     public static string life = "Life";
     public static string star = "Star";
-    public static string[] powerups = { fire, ice, shield, teleport, life, star };
+    public static string coin = "Coin";
+    public static string[] powerups = { fire, ice, shield, teleport, life, star, coin };
 
     // Products
 
@@ -97,5 +98,12 @@ public class Utils {
     public const string isShapeShiftyUnlock = "isShapeShiftyUnlock";
     public const string isBombyUnlock = "isBombyUnlock";
     public const string isNinjyUnlock = "isNinjyUnlock";
-
+    
+    public const int layerEnemy = 3;
+    public const int layerBomb = 6;
+    public const int layerBall = 7;
+    public const int layerExplosion = 8;
+    public const int layerShapeShiftyExplosion = 9;
+    public const int layerNinjyTool = 10;
+    public const int layerPowerup = 11;
 }

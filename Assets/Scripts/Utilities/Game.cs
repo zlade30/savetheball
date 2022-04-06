@@ -90,7 +90,6 @@ public class Game : MonoBehaviour
     {
         if (isResume) {
             resumeCD -= Time.unscaledDeltaTime;
-            Debug.Log(resumeCD);
             resumeCDText.text = resumeCD.ToString("0");
             if (resumeCD <= 1f) {
                 isResume = false;
@@ -121,6 +120,7 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
+        pausePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         isPause = true;
         score.enabled = false;
     }
@@ -138,7 +138,7 @@ public class Game : MonoBehaviour
     public void Resume()
     {
         isResume = true;
-        pausePanel.SetActive(false);
+        pausePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         resumeCDText.gameObject.SetActive(true);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }

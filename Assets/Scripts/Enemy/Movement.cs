@@ -41,10 +41,6 @@ public class Movement : MonoBehaviour
 		worldWidth = worldHeight * Screen.width / Screen.height;
         enemyWidth = GetComponent<SpriteRenderer>().bounds.size.x;
 		enemyHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        Physics2D.IgnoreLayerCollision(3, 6);
-        Physics2D.IgnoreLayerCollision(3, 8);
-        Physics2D.IgnoreLayerCollision(6, 6);
-        Physics2D.IgnoreLayerCollision(3, 3);
     }
 
     // Update is called once per frame

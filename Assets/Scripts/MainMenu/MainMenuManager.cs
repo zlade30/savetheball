@@ -17,6 +17,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject purchaseErrorPanel;
     [SerializeField]
+    private GameObject processingPanel;
+    [SerializeField]
     private GameObject sample;
     [SerializeField]
     private TextMeshProUGUI sampleText;
@@ -93,31 +95,34 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowRemoveAds() {
         removeAdsPanel.SetActive(true);
+        removeAdsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideRemoveAds() {
-        removeAdsPanel.SetActive(false);
+        removeAdsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowSuccessPanel() {
         purchaseSuccessfulPanel.SetActive(true);
+        purchaseSuccessfulPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideSuccessPanel() {
-        purchaseSuccessfulPanel.SetActive(false);
+        purchaseSuccessfulPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ShowErrorPanel() {
         purchaseErrorPanel.SetActive(true);
+        purchaseErrorPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void HideErrorPanel() {
-        purchaseErrorPanel.SetActive(false);
+        purchaseErrorPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
