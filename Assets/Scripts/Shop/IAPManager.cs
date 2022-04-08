@@ -16,13 +16,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
         if(Instance == null)
         {
             Instance = this;
-            print("IAP INSTANCIADO");
-            if (m_StoreController != null && m_StoreExtensionProvider != null) {
-                HandlePrices();
-            }
+            Debug.Log("Instantiate Success");
+            if (m_StoreController != null && m_StoreExtensionProvider != null) HandlePrices();
         }
         else
-            print("IAP já INSTANCIADO");
+            Debug.Log("Instantiate Failed");
  
     }
  
@@ -38,18 +36,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
  
     public void InitializePurchasing()
     {
-        // If we have already connected to Purchasing ...
-        if (IsInitialized())
-        {
-            // ... we are done here.
-            return;
-        }
- 
-        //Consumable - comprar mais de uma ves
-        //Non Consumable - comprar uma vez
-        // Create a builder, first passing in a suite of Unity provided stores.
+        if (IsInitialized()) return;
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
- 
         builder.AddProduct(Utils.removeAdsId, ProductType.NonConsumable);
         builder.AddProduct(Utils.basketBallSkinId, ProductType.NonConsumable);
         builder.AddProduct(Utils.soccerBallSkinId, ProductType.NonConsumable);
@@ -60,16 +48,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
         builder.AddProduct(Utils.fireId, ProductType.Consumable);
         builder.AddProduct(Utils.shieldId, ProductType.Consumable);
         builder.AddProduct(Utils.teleportId, ProductType.Consumable);
-     
-        //builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
- 
-        /*builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs(){
-                { kProductNameAppleSubscription, AppleAppStore.Name },
-                { kProductNameGooglePlaySubscription, GooglePlay.Name },
-            });*/
- 
-        // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration
-        // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
+        builder.AddProduct(Utils.powPack1Id, ProductType.Consumable);
+        builder.AddProduct(Utils.powPack2Id, ProductType.Consumable);
+        builder.AddProduct(Utils.powPack3Id, ProductType.Consumable);
         UnityPurchasing.Initialize(this, builder);
     }
 
@@ -85,6 +66,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public void BuyIce() { BuyProductID(Utils.iceId); }
     public void BuyShield() { BuyProductID(Utils.shieldId); }
     public void BuyTeleport() { BuyProductID(Utils.teleportId); }
+    public void BuyPowPack1() { BuyProductID(Utils.powPack1Id); }
+    public void BuyPowPack2() { BuyProductID(Utils.powPack2Id); }
+    public void BuyPowPack3() { BuyProductID(Utils.powPack3Id); }
     public void BuyBasketballSkin() { BuyProductID(Utils.basketBallSkinId); }
     public void BuySoccerballSkin() { BuyProductID(Utils.soccerBallSkinId); }
     public void BuyTennisballSkin() { BuyProductID(Utils.tennisBallSkinId); }
@@ -92,12 +76,16 @@ public class IAPManager : MonoBehaviour, IStoreListener
  
     private void BuyProductID(string productId)
     {
-        // If Purchasing has been initialized ...
         if (IsInitialized())
         {
             // ... look up the Product reference with the general product identifier and the Purchasing
             // system's products collection.
             Product product = m_StoreController.products.WithID(productId);
+            mainMenuManager = Camera.main.GetComponent<MainMenuManager>();
+            shopManager = Camera.main.GetComponent<ShopManager>();
+
+            // Show processing modal
+            if (mainMenuManager) mainMenuManager.ShowProcessing();
  
             // If the look up found a product for this device's store and that product is ready to be sold ...
             if (product != null && product.availableToPurchase)
@@ -126,7 +114,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public string GetPrice(string ID)
     {
         string s;
- 
+
+        Debug.Log(ID);
+
         s = m_StoreController.products.WithID(ID).metadata.isoCurrencyCode.ToString() +" "+ m_StoreController.products.WithID(ID).metadata.localizedPrice.ToString("0.00");
      
         return s;
@@ -215,7 +205,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         mainMenuManager = Camera.main.GetComponent<MainMenuManager>();
         shopManager = Camera.main.GetComponent<ShopManager>();
-
+        
         // A consumable product has been purchased by this user.
         if (String.Equals(args.purchasedProduct.definition.id, Utils.removeAdsId, StringComparison.Ordinal))
         {
@@ -269,11 +259,29 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             shopManager.BuyShopProduct(Utils.billiardBallSkinId);
         }
+        else if (String.Equals(args.purchasedProduct.definition.id, Utils.powPack1Id, StringComparison.Ordinal))
+        {
+            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+            shopManager.BuyShopProduct(Utils.powPack1Id);
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, Utils.powPack2Id, StringComparison.Ordinal))
+        {
+            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+            shopManager.BuyShopProduct(Utils.powPack2Id);
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, Utils.powPack3Id, StringComparison.Ordinal))
+        {
+            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+            shopManager.BuyShopProduct(Utils.powPack3Id);
+        }
         // Or ... an unknown product has been purchased by this user. Fill in additional products here....
         else
         {
             Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
         }
+
+        if (mainMenuManager != null) mainMenuManager.HideProcessing();
+        if (shopManager != null) shopManager.HideProcessing();
  
         //Analytics.Transaction("teste", 0.99m, "USD", null, null);
         // Return a flag indicating whether this product has completely been received, or if the application needs
@@ -297,20 +305,84 @@ public class IAPManager : MonoBehaviour, IStoreListener
             shopManager.GetPrice(Utils.soccerBallSkinId, GetPrice(Utils.soccerBallSkinId));
             shopManager.GetPrice(Utils.tennisBallSkinId, GetPrice(Utils.tennisBallSkinId));
             shopManager.GetPrice(Utils.billiardBallSkinId, GetPrice(Utils.billiardBallSkinId));
-            shopManager.GetPrice(Utils.lifeId, GetPrice(Utils.lifeId));
             shopManager.GetPrice(Utils.starId, GetPrice(Utils.starId));
             shopManager.GetPrice(Utils.iceId, GetPrice(Utils.iceId));
             shopManager.GetPrice(Utils.fireId, GetPrice(Utils.fireId));
             shopManager.GetPrice(Utils.shieldId, GetPrice(Utils.shieldId));
             shopManager.GetPrice(Utils.teleportId, GetPrice(Utils.teleportId));
+            shopManager.GetPrice(Utils.powPack1Id, GetPrice(Utils.powPack1Id));
+            shopManager.GetPrice(Utils.powPack2Id, GetPrice(Utils.powPack2Id));
+            shopManager.GetPrice(Utils.powPack3Id, GetPrice(Utils.powPack3Id));
         }
     }
  
  
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing
-        // this reason with the user to guide their troubleshooting actions.
-        Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+        mainMenuManager = Camera.main.GetComponent<MainMenuManager>();
+        shopManager = Camera.main.GetComponent<ShopManager>();
+
+        if (mainMenuManager != null) {
+            mainMenuManager.HideProcessing();
+            mainMenuManager.ShowErrorPanel();
+        }
+
+        if (shopManager != null) {
+            shopManager.HideProcessing();
+            shopManager.PurchasedError();
+        }
+
+        switch (failureReason) {
+            case PurchaseFailureReason.PurchasingUnavailable:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase is unavailable at the moment. Please try again later!");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Purchase is unavailable at the moment. Please try again later!");
+                break;
+            case PurchaseFailureReason.ExistingPurchasePending:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Another purchase is already in progress.");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Another purchase is already in progress.");
+                break;
+            case PurchaseFailureReason.ProductUnavailable:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> The product you're trying to purchase in unavailable.");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> The product you're trying to purchase in unavailable.");
+                break;
+            case PurchaseFailureReason.DuplicateTransaction:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> The transaction has already been completed.");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> The transaction has already been completed.");
+                break;
+            case PurchaseFailureReason.SignatureInvalid:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase signature is invalid.");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Purchase signature is invalid.");
+                break;
+            case PurchaseFailureReason.PaymentDeclined:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Payment is being declined or cancelled. Please try again later!");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Payment is being declined or cancelled. Please try again later!");
+                break;
+            case PurchaseFailureReason.UserCancelled:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase cancelled.");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Purchase cancelled.");
+                break;
+            case PurchaseFailureReason.Unknown:
+                if (mainMenuManager != null)
+                    mainMenuManager.ErrorText("<cspace=0.1em> Something went wrong. Please try again later!");
+                if (shopManager != null)
+                    shopManager.ErrorText("<cspace=0.1em> Something went wrong. Please try again later!");
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -1,30 +1,34 @@
 using UnityEngine;
-using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class ShopManager : MonoBehaviour {
     [SerializeField]
-    private Text lifePrice;
+    private TextMeshProUGUI starPrice;
     [SerializeField]
-    private Text starPrice;
+    private TextMeshProUGUI firePrice;
     [SerializeField]
-    private Text firePrice;
+    private TextMeshProUGUI icePrice;
     [SerializeField]
-    private Text icePrice;
+    private TextMeshProUGUI shieldPrice;
     [SerializeField]
-    private Text shieldPrice;
+    private TextMeshProUGUI teleportPrice;
     [SerializeField]
-    private Text teleportPrice;
+    private TextMeshProUGUI basketBallPrice;
     [SerializeField]
-    private Text basketBallPrice;
+    private TextMeshProUGUI soccerBallPrice;
     [SerializeField]
-    private Text soccerBallPrice;
+    private TextMeshProUGUI tennisBallPrice;
     [SerializeField]
-    private Text tennisBallPrice;
+    private TextMeshProUGUI billiardBallPrice;
     [SerializeField]
-    private Text billiardBallPrice;
+    private TextMeshProUGUI powPackPrice1;
+    [SerializeField]
+    private TextMeshProUGUI powPackPrice2;
+    [SerializeField]
+    private TextMeshProUGUI powPackPrice3;
     [SerializeField]
     private GameObject successfulPurchasePanel;
     [SerializeField]
@@ -36,9 +40,36 @@ public class ShopManager : MonoBehaviour {
     [SerializeField]
     private GameObject samplePanel;
     [SerializeField]
+    private GameObject confirmPanel;
+    [SerializeField]
+    private GameObject notEnoughCoinPanel;
+    [SerializeField]
     private TextMeshProUGUI samplePanelText;
     [SerializeField]
-    GameObject restorePurchase;
+    private GameObject restorePurchase;
+    [SerializeField]
+    private Button basketBallCoinBtn;
+    [SerializeField]
+    private Button basketBallCashBtn;
+    [SerializeField]
+    private Button soccerBallCoinBtn;
+    [SerializeField]
+    private Button soccerBallCashBtn;
+    [SerializeField]
+    private Button tennisBallCoinBtn;
+    [SerializeField]
+    private Button tennisBallCashBtn;
+    [SerializeField]
+    private Button billiardBallCoinBtn;
+    [SerializeField]
+    private Button billiardBallCashBtn;
+    [SerializeField]
+    private GameObject processingPanel;
+    [SerializeField]
+    private TextMeshProUGUI errorContent;
+
+    private string selectedProduct;
+    private int coinToDeduct;
 
     void Start()
     {
@@ -49,63 +80,74 @@ public class ShopManager : MonoBehaviour {
 
     void Update()
     {
-        if (skinPanel.activeSelf) {
-            if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
-                basketBallPrice.GetComponentInParent<Button>().interactable = false;
-                basketBallPrice.text = "Owned";
-            }
+        if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
+            basketBallCoinBtn.gameObject.SetActive(false);
+            basketBallCashBtn.interactable = false;
+            basketBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+        }
 
-            if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
-                soccerBallPrice.GetComponentInParent<Button>().interactable = false;
-                soccerBallPrice.text = "Owned";
-            }
+        if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
+            soccerBallCoinBtn.gameObject.SetActive(false);
+            soccerBallCashBtn.interactable = false;
+            soccerBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+        }
 
-            if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
-                tennisBallPrice.GetComponentInParent<Button>().interactable = false;
-                tennisBallPrice.text = "Owned";
-            }
+        if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
+            tennisBallCoinBtn.gameObject.SetActive(false);
+            tennisBallCashBtn.interactable = false;
+            tennisBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+        }
 
-            if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
-                billiardBallPrice.GetComponentInParent<Button>().interactable = false;
-                billiardBallPrice.text = "Owned";
-            }
+        if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
+            billiardBallCoinBtn.gameObject.SetActive(false);
+            billiardBallCashBtn.interactable = false;
+            billiardBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
         }
     }
 
     public void BuyShopProduct(string productId) 
     {
-        int value = 0;
         switch (productId) {
             // Consumables
             case Utils.starId:
                 Debug.Log("Success Star Purchase");
-                value = PlayerPrefs.GetInt(Utils.star);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.star, value);
+                AddValue(Utils.star);
                 break;
             case Utils.fireId:
                 Debug.Log("Success Fire Purchase");
-                value = PlayerPrefs.GetInt(Utils.fire);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.fire, value);
+                AddValue(Utils.fire);
                 break;
             case Utils.iceId:
                 Debug.Log("Success Ice Purchase");
-                value = PlayerPrefs.GetInt(Utils.ice);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.ice, value);
+                AddValue(Utils.ice);
                 break;
             case Utils.shieldId:
                 Debug.Log("Success Shield Purchase");
-                value = PlayerPrefs.GetInt(Utils.shield);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.shield, value);
+                AddValue(Utils.shield);
                 break;
             case Utils.teleportId:
                 Debug.Log("Success Teleport Purchase");
-                value = PlayerPrefs.GetInt(Utils.teleport);
-                value += 3;
-                PlayerPrefs.SetInt(Utils.teleport, value);
+                AddValue(Utils.teleport);
+                break;
+            case Utils.powPack1Id:
+                Debug.Log("Success PowPack1");
+                AddValue(Utils.ice);
+                AddValue(Utils.fire);
+                AddValue(Utils.star);
+                break;
+            case Utils.powPack2Id:
+                Debug.Log("Success PowPack2");
+                AddValue(Utils.teleport);
+                AddValue(Utils.star);
+                AddValue(Utils.shield);
+                break;
+            case Utils.powPack3Id:
+                Debug.Log("Success PowPack3");
+                AddValue(Utils.teleport);
+                AddValue(Utils.star);
+                AddValue(Utils.shield);
+                AddValue(Utils.ice);
+                AddValue(Utils.fire);
                 break;
             
             // Non Consumables
@@ -140,33 +182,42 @@ public class ShopManager : MonoBehaviour {
         switch (productId) {
             // Consumables
             case Utils.starId:
-                starPrice.text = price;
+                starPrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.fireId:
-                firePrice.text = price;
+                firePrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.iceId:
-                icePrice.text = price;
+                icePrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.shieldId:
-                shieldPrice.text = price;
+                shieldPrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.teleportId:
-                teleportPrice.text = price;
+                teleportPrice.text = "<cspace=0.1em> "+price;
+                break;
+            case Utils.powPack1Id:
+                powPackPrice1.text = "<cspace=0.1em> "+price;
+                break;
+            case Utils.powPack2Id:
+                powPackPrice2.text = "<cspace=0.1em> "+price;
+                break;
+            case Utils.powPack3Id:
+                powPackPrice3.text = "<cspace=0.1em> "+price;
                 break;
             
             // Non Consumables
             case Utils.basketBallSkinId:
-                basketBallPrice.text = price;
+                basketBallPrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.soccerBallSkinId:
-                soccerBallPrice.text = price;
+                soccerBallPrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.tennisBallSkinId:
-                tennisBallPrice.text = price;
+                tennisBallPrice.text = "<cspace=0.1em> "+price;
                 break;
             case Utils.billiardBallSkinId:
-                billiardBallPrice.text = price;
+                billiardBallPrice.text = "<cspace=0.1em> "+price;
                 break;
             default:
                 break;
@@ -176,24 +227,151 @@ public class ShopManager : MonoBehaviour {
     public void PurchasedSuccessful()
     {
         successfulPurchasePanel.SetActive(true);
-        errorPurchasePanel.SetActive(false);
+        successfulPurchasePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void PurchasedError()
     {
-        successfulPurchasePanel.SetActive(false);
         errorPurchasePanel.SetActive(true);
+        errorPurchasePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void ClosePurchasesPanel()
     {
-        successfulPurchasePanel.SetActive(false);
-        errorPurchasePanel.SetActive(false);
+        successfulPurchasePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        confirmPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        errorPurchasePanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void ErrorText(string content) {
+        errorContent.text = content;
     }
 
     public void Back() {
         SceneManager.LoadScene(Utils.mainMenu);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void PurchaseByCoin(GameObject btn) {
+        GameObject parent = btn.transform.parent.gameObject;
+        TextMeshProUGUI title = parent.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        Sprite sprite = parent.transform.GetChild(1).GetComponent<Image>().sprite;
+        TextMeshProUGUI price = btn.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI content = confirmPanel.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        
+        // =Debug.Log(title.GetParsedText());
+        Debug.Log(int.Parse(price.GetParsedText()));
+
+        int coin = PlayerPrefs.GetInt(Utils.coin);
+        if (coin < int.Parse(price.GetParsedText())) {
+            notEnoughCoinPanel.SetActive(true);
+            notEnoughCoinPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        } else {
+            Image confirmIcon = confirmPanel.transform.GetChild(0).GetChild(1).GetComponent<Image>();
+            confirmIcon.sprite = sprite;
+            confirmPanel.SetActive(true);
+            confirmPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+            content.text = "Are you sure you want to buy this item? You'll be spending <color=yellow><b>"+price.GetParsedText()+" coins</b></color> for this purchase.";
+            selectedProduct = title.GetParsedText();
+            coinToDeduct = int.Parse(price.GetParsedText());
+        }
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void CloseNotEnoughCoinPanel() {
+        notEnoughCoinPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void CloseConfirmPanel() {
+        confirmPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void BuyProductWithCoin() {
+        switch (selectedProduct) {
+            // Consumables
+            case " Star":
+                Debug.Log("Success Star Purchase");
+                AddValue(Utils.star);
+                break;
+            case " Fire":
+                Debug.Log("Success Fire Purchase");
+                AddValue(Utils.fire);
+                break;
+            case " Ice":
+                Debug.Log("Success Ice Purchase");
+                AddValue(Utils.ice);
+                break;
+            case " Shield":
+                Debug.Log("Success Shield Purchase");
+                AddValue(Utils.shield);
+                break;
+            case " Teleport":
+                Debug.Log("Success Teleport Purchase");
+                AddValue(Utils.teleport);
+                break;
+            case " PowPack1":
+                AddValue(Utils.fire);
+                AddValue(Utils.star);
+                AddValue(Utils.ice);
+                break;
+            case " PowPack2":
+                AddValue(Utils.shield);
+                AddValue(Utils.star);
+                AddValue(Utils.teleport);
+                break;
+            case " PowPack3":
+                AddValue(Utils.shield);
+                AddValue(Utils.star);
+                AddValue(Utils.ice);
+                AddValue(Utils.fire);
+                AddValue(Utils.teleport);
+                break;
+            case " Basket Ball":
+                PlayerPrefs.SetInt(Utils.basketBallSkinId, 1);
+                break;
+            case " Soccer Ball":
+                PlayerPrefs.SetInt(Utils.soccerBallSkinId, 1);
+                break;
+            case " Tennis Ball":
+                PlayerPrefs.SetInt(Utils.tennisBallSkinId, 1);
+                break;
+            case " Billiard Ball":
+                PlayerPrefs.SetInt(Utils.billiardBallSkinId, 1);
+                break;
+            default:
+                break;
+        }
+        DeductCoin();
+        CloseConfirmPanel();
+        PurchasedSuccessful();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    private void AddValue(string powerup) {
+        int value = PlayerPrefs.GetInt(powerup);
+        value += 3;
+        PlayerPrefs.SetInt(powerup, value);
+    }
+
+    private void DeductCoin() {
+        int coinValue = PlayerPrefs.GetInt(Utils.coin);
+        coinValue -= coinToDeduct;
+        PlayerPrefs.SetInt(Utils.coin, coinValue);
+    }
+
+    public void ShowProcessing() {
+        processingPanel.SetActive(true);
+        processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void HideProcessing() {
+        processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

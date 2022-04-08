@@ -30,6 +30,8 @@ public class MainMenuManager : MonoBehaviour
     private Image soundOnIcon;
     [SerializeField]
     private Image soundOffIcon;
+    [SerializeField]
+    private TextMeshProUGUI removeAdsContent;
 
     // void Awake() {
     //     #if UNITY_ANDROID
@@ -64,7 +66,11 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void RemoveAdsPrice(string price) {
-        removeAdsPrice.text = price;
+        removeAdsPrice.text = "<cspace=0.1em> "+price;
+    }
+
+    public void ErrorText(string error) {
+        removeAdsContent.text = "<cspace=0.1em> "+error;
     }
 
     public void RemoveAds() {
@@ -72,6 +78,7 @@ public class MainMenuManager : MonoBehaviour
         ShowSuccessPanel();
         HideRemoveAds();
         removeAdIcon.gameObject.SetActive(false);
+        processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         menuPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(50, 0);
     }
 
@@ -123,6 +130,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void HideErrorPanel() {
         purchaseErrorPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void ShowProcessing() {
+        processingPanel.SetActive(true);
+        processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        removeAdsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void HideProcessing() {
+        processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 

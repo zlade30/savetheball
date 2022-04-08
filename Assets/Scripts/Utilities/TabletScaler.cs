@@ -32,8 +32,21 @@ public class TabletScaler : MonoBehaviour
                     GetComponent<RectTransform>().offsetMax = new Vector2(GetComponent<RectTransform>().offsetMax.x, 10f);
                     GetComponent<RectTransform>().offsetMin = new Vector2(GetComponent<RectTransform>().offsetMin.x, 10f);
                     break;
+                case "Title":
+                    GetComponent<RectTransform>().offsetMax = new Vector2(GetComponent<RectTransform>().offsetMax.x, 30f);
+                    GetComponent<RectTransform>().offsetMin = new Vector2(GetComponent<RectTransform>().offsetMin.x, 30f);
+                    break;
                 case "PowerupValue":
                     GetComponent<TextMeshProUGUI>().fontSize = 40;
+                    break;
+                case "ShopBack":
+                    GetComponent<RectTransform>().offsetMax = new Vector2(GetComponent<RectTransform>().offsetMax.x, 30f);
+                    GetComponent<RectTransform>().offsetMin = new Vector2(GetComponent<RectTransform>().offsetMin.x, 30f);
+                    break;
+                case "ShopPanel":
+                    GetComponent<RectTransform>().offsetMax = new Vector2(GetComponent<RectTransform>().offsetMax.x, 40f);
+                    break;
+                default:
                     break;
             }
         } else {

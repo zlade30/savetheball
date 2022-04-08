@@ -16,120 +16,56 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private GameObject billiardBallPanel;
     [SerializeField]
-    private TextMeshProUGUI life;
-    [SerializeField]
-    private TextMeshProUGUI star;
-    [SerializeField]
-    private TextMeshProUGUI fire;
-    [SerializeField]
-    private TextMeshProUGUI ice;
-    [SerializeField]
-    private TextMeshProUGUI shield;
-    [SerializeField]
-    private TextMeshProUGUI teleport;
+    private GameObject lockPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        HandleSkins();
+        if (PlayerPrefs.GetString(Utils.currentSkin) == "")
+            PlayerPrefs.SetString(Utils.currentSkin, Utils.defaultSkin);
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleSkins();
-        HandlePowerups();
-    }
-
-    void HandlePowerups()
-    {
-        int lifeValue = PlayerPrefs.GetInt(Utils.life);
-        int starValue = PlayerPrefs.GetInt(Utils.star);
-        int fireValue = PlayerPrefs.GetInt(Utils.fire);
-        int iceValue = PlayerPrefs.GetInt(Utils.ice);
-        int shieldValue = PlayerPrefs.GetInt(Utils.shield);
-        int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
-
-        life.text = ""+lifeValue+" Left";
-        star.text = ""+starValue+" Left";
-        fire.text = ""+fireValue+" Left";
-        ice.text = ""+iceValue+" Left";
-        shield.text = ""+shieldValue+" Left";
-        teleport.text = ""+teleportValue+" Left";
+        HandleEquippedSkin();
     }
 
     void HandleSkins()
     {
-        if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
-            basketBallPanel.SetActive(true);
-        } else {
-            basketBallPanel.SetActive(false);
-        }
+        // if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
+        //     HandleBallPanel(basketBallPanel, true);
+        // } else {
+        //     HandleBallPanel(basketBallPanel, false);
+        // }
 
-        if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
-            soccerBallPanel.SetActive(true);
-        } else {
-            soccerBallPanel.SetActive(false);
-        }
+        // if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
+        //     HandleBallPanel(soccerBallPanel, true);
+        // } else {
+        //     HandleBallPanel(soccerBallPanel, false);
+        // }
 
-        if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
-            tennisBallPanel.SetActive(true);
-        } else {
-            tennisBallPanel.SetActive(false);
-        }
+        // if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
+        //     HandleBallPanel(tennisBallPanel, true);
+        // } else {
+        //     HandleBallPanel(tennisBallPanel, false);
+        // }
 
-        if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
-            billiardBallPanel.SetActive(true);
-        } else {
-            billiardBallPanel.SetActive(false);
-        }
-
-        HandleEquippedSkin();
+        // if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
+        //     HandleBallPanel(billiardBallPanel, true);
+        // } else {
+        //     HandleBallPanel(billiardBallPanel, false);
+        // }
     }
 
     void HandleEquippedSkin()
     {
-        string currentSkin = PlayerPrefs.GetString(Utils.currentSkin);
-        
-        if (currentSkin == Utils.basketBallSkin) {
-            basketBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equipped";
-            basketBallPanel.GetComponentInChildren<Button>().interactable = false;
-        } else {
-            basketBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equip";
-            basketBallPanel.GetComponentInChildren<Button>().interactable = true;
-        }
-
-        if (currentSkin == Utils.soccerBallSkin) {
-            soccerBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equipped";
-            soccerBallPanel.GetComponentInChildren<Button>().interactable = false;
-        } else {
-            soccerBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equip";
-            soccerBallPanel.GetComponentInChildren<Button>().interactable = true;
-        }
-
-        if (currentSkin == Utils.tennisBallSkin) {
-            tennisBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equipped";
-            tennisBallPanel.GetComponentInChildren<Button>().interactable = false;
-        } else {
-            tennisBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equip";
-            tennisBallPanel.GetComponentInChildren<Button>().interactable = true;
-        }
-
-        if (currentSkin == Utils.billiardBallSkin) {
-            billiardBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equipped";
-            billiardBallPanel.GetComponentInChildren<Button>().interactable = false;
-        } else {
-            billiardBallPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equip";
-            billiardBallPanel.GetComponentInChildren<Button>().interactable = true;
-        }
-
-        if (currentSkin == "" || currentSkin == Utils.defaultSkin) {
-            ballPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equipped";
-            ballPanel.GetComponentInChildren<Button>().interactable = false;
-        } else {
-            ballPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Equip";
-            ballPanel.GetComponentInChildren<Button>().interactable = true;
-        }
+        ManageSkin(basketBallPanel, Utils.basketBallSkin);
+        ManageSkin(soccerBallPanel, Utils.soccerBallSkin);
+        ManageSkin(tennisBallPanel, Utils.tennisBallSkin);
+        ManageSkin(billiardBallPanel, Utils.billiardBallSkin);
+        ManageSkin(ballPanel, Utils.defaultSkin);
     }
 
     public void EquipSkin(GameObject obj) {
@@ -137,13 +73,13 @@ public class InventoryManager : MonoBehaviour
             case "Basketball":
                 PlayerPrefs.SetString(Utils.currentSkin, Utils.basketBallSkin);
                 break;
-            case "Soccer":
+            case "Soccerball":
                 PlayerPrefs.SetString(Utils.currentSkin, Utils.soccerBallSkin);
                 break;
-            case "Tennis":
+            case "Tennisball":
                 PlayerPrefs.SetString(Utils.currentSkin, Utils.tennisBallSkin);
                 break;
-            case "Billiard":
+            case "Billiardball":
                 PlayerPrefs.SetString(Utils.currentSkin, Utils.billiardBallSkin);
                 break;
             default:
@@ -155,6 +91,48 @@ public class InventoryManager : MonoBehaviour
 
     public void Back() {
         SceneManager.LoadScene(Utils.mainMenu);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    private void HandleBallPanel(GameObject ballPanel, bool status) {
+        var panel = ballPanel.GetComponent<Image>();
+        var tempColor = panel.color;
+        if (status) tempColor.a = 1f;
+        else tempColor.a = 0f;
+        panel.color = tempColor;
+        for (int i = 0; i < ballPanel.transform.childCount; i++) {
+            ballPanel.transform.GetChild(i).gameObject.SetActive(status);
+        }
+    }
+
+    private void ManageSkin(GameObject ballPanel, string skin) {
+        string currentSkin = PlayerPrefs.GetString(Utils.currentSkin);
+        if (currentSkin == skin) {
+            ballPanel.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "<cspace=0.2em> Equipped</cspace>";
+            ballPanel.GetComponentInChildren<Button>().interactable = false;
+            ballPanel.GetComponent<Image>().color = new Color32(73, 116, 159, 255);
+        } else {
+            ballPanel.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "<cspace=0.2em> Equip</cspace>";
+            ballPanel.GetComponentInChildren<Button>().interactable = true;
+            ballPanel.GetComponent<Image>().color = new Color32(8, 30, 52, 255);
+        }
+
+        if (skin != Utils.defaultSkin) {
+            if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1 && skin == Utils.basketBallSkin) ballPanel.transform.GetChild(3).gameObject.SetActive(false);
+            if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1 && skin == Utils.soccerBallSkin) ballPanel.transform.GetChild(3).gameObject.SetActive(false);
+            if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1 && skin == Utils.tennisBallSkin) ballPanel.transform.GetChild(3).gameObject.SetActive(false);
+            if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1 && skin == Utils.billiardBallSkin) ballPanel.transform.GetChild(3).gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowLockPanel() {
+        lockPanel.SetActive(true);
+        lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void CloseLockPanel() {
+        lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

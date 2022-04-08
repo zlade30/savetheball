@@ -51,7 +51,25 @@ public class Utils {
     public const string soccerBallSkinId = "com.zalstudio.savedball.skins.soccerball";
     public const string tennisBallSkinId = "com.zalstudio.savedball.skins.tennisball";
     public const string billiardBallSkinId = "com.zalstudio.savedball.skins.billiardball";
-    public static string[] products = { removeAdsId, lifeId, starId, fireId, iceId, shieldId, teleportId, basketBallSkinId, soccerBallSkinId, tennisBallSkinId, billiardBallSkinId };
+    public const string powPack1Id = "com.zalstudio.savedball.pack.powpack1";
+    public const string powPack2Id = "com.zalstudio.savedball.pack.powpack2";
+    public const string powPack3Id = "com.zalstudio.savedball.pack.powpack3";
+    public static string[] products = {
+        removeAdsId,
+        lifeId,
+        starId,
+        fireId,
+        iceId,
+        shieldId,
+        teleportId,
+        basketBallSkinId,
+        soccerBallSkinId,
+        tennisBallSkinId,
+        billiardBallSkinId,
+        powPack1Id,
+        powPack2Id,
+        powPack3Id
+    };
 
     public const string defaultSkin = "ballSkin";
     public const string basketBallSkin = "basketBallSkin";
