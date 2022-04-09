@@ -86,6 +86,7 @@ public class Utils {
     public const int bombyWorld = 5;
     public const int shapeShiftyWorld = 6;
     public const int ninjyWorld = 7;
+    public const int wheel = 8;
 
     public const string score = "score";
     public const string highScore = "score";
@@ -124,4 +125,8 @@ public class Utils {
     public const int layerShapeShiftyExplosion = 9;
     public const int layerNinjyTool = 10;
     public const int layerPowerup = 11;
+    public const string spinAdsLeft = "spinAdsLeft";
+    public const string isInWheel = "isInWheel";
+    public const string selectedReward = "selectedReward";
+    public const string dailySpin = "dailySpin";
 }

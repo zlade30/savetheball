@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NinjyWorld.unity
     guid: cf145347be65e4a599d69f61ed9baf78
+  - enabled: 1
+    path: Assets/Scenes/Wheel.unity
+    guid: b1894c64bc3844c2b8041325f10e2be5
   m_configObjects: {}

@@ -85,7 +85,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
             shopManager = Camera.main.GetComponent<ShopManager>();
 
             // Show processing modal
-            if (mainMenuManager) mainMenuManager.ShowProcessing();
+            if (mainMenuManager != null) mainMenuManager.ShowProcessing();
+            if (shopManager != null) shopManager.ShowProcessing();
  
             // If the look up found a product for this device's store and that product is ready to be sold ...
             if (product != null && product.availableToPurchase)
@@ -99,6 +100,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
             else
             {
                 // ... report the product look-up failure situation
+                if (mainMenuManager != null) mainMenuManager.HideProcessing();
+                if (shopManager != null) shopManager.HideProcessing();
                 Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
             }
         }
@@ -107,6 +110,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             // ... report the fact Purchasing has not succeeded initializing yet. Consider waiting longer or
             // retrying initiailization.
+            if (mainMenuManager != null) mainMenuManager.HideProcessing();
+            if (shopManager != null) shopManager.HideProcessing();
             Debug.Log("BuyProductID FAIL. Not initialized.");
         }
     }
@@ -211,7 +216,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             Debug.Log("Remove ads purchase success");
-            mainMenuManager.RemoveAds();
+            // mainMenuManager.RemoveAds();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, Utils.starId, StringComparison.Ordinal))
         {
@@ -295,9 +300,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         shopManager = Camera.main.GetComponent<ShopManager>();
         
         if (mainMenuManager != null) {
-            mainMenuManager.RemoveAdsPrice(GetPrice(Utils.removeAdsId));
-            if (GetReceipt(Utils.removeAdsId))
-                mainMenuManager.RemoveAdsHasReceipt();
+            // mainMenuManager.RemoveAdsPrice(GetPrice(Utils.removeAdsId));
         }
 
         if (shopManager != null) {
@@ -335,51 +338,51 @@ public class IAPManager : MonoBehaviour, IStoreListener
         switch (failureReason) {
             case PurchaseFailureReason.PurchasingUnavailable:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase is unavailable at the moment. Please try again later!");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Purchase is unavailable at the moment. Please try again later!");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Purchase is unavailable at the moment. Please try again later!");
+                    shopManager.ErrorText("<cspace=0.1em>Purchase is unavailable at the moment. Please try again later!");
                 break;
             case PurchaseFailureReason.ExistingPurchasePending:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Another purchase is already in progress.");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Another purchase is already in progress.");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Another purchase is already in progress.");
+                    shopManager.ErrorText("<cspace=0.1em>Another purchase is already in progress.");
                 break;
             case PurchaseFailureReason.ProductUnavailable:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> The product you're trying to purchase in unavailable.");
+                    mainMenuManager.ErrorText("<cspace=0.1em>The product you're trying to purchase in unavailable.");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> The product you're trying to purchase in unavailable.");
+                    shopManager.ErrorText("<cspace=0.1em>The product you're trying to purchase in unavailable.");
                 break;
             case PurchaseFailureReason.DuplicateTransaction:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> The transaction has already been completed.");
+                    mainMenuManager.ErrorText("<cspace=0.1em>The transaction has already been completed.");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> The transaction has already been completed.");
+                    shopManager.ErrorText("<cspace=0.1em>The transaction has already been completed.");
                 break;
             case PurchaseFailureReason.SignatureInvalid:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase signature is invalid.");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Purchase signature is invalid.");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Purchase signature is invalid.");
+                    shopManager.ErrorText("<cspace=0.1em>Purchase signature is invalid.");
                 break;
             case PurchaseFailureReason.PaymentDeclined:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Payment is being declined or cancelled. Please try again later!");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Payment is being declined or cancelled. Please try again later!");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Payment is being declined or cancelled. Please try again later!");
+                    shopManager.ErrorText("<cspace=0.1em>Payment is being declined or cancelled. Please try again later!");
                 break;
             case PurchaseFailureReason.UserCancelled:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Purchase cancelled.");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Purchase cancelled.");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Purchase cancelled.");
+                    shopManager.ErrorText("<cspace=0.1em>Purchase cancelled.");
                 break;
             case PurchaseFailureReason.Unknown:
                 if (mainMenuManager != null)
-                    mainMenuManager.ErrorText("<cspace=0.1em> Something went wrong. Please try again later!");
+                    mainMenuManager.ErrorText("<cspace=0.1em>Something went wrong. Please try again later!");
                 if (shopManager != null)
-                    shopManager.ErrorText("<cspace=0.1em> Something went wrong. Please try again later!");
+                    shopManager.ErrorText("<cspace=0.1em>Something went wrong. Please try again later!");
                 break;
             default:
                 break;

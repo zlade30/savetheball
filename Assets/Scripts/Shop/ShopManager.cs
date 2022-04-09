@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
+using UnityEngine.Purchasing;
 
 public class ShopManager : MonoBehaviour {
     [SerializeField]
@@ -83,25 +83,25 @@ public class ShopManager : MonoBehaviour {
         if (PlayerPrefs.GetInt(Utils.basketBallSkinId) == 1) {
             basketBallCoinBtn.gameObject.SetActive(false);
             basketBallCashBtn.interactable = false;
-            basketBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+            basketBallCashBtn.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Owned";
         }
 
         if (PlayerPrefs.GetInt(Utils.soccerBallSkinId) == 1) {
             soccerBallCoinBtn.gameObject.SetActive(false);
             soccerBallCashBtn.interactable = false;
-            soccerBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+            soccerBallCashBtn.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Owned";
         }
 
         if (PlayerPrefs.GetInt(Utils.tennisBallSkinId) == 1) {
             tennisBallCoinBtn.gameObject.SetActive(false);
             tennisBallCashBtn.interactable = false;
-            tennisBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+            tennisBallCashBtn.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Owned";
         }
 
         if (PlayerPrefs.GetInt(Utils.billiardBallSkinId) == 1) {
             billiardBallCoinBtn.gameObject.SetActive(false);
             billiardBallCashBtn.interactable = false;
-            billiardBallCashBtn.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Owned";
+            billiardBallCashBtn.gameObject.transform.GetChild(0).GetComponent<Text>().text = "Owned";
         }
     }
 
@@ -373,5 +373,109 @@ public class ShopManager : MonoBehaviour {
     public void HideProcessing() {
         processingPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+    }
+
+    public void OnPurchaseSuccess(Product product) {
+        switch (product.definition.id) {
+            // Consumables
+            case Utils.starId:
+                Debug.Log("Success Star Purchase");
+                AddValue(Utils.star);
+                break;
+            case Utils.fireId:
+                Debug.Log("Success Fire Purchase");
+                AddValue(Utils.fire);
+                break;
+            case Utils.iceId:
+                Debug.Log("Success Ice Purchase");
+                AddValue(Utils.ice);
+                break;
+            case Utils.shieldId:
+                Debug.Log("Success Shield Purchase");
+                AddValue(Utils.shield);
+                break;
+            case Utils.teleportId:
+                Debug.Log("Success Teleport Purchase");
+                AddValue(Utils.teleport);
+                break;
+            case Utils.powPack1Id:
+                Debug.Log("Success PowPack1");
+                AddValue(Utils.ice);
+                AddValue(Utils.fire);
+                AddValue(Utils.star);
+                break;
+            case Utils.powPack2Id:
+                Debug.Log("Success PowPack2");
+                AddValue(Utils.teleport);
+                AddValue(Utils.star);
+                AddValue(Utils.shield);
+                break;
+            case Utils.powPack3Id:
+                Debug.Log("Success PowPack3");
+                AddValue(Utils.teleport);
+                AddValue(Utils.star);
+                AddValue(Utils.shield);
+                AddValue(Utils.ice);
+                AddValue(Utils.fire);
+                break;
+            case Utils.removeAdsId:
+                PlayerPrefs.SetInt(Utils.removeAdsId, 1);
+                break;
+            case Utils.basketBallSkinId:
+                Debug.Log("Basket ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.basketBallSkinId, 1);
+                break;
+            case Utils.soccerBallSkinId:
+                Debug.Log("Soccer ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.soccerBallSkinId, 1);
+                break;
+            case Utils.tennisBallSkinId:
+                Debug.Log("Tennis ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.tennisBallSkinId, 1);
+                break;
+            case Utils.billiardBallSkinId:
+                Debug.Log("Billiard ball skin purchase success");
+                PlayerPrefs.SetInt(Utils.billiardBallSkinId, 1);
+                break;
+            default:
+                break;
+        }
+        HideProcessing();
+        PurchasedSuccessful();
+    }
+
+    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
+    {
+        Debug.Log("Failed");
+        HideProcessing();
+        PurchasedError();
+        switch (failureReason) {
+            case PurchaseFailureReason.PurchasingUnavailable:
+                ErrorText("<cspace=0.1em>Purchase is unavailable at the moment. Please try again later!");
+                break;
+            case PurchaseFailureReason.ExistingPurchasePending:
+                ErrorText("<cspace=0.1em>Another purchase is already in progress.");
+                break;
+            case PurchaseFailureReason.ProductUnavailable:
+                ErrorText("<cspace=0.1em>The product you're trying to purchase in unavailable.");
+                break;
+            case PurchaseFailureReason.DuplicateTransaction:
+                ErrorText("<cspace=0.1em>The transaction has already been completed.");
+                break;
+            case PurchaseFailureReason.SignatureInvalid:
+                ErrorText("<cspace=0.1em>Purchase signature is invalid.");
+                break;
+            case PurchaseFailureReason.PaymentDeclined:
+                ErrorText("<cspace=0.1em>Payment is being declined or cancelled. Please try again later!");
+                break;
+            case PurchaseFailureReason.UserCancelled:
+                ErrorText("<cspace=0.1em>Purchase cancelled.");
+                break;
+            case PurchaseFailureReason.Unknown:
+                ErrorText("<cspace=0.1em>Something went wrong. Please try again later!");
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModalAnimation : MonoBehaviour
 {
-    private bool isOpen = true;
+    private bool isOpen = false;
     private float animationSpeed = 3000f;
     float maxValue = -300f;
     float minValue = 300f;
