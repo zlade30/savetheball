@@ -72,6 +72,7 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
                 Debug.Log("Unity Ads Rewarded Ad Completed");
                 // Grant a reward.
                 int choose = Random.Range(0, 5);
+                PlayerPrefs.SetInt(Utils.chosenReward, choose);
                 switch (choose) {
                     case 0:
                         starValue++;
@@ -95,9 +96,9 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
                         break;
                     default:
                         break;
-
                 }
             }
+            
             // Load another ad:
             Advertisement.Load(_adUnitId, this);
         }

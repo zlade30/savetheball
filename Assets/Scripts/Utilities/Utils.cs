@@ -87,6 +87,7 @@ public class Utils {
     public const int shapeShiftyWorld = 6;
     public const int ninjyWorld = 7;
     public const int wheel = 8;
+    public const int instruction = 9;
 
     public const string score = "score";
     public const string highScore = "score";
@@ -129,4 +130,6 @@ public class Utils {
     public const string isInWheel = "isInWheel";
     public const string selectedReward = "selectedReward";
     public const string dailySpin = "dailySpin";
+    public const string chosenReward = "chosenReward";
+    public const string showInstruction = "showInstruction";
 }

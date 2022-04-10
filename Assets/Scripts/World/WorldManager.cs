@@ -58,8 +58,13 @@ public class WorldManager : MonoBehaviour
     public void SelectWorld(GameObject world) {
         switch (world.name) {
             case "Speedy":
-                SceneManager.LoadScene(Utils.speedyWorld);
-                PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
+                if (PlayerPrefs.GetInt(Utils.showInstruction) == 0) {
+                    SceneManager.LoadScene(Utils.instruction);
+                    SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
+                } else {
+                    SceneManager.LoadScene(Utils.speedyWorld);
+                    PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
+                }
                 break;
             case "ShapeShifty":
                 if (PlayerPrefs.GetFloat(Utils.speedyHighScore) >= Utils.shapeShiftyUnlockScore) {
@@ -67,8 +72,9 @@ public class WorldManager : MonoBehaviour
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.shapeShiftyWorld);
                 } else {
                     lockPanel.SetActive(true);
+                    lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[0];
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Shapeshifty is currently locked. You need to have a score of "+Utils.shapeShiftyUnlockScore+" in Speedy World before you can unlock this one.";
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<cspace=0.2em>Shapeshifty is currently locked. You need to have a score of <color=green>"+Utils.shapeShiftyUnlockScore+"</color> in Speedy World before you can unlock this one.";
                 }
                 break;
             case "Bomby":
@@ -77,8 +83,9 @@ public class WorldManager : MonoBehaviour
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.bombyWorld);
                 } else {
                     lockPanel.SetActive(true);
+                    lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[1];
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Bomby is currently locked. You need to have a score of "+Utils.bombyUnlockScore+" in Shapeshifty World before you can unlock this one.";
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<cspace=0.2em>Bomby is currently locked. You need to have a score of <color=green>"+Utils.bombyUnlockScore+"</color> in Shapeshifty World before you can unlock this one.";
                 }
                 break;
             case "Ninjy":
@@ -87,8 +94,9 @@ public class WorldManager : MonoBehaviour
                     PlayerPrefs.SetInt(Utils.currentWorld, Utils.ninjyWorld);
                 } else {
                     lockPanel.SetActive(true);
+                    lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     lockPanel.transform.GetChild(0).transform.Find("LockSprite").GetComponent<Image>().sprite = lockSprites[2];
-                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Ninjy is currently locked. You need to have a score of "+Utils.ninjyUnlockScore+" in Bomby World before you can unlock this one.";
+                    lockPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<cspace=0.2em>Ninjy is currently locked. You need to have a score of <color=green>"+Utils.ninjyUnlockScore+"</color> in Bomby World before you can unlock this one.";
                 }
                 break;
             default:
@@ -105,6 +113,6 @@ public class WorldManager : MonoBehaviour
     public void Close() {
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
         notEnoughLifePanel.SetActive(false);
-        lockPanel.SetActive(false);
+        lockPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
     }
 }

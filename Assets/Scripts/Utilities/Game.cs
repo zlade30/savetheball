@@ -35,6 +35,8 @@ public class Game : MonoBehaviour
     private GameObject destroyEffect;
     [SerializeField]
     private GameObject congratsPanel;
+    [SerializeField]
+    private GameObject howToPlayPanel;
     private PowerupManager powerupManager;
     public bool isPause = false; 
     public bool isOver = false;
@@ -79,12 +81,45 @@ public class Game : MonoBehaviour
                 break;
         }
         powerupManager = GetComponent<PowerupManager>();
+        PlayerPrefs.SetInt(Utils.chosenReward, -1);
     }
 
     // Update is called once per frame
     void Update()
     {
         HandleResume();
+        HandleRewardAfterAds();
+    }
+
+    void HandleRewardAfterAds() {
+        int choose = PlayerPrefs.GetInt(Utils.chosenReward);
+        if (choose != -1) {
+            switch (choose) {
+                case 0:
+                    GameObject star = GameObject.Instantiate(powerupManager.powerups[4], new Vector2(0f, 0f), Quaternion.identity);
+                    star.GetComponent<SpawnPowerup>().isCollect = true;
+                    break;
+                case 1:
+                    GameObject fire = GameObject.Instantiate(powerupManager.powerups[1], new Vector2(0f, 0f), Quaternion.identity);
+                    fire.GetComponent<SpawnPowerup>().isCollect = true;
+                    break;
+                case 2:
+                    GameObject ice = GameObject.Instantiate(powerupManager.powerups[2], new Vector2(0f, 0f), Quaternion.identity);
+                    ice.GetComponent<SpawnPowerup>().isCollect = true;
+                    break;
+                case 3:
+                    GameObject shield = GameObject.Instantiate(powerupManager.powerups[3], new Vector2(0f, 0f), Quaternion.identity);
+                    shield.GetComponent<SpawnPowerup>().isCollect = true;
+                    break;
+                case 4:
+                    GameObject teleport = GameObject.Instantiate(powerupManager.powerups[5], new Vector2(0f, 0f), Quaternion.identity);
+                    teleport.GetComponent<SpawnPowerup>().isCollect = true;
+                    break;
+                default:
+                    break;
+            }
+            PlayerPrefs.SetInt(Utils.chosenReward, -1);
+        }
     }
 
     void HandleResume()
@@ -129,6 +164,7 @@ public class Game : MonoBehaviour
     public void OutOfStar()
     {
         outOfStarPanel.SetActive(true);
+        outOfStarPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
     }
 
     public void OutOfLife()
@@ -164,9 +200,6 @@ public class Game : MonoBehaviour
         gameOverPanel.SetActive(true);
         score.enabled = false;
         isOver = true;
-
-        // congratsPanel.SetActive(true);
-        // congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
 
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
         foreach(GameObject obj in enemyObjects) {
@@ -280,7 +313,7 @@ public class Game : MonoBehaviour
 
     public void WatchRewardedAds() {
         outOfLifePanel.SetActive(false);
-        outOfStarPanel.SetActive(false);
+        outOfStarPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
