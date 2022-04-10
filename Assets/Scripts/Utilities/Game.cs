@@ -290,7 +290,7 @@ public class Game : MonoBehaviour
             yourHighScore.text = "<cspace=0.1em>"+score.score.ToString("00000");
         }
 
-        yourScore.text = score.score.ToString("00000");
+        yourScore.text = "<cspace=0.1em>"+score.score.ToString("00000");
         PlayerPrefs.SetFloat(currentScore, score.score);
     }
 

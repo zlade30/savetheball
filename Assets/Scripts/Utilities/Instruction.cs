@@ -6,7 +6,7 @@ public class Instruction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -21,8 +21,9 @@ public class Instruction : MonoBehaviour
     }
 
     public void Play() {
-        SceneManager.LoadScene(Utils.speedyWorld);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
         PlayerPrefs.SetInt(Utils.showInstruction, 1);
+        PlayerPrefs.SetInt(Utils.currentWorld, Utils.speedyWorld);
+        SceneManager.LoadScene(Utils.speedyWorld);
     }
 }
