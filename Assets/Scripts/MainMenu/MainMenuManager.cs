@@ -57,6 +57,7 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.ice, 3);
             PlayerPrefs.SetInt(Utils.shield, 3);
             PlayerPrefs.SetInt(Utils.teleport, 3);
+            PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
         }
 
         adsLeftCount.text = PlayerPrefs.GetInt(Utils.spinAdsLeft).ToString();
@@ -181,8 +182,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnPurchaseComplete(Product product) {
         switch (product.definition.id) {
             case Utils.removeAdsId:
-                PlayerPrefs.SetInt(Utils.removeAdsId, 1);
-                ShowSuccessPanel();
+                RemoveAds();
                 break;
             default:
                 break;

@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using CloudOnce;
 using System;
-using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -36,6 +35,7 @@ public class Game : MonoBehaviour
     private GameObject destroyEffect;
     [SerializeField]
     private GameObject congratsPanel;
+    private PowerupManager powerupManager;
     public bool isPause = false; 
     public bool isOver = false;
     private float resumeCD = 3.0f;
@@ -78,6 +78,7 @@ public class Game : MonoBehaviour
             default:
                 break;
         }
+        powerupManager = GetComponent<PowerupManager>();
     }
 
     // Update is called once per frame
@@ -164,6 +165,9 @@ public class Game : MonoBehaviour
         score.enabled = false;
         isOver = true;
 
+        // congratsPanel.SetActive(true);
+        // congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyObject");
         foreach(GameObject obj in enemyObjects) {
             GameObject.Destroy(obj);
@@ -199,18 +203,21 @@ public class Game : MonoBehaviour
             case Utils.speedyWorld:
                 if (score.score >= Utils.shapeShiftyUnlockScore && PlayerPrefs.GetInt(Utils.isShapeShiftyUnlock) == 0) {
                     congratsPanel.SetActive(true);
+                    congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     PlayerPrefs.SetInt(Utils.isShapeShiftyUnlock, 1);
                 }
                 break;
             case Utils.shapeShiftyWorld:
                 if (score.score >= Utils.bombyUnlockScore && PlayerPrefs.GetInt(Utils.isBombyUnlock) == 0) {
                     congratsPanel.SetActive(true);
+                    congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     PlayerPrefs.SetInt(Utils.isBombyUnlock, 1);
                 }
                 break;
             case Utils.bombyWorld:
                 if (score.score >= Utils.ninjyUnlockScore && PlayerPrefs.GetInt(Utils.isNinjyUnlock) == 0) {
                     congratsPanel.SetActive(true);
+                    congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
                     PlayerPrefs.SetInt(Utils.isNinjyUnlock, 1);
                 }
                 break;
@@ -220,40 +227,34 @@ public class Game : MonoBehaviour
     }
 
     public void ClaimRewards() {
-        congratsPanel.SetActive(false);
+        congratsPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
 
-        int starValue = PlayerPrefs.GetInt(Utils.star);
-        int fireValue = PlayerPrefs.GetInt(Utils.fire);
-        int iceValue = PlayerPrefs.GetInt(Utils.ice);
-        int shieldValue = PlayerPrefs.GetInt(Utils.shield);
-        int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
+        GameObject star = GameObject.Instantiate(powerupManager.powerups[4], new Vector2(0f, 0f), Quaternion.identity);
+        GameObject fire = GameObject.Instantiate(powerupManager.powerups[1], new Vector2(0f, 0f), Quaternion.identity);
+        GameObject ice = GameObject.Instantiate(powerupManager.powerups[2], new Vector2(0f, 0f), Quaternion.identity);
+        GameObject shield = GameObject.Instantiate(powerupManager.powerups[3], new Vector2(0f, 0f), Quaternion.identity);
+        GameObject teleport = GameObject.Instantiate(powerupManager.powerups[5], new Vector2(0f, 0f), Quaternion.identity);
 
-        starValue++;
-        fireValue++;
-        iceValue++;
-        shieldValue++;
-        teleportValue++;
-
-        PlayerPrefs.SetInt(Utils.star, starValue);
-        PlayerPrefs.SetInt(Utils.fire, fireValue);
-        PlayerPrefs.SetInt(Utils.ice, iceValue);
-        PlayerPrefs.SetInt(Utils.shield, shieldValue);
-        PlayerPrefs.SetInt(Utils.teleport, teleportValue);
+        star.GetComponent<SpawnPowerup>().isCollect = true;
+        fire.GetComponent<SpawnPowerup>().isCollect = true;
+        ice.GetComponent<SpawnPowerup>().isCollect = true;
+        shield.GetComponent<SpawnPowerup>().isCollect = true;
+        teleport.GetComponent<SpawnPowerup>().isCollect = true;
     }
 
     void HandleScores(float highScore, string newHighScore, string currentScore, string collection) {
         highScore = PlayerPrefs.GetFloat(newHighScore);
         if (score.score > highScore) {
             PlayerPrefs.SetFloat(newHighScore, score.score);
-            yourHighScore.text = score.score.ToString("00000");
+            yourHighScore.text = "<cspace=0.1em>"+score.score.ToString("00000");
             Cloud.Leaderboards.SubmitScore(platformID, Convert.ToInt64(score.score));
         } else {
-            yourHighScore.text = highScore.ToString("00000");
+            yourHighScore.text = "<cspace=0.1em>"+highScore.ToString("00000");
         }
 
         if (highScore == 0f) {
             PlayerPrefs.SetFloat(newHighScore, score.score);
-            yourHighScore.text = score.score.ToString("00000");
+            yourHighScore.text = "<cspace=0.1em>"+score.score.ToString("00000");
         }
 
         yourScore.text = score.score.ToString("00000");
@@ -262,7 +263,10 @@ public class Game : MonoBehaviour
 
     public void Back() {
         if(!isOver) Pause();
-        else exitConfirmationPanel.SetActive(true);
+        else {
+            exitConfirmationPanel.SetActive(true);
+            exitConfirmationPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
+        }
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
@@ -287,6 +291,7 @@ public class Game : MonoBehaviour
 
     public void Exit() {
         exitConfirmationPanel.SetActive(true);
+        exitConfirmationPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
@@ -296,17 +301,15 @@ public class Game : MonoBehaviour
     }
 
     public void NoExit() {
-        exitConfirmationPanel.SetActive(false);
+        exitConfirmationPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 
     public void Close() {
-        outOfLifePanel.SetActive(false);
-        outOfStarPanel.SetActive(false);
-        exitConfirmationPanel.SetActive(false);
-        leaderBoard.SetActive(false);
-        leaderBoardPanel.SetActive(false);
-        leaderBoardNetworkPanel.SetActive(false);
+        outOfStarPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        exitConfirmationPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Close();
+        // leaderBoardPanel.SetActive(false);
+        // leaderBoardNetworkPanel.SetActive(false);
         SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
     }
 }

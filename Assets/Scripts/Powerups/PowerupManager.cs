@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerupManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] powerups;
+    public GameObject[] powerups;
     [SerializeField]
     Enemy enemy;
     [SerializeField]
@@ -50,6 +50,7 @@ public class PowerupManager : MonoBehaviour
             coinDur = Random.Range(0f, coinDurMax);
             Vector3 position = new Vector3(Random.Range(-(worldWidth / 2) + (enemyWidth / 2), (worldWidth / 2) - (enemyWidth / 2)), Random.Range((-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2), (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)), -5f);
             GameObject.Instantiate(powerups[0], position, Quaternion.identity);
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.spawn);
         }
     }
 
@@ -60,6 +61,7 @@ public class PowerupManager : MonoBehaviour
             Vector3 position = new Vector3(Random.Range(-(worldWidth / 2) + (enemyWidth / 2), (worldWidth / 2) - (enemyWidth / 2)), Random.Range((-(worldHeight / 2) + btmBorder.transform.lossyScale.y) + (enemyHeight / 2), (worldHeight / 2) - toolbar.transform.lossyScale.y - (enemyHeight / 2)), -5f);
             int choose = Random.Range(1, 6);
             GameObject.Instantiate(powerups[choose], position, Quaternion.identity);
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.spawn);
         }
     }
 }

@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 13450806}
   - component: {fileID: 13450805}
   m_Layer: 0
-  m_Name: Coin15
+  m_Name: Coin5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 463556622}
   - component: {fileID: 463556623}
   m_Layer: 0
-  m_Name: Coin10
+  m_Name: Coin15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2623,7 +2623,7 @@ GameObject:
   - component: {fileID: 1128761367}
   - component: {fileID: 1128761368}
   m_Layer: 0
-  m_Name: Coin5
+  m_Name: Coin10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

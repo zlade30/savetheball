@@ -1333,6 +1333,7 @@ MonoBehaviour:
   teleport: {fileID: 8300000, guid: 3a12d96a950154bc58550cf15da0883d, type: 3}
   shield: {fileID: 8300000, guid: 08f89de0758034b4fa6d645197a506bc, type: 3}
   tick: {fileID: 8300000, guid: cb80e0739d4344fd395b01f3bbca99fd, type: 3}
+  spawn: {fileID: 8300000, guid: dd152d1f873ae42b5a47b92c2eea40d3, type: 3}
 --- !u!82 &401376666
 AudioSource:
   m_ObjectHideFlags: 0

@@ -51,6 +51,10 @@ public class TabletScaler : MonoBehaviour
                     GetComponent<RectTransform>().offsetMin = new Vector2(-43f, GetComponent<RectTransform>().offsetMin.y);
                     GetComponent<RectTransform>().localScale = new Vector3(0.7f, 0.7f, 1f);
                     break;
+                case "ValueContainer":
+                    // GetComponent<RectTransform>().position = new Vector2(-13.9f, 39.3f);
+                    GetComponent<RectTransform>().offsetMax = new Vector2(GetComponent<RectTransform>().offsetMax.x, 20.3f);
+                    break;
                 default:
                     break;
             }

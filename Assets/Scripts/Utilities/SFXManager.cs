@@ -17,6 +17,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip teleport;
     public AudioClip shield;
     public AudioClip tick;
+    public AudioClip spawn;
 
     public static SFXManager sfxInstance;
 

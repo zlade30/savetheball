@@ -67,7 +67,6 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
             int iceValue = PlayerPrefs.GetInt(Utils.ice);
             int shieldValue = PlayerPrefs.GetInt(Utils.shield);
             int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
-            int coinValue = PlayerPrefs.GetInt(Utils.coin);
 
             if (PlayerPrefs.GetInt(Utils.isInWheel) == 0) {
                 Debug.Log("Unity Ads Rewarded Ad Completed");
@@ -97,44 +96,6 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
                     default:
                         break;
 
-                }
-            } else {
-                string selectedReward = PlayerPrefs.GetString(Utils.selectedReward);
-                switch (selectedReward) {
-                    case "Shield":
-                        shieldValue++;
-                        PlayerPrefs.SetInt(Utils.shield, shieldValue);
-                        break;
-                    case "Teleport":
-                        teleportValue++;
-                        PlayerPrefs.SetInt(Utils.teleport, teleportValue);
-                        break;
-                    case "Coin5":
-                        coinValue += 5;
-                        PlayerPrefs.SetInt(Utils.coin, coinValue);
-                        break;
-                    case "Fire":
-                        fireValue++;
-                        PlayerPrefs.SetInt(Utils.fire, fireValue);
-                        break;
-                    case "Ice":
-                        iceValue++;
-                        PlayerPrefs.SetInt(Utils.ice, iceValue);
-                        break;
-                    case "Coin10":
-                        coinValue += 10;
-                        PlayerPrefs.SetInt(Utils.coin, coinValue);
-                        break;
-                    case "Coin15":
-                        coinValue += 15;
-                        PlayerPrefs.SetInt(Utils.coin, coinValue);
-                        break;
-                    case "Star":
-                        starValue++;
-                        PlayerPrefs.SetInt(Utils.star, starValue);
-                        break;
-                    default:
-                        break;
                 }
             }
             // Load another ad:

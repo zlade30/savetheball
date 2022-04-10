@@ -12,7 +12,7 @@ public class SpawnPowerup : MonoBehaviour
     private float value = 0f;
     private float yPos;
     private float curYPos;
-    private bool isCollect = false;
+    public bool isCollect { set; get; } = false;
     private bool isAdd = false;
 
     // Start is called before the first frame update
@@ -46,7 +46,7 @@ public class SpawnPowerup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        value += Time.deltaTime * 1f;
+        value += Time.unscaledDeltaTime * 1f;
         if (value < 0.4f) {
             yPos = transform.position.y;
             curYPos = transform.position.y;
@@ -54,14 +54,14 @@ public class SpawnPowerup : MonoBehaviour
         }
 
         if (isCollect) {
-            yPos += Time.deltaTime * 1f;
+            yPos += Time.unscaledDeltaTime * 1f;
             if (yPos <= curYPos + 0.5f) {
                 transform.position = new Vector3(transform.position.x, yPos, -5f);
             } else {
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     Camera.main.ScreenToWorldPoint(powerup.transform.position),
-                    10f * Time.deltaTime
+                    10f * Time.unscaledDeltaTime
                 );
             }
         }
@@ -101,11 +101,13 @@ public class SpawnPowerup : MonoBehaviour
         int value = PlayerPrefs.GetInt(powerup);
         value++;
         PlayerPrefs.SetInt(powerup, value);
+        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.spawn);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.name == "Ball") {
             isCollect = true;
+            SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.spawn);
         }
     }
 }

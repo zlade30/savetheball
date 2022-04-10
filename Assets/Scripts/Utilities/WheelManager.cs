@@ -83,42 +83,66 @@ public class WheelManager : MonoBehaviour
         Image rewardIcon = rewardPanel.transform.GetChild(0).GetChild(1).GetComponent<Image>();
         TextMeshProUGUI rewardText = rewardPanel.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
 
+        int starValue = PlayerPrefs.GetInt(Utils.star);
+        int fireValue = PlayerPrefs.GetInt(Utils.fire);
+        int iceValue = PlayerPrefs.GetInt(Utils.ice);
+        int shieldValue = PlayerPrefs.GetInt(Utils.shield);
+        int teleportValue = PlayerPrefs.GetInt(Utils.teleport);
+        int coinValue = PlayerPrefs.GetInt(Utils.coin);
+
         switch (selectedReward) {
             case "Shield":
                 rewardIcon.sprite = sprites[0];
                 rewardText.text = "<cspace=0.1em> You got +1 shield powerup.";
+                shieldValue++;
+                PlayerPrefs.SetInt(Utils.shield, shieldValue);
                 break;
             case "Teleport":
                 rewardIcon.sprite = sprites[1];
                 rewardText.text = "<cspace=0.1em> You got +1 teleport powerup.";
+                teleportValue++;
+                PlayerPrefs.SetInt(Utils.teleport, teleportValue);
                 break;
             case "Coin5":
                 rewardIcon.sprite = sprites[2];
                 rewardText.text = "<cspace=0.1em> You got +5 coins.";
+                coinValue += 5;
+                PlayerPrefs.SetInt(Utils.coin, coinValue);
                 break;
             case "Fire":
                 rewardIcon.sprite = sprites[3];
                 rewardText.text = "<cspace=0.1em> You got +1 fire powerup.";
+                fireValue++;
+                PlayerPrefs.SetInt(Utils.fire, fireValue);
                 break;
             case "Ice":
                 rewardIcon.sprite = sprites[4];
                 rewardText.text = "<cspace=0.1em> You got +1 ice powerup.";
+                iceValue++;
+                PlayerPrefs.SetInt(Utils.ice, iceValue);
                 break;
             case "Coin10":
                 rewardIcon.sprite = sprites[5];
                 rewardText.text = "<cspace=0.1em> You got +10 coins.";
+                coinValue += 10;
+                PlayerPrefs.SetInt(Utils.coin, coinValue);
                 break;
             case "Coin15":
                 rewardIcon.sprite = sprites[6];
                 rewardText.text = "<cspace=0.1em> You got +15 coins.";
+                coinValue += 15;
+                PlayerPrefs.SetInt(Utils.coin, coinValue);
                 break;
             case "Star":
                 rewardIcon.sprite = sprites[7];
                 rewardText.text = "<cspace=0.1em> You got +1 star powerup.";
+                starValue++;
+                PlayerPrefs.SetInt(Utils.star, starValue);
                 break;
             default:
                 break;
         }
+
         rewardPanel.SetActive(true);
         rewardPanel.transform.GetChild(0).GetComponent<ModalAnimation>().Open();
         spinBtn.SetActive(true);
