@@ -34,12 +34,18 @@ public class ModalAnimation : MonoBehaviour
                 GetComponent<RectTransform>().offsetMin = new Vector2(minValue, minValue);
             }
         } else {
-            if (maxValue >= -300f && minValue <= 300f) {
+            if (maxValue >= -300f) {
                 maxValue -= Time.unscaledDeltaTime * animationSpeed;
-                minValue += Time.unscaledDeltaTime * animationSpeed;
                 GetComponent<RectTransform>().offsetMax = new Vector2(maxValue, maxValue);
+            } else {
+                GetComponent<RectTransform>().offsetMax = new Vector2(-300f, -300f);
+            }
+
+            if (minValue <= 300f) {
+                minValue += Time.unscaledDeltaTime * animationSpeed;
                 GetComponent<RectTransform>().offsetMin = new Vector2(minValue, minValue);
             } else {
+                GetComponent<RectTransform>().offsetMin = new Vector2(300f, 300f);
                 gameObject.transform.parent.gameObject.SetActive(false);
             }
         }
