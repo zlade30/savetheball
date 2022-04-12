@@ -60,7 +60,16 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
         }
 
-        adsLeftCount.text = PlayerPrefs.GetInt(Utils.spinAdsLeft).ToString();
+        var unlockDate = DateTime.Parse(PlayerPrefs.GetString(Utils.dailySpin));
+        if(unlockDate < DateTime.Now) {
+            PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
+            adsLeftCount.text = "3";
+        }
+        else {
+            //object still locked, how long you ask?: 
+            TimeSpan diff = unlockDate.Subtract(DateTime.Now);
+            Debug.Log("object locked for " + diff.TotalHours + " more hours");
+        }
     }
 
     // Update is called once per frame

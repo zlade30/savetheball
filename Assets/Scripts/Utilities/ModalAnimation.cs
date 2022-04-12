@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ModalAnimation : MonoBehaviour
@@ -11,8 +9,8 @@ public class ModalAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<RectTransform>().offsetMax = new Vector2(-300f, -300f);
-        GetComponent<RectTransform>().offsetMin = new Vector2(300f, 300f);
+        // GetComponent<RectTransform>().offsetMax = new Vector2(-300f, -300f);
+        // GetComponent<RectTransform>().offsetMin = new Vector2(300f, 300f);
     }
 
     // Update is called once per frame
