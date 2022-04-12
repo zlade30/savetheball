@@ -58,17 +58,20 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(Utils.shield, 3);
             PlayerPrefs.SetInt(Utils.teleport, 3);
             PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
-        }
-
-        var unlockDate = DateTime.Parse(PlayerPrefs.GetString(Utils.dailySpin));
-        if(unlockDate < DateTime.Now) {
-            PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
             adsLeftCount.text = "3";
         }
-        else {
-            //object still locked, how long you ask?: 
-            TimeSpan diff = unlockDate.Subtract(DateTime.Now);
-            Debug.Log("object locked for " + diff.TotalHours + " more hours");
+
+        if (PlayerPrefs.GetString(Utils.dailySpin) != "") {
+            var unlockDate = DateTime.Parse(PlayerPrefs.GetString(Utils.dailySpin));
+            if(unlockDate < DateTime.Now) {
+                PlayerPrefs.SetInt(Utils.spinAdsLeft, 3);
+                adsLeftCount.text = "3";
+            }
+            else {
+                //object still locked, how long you ask?: 
+                TimeSpan diff = unlockDate.Subtract(DateTime.Now);
+                Debug.Log("object locked for " + diff.TotalHours + " more hours");
+            }
         }
     }
 
@@ -184,7 +187,6 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void Wheel() {
-        SFXManager.sfxInstance.audio.PlayOneShot(SFXManager.sfxInstance.tap);
         SceneManager.LoadScene(Utils.wheel);
     }
 
