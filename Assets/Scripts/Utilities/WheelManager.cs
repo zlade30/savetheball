@@ -60,7 +60,7 @@ public class WheelManager : MonoBehaviour
             int chanceValue = PlayerPrefs.GetInt(Utils.spinAdsLeft);
             chanceValue--;
             PlayerPrefs.SetInt(Utils.spinAdsLeft, chanceValue);
-            if (chanceValue == 0) PlayerPrefs.SetString(Utils.dailySpin, DateTime.Now.AddHours(25 - System.DateTime.Now.Hour).ToString());
+            PlayerPrefs.SetString(Utils.dailySpin, DateTime.Now.AddHours(25 - System.DateTime.Now.Hour).ToString());
             isStarting = true;
         } else {
             errorContent.text = "<cspace=0.1em>3 spins has already been used. Please try again tomorrow.";
